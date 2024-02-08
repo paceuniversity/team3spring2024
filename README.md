@@ -5,7 +5,12 @@
 ## Team members
 
 TOADD names of the team members
+
+Audrey Louie
+
 TOADD picture of the team
+
+/Users/audreylouie/Downloads/IMG_6408.jpg
 
 ## App description
 
