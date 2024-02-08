@@ -1,10 +1,13 @@
-# TEAM TOADD team number
+# TEAM 3
 
 ## App name
 
 ## Team members
 
 TOADD names of the team members
+
+Audrey Louie
+
 TOADD picture of the team
 
 ## App description
