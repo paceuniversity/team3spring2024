@@ -14,7 +14,7 @@ Audrey Louie
 ## App description
 
 ## Idea Proposal
-[Idea Proposal]()
+[Idea Proposal](https://docs.google.com/document/d/1rk_b9acYyonNZg8s-imlK7ZFodvQGVfA/edit?usp=sharing&ouid=118104399814891920430&rtpof=true&sd=true)
 
 ## Calendar
 [Calendar](https://calendar.google.com/calendar/u/0?cid=aXZoMmU3NjhzMjRkdGlxZWYwcXZvbzhxcjBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ)
