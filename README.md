@@ -6,6 +6,8 @@
 
 TOADD names of the team members
 
+Julia Tretyakov
+
 Audrey Louie
 
 Jennifer Garcia 
