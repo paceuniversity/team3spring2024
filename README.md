@@ -4,8 +4,6 @@
 
 ## Team members
 
-TOADD names of the team members
-
 Julia Tretyakov
 
 Audrey Louie
@@ -16,6 +14,9 @@ Jennifer Garcia
 
 
 ## App description
+
+## XP Game 
+[XP Game](https://docs.google.com/document/d/1tfcLbvcMktMy5Bp-CvnqDtgWNCwPweYSJJIJcFvkvTg/edit)
 
 ## Idea Proposal
 [Idea Proposal](https://docs.google.com/document/d/1rk_b9acYyonNZg8s-imlK7ZFodvQGVfA/edit?usp=sharing&ouid=118104399814891920430&rtpof=true&sd=true)
