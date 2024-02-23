@@ -25,7 +25,7 @@ Jennifer Garcia
 [Calendar](https://calendar.google.com/calendar/u/0?cid=aXZoMmU3NjhzMjRkdGlxZWYwcXZvbzhxcjBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ)
 
 ## Product Backlog
-[Requirements Discovery(https://docs.google.com/document/d/1sokZjXW4pfYhkkf9MtuKEkrpldYLXTY0JH7JXHZlrM4/edit?usp=sharing)
+[Requirements Discovery](https://docs.google.com/document/d/1sokZjXW4pfYhkkf9MtuKEkrpldYLXTY0JH7JXHZlrM4/edit?usp=sharing)
 [Product Backlog](https://docs.google.com/spreadsheets/d/16LdmRbjguXlF04vx6SLn2043veE7lPeCDQScBimvBFM/edit?usp=sharing)
 
 ## Architecture & Design
