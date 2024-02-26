@@ -1,6 +1,6 @@
 # TEAM 3
 
-## App name
+## MoonFlo
 
 ## Team members
 
