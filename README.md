@@ -6,9 +6,9 @@
 
 Julia Tretyakov
 
-Audrey Louie
+Audrey Louie - Scrum Master
 
-Jennifer Garcia 
+Jennifer Garcia - Product Owner
 
 ![IMG_6408 (1)](https://github.com/paceuniversity/team3spring2024/assets/98408104/b935751e-dd53-4368-b23b-0f3a090233e2)
 
