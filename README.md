@@ -36,8 +36,7 @@ Jennifer Garcia - Product Owner
 
 ### Sprint 1
 
-* [Sprint Goals](https://docs.google.com/document/d/1Q2c2wt_EkwA1QDwliiznqcW-wbHfg4kMiq7nYG7sBjA/edit?usp=sharing)
-* [Sprint planning]()
+* [Sprint planning](https://docs.google.com/document/d/1Q2c2wt_EkwA1QDwliiznqcW-wbHfg4kMiq7nYG7sBjA/edit?usp=sharing) | [Sprint Backlog](https://docs.google.com/spreadsheets/d/16LdmRbjguXlF04vx6SLn2043veE7lPeCDQScBimvBFM/edit?usp=sharing)
 * [Scrums]()
 * [Sprint demo video]()
 * [Sprint retrospective]()
