@@ -1,22 +1,14 @@
-import logo from './logo.svg';
+import FirstPage from './components/firstpage.js'; // Importing FirstPage component
+import Question1 from './pages/question1.js';
+import Question2 from './pages/question2.js';
+
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Question1 /> 
       </header>
     </div>
   );
