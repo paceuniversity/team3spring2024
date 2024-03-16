@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Question2 from './pages/question2';
+import Question3 from './pages/question3';
 
 import {
   createBrowserRouter,
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "question2",
     element: <Question2 />,
+  },
+  {
+    path: "question3",
+    element: <Question3 />,
   },
 ]);
 

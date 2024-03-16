@@ -1,4 +1,4 @@
-import FirstPage from './components/firstpage.js'; // Importing FirstPage component
+import FirstPage from './pages/firstpage.js'; // Importing FirstPage component
 import Question1 from './pages/question1.js';
 import Question2 from './pages/question2.js';
 
