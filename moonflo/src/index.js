@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Question2 from './pages/question2';
 import Question3 from './pages/question3';
+import Question4 from './pages/question4';
 
 import {
   createBrowserRouter,
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "question3",
     element: <Question3 />,
+  },
+  {
+    path: "question4",
+    element: <Question4 />,
   },
 ]);
 
