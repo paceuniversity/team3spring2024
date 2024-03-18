@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import "../App.css";
+import "../questions.css";
+import { Button, Card, CardBody, Form, FormLabel } from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Question1 = () => {
   const [age, setAge] = useState("");
@@ -10,35 +13,45 @@ const Question1 = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-   
     console.log("Submitted age:", age);
-
-    window.location.href = "/question2"; // redirect to question 2
+    // Redirect to question 2
+    window.location.href = "/question2";
   };
 
   const handleSkip = () => {
     console.log("User chose to skip");
-    window.location.href = "/question2"; // redirect to question 2
+    // Redirect to question 2
+    window.location.href = "/question2";
   };
 
   return (
     <div className="questions_container">
-      <h4>To help us better predict your period cycle, please answer the following questions</h4>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="age">How old are you?</label>
-        <br></br>
-        <input
-          type="number"
-          id="age"
-          name="age"
-          value={age} // saved user's age
-          onChange={handleChange} 
-          required // makes age a requirement before user hits next
-        />
-        <br></br>
-        <button type="submit">Next</button>
-        <button type="button" onClick={handleSkip}>Skip</button>
-      </form>
+      <Card className="custom-card">
+        <CardBody className="custom-body">
+          <h5>To help us better predict your period cycle, please answer the following questions:</h5>
+          <Card className="inner-card">
+            <CardBody className="custom-body-inner">
+            <a className="skip-button" onClick={handleSkip}>Skip</a>
+              <Form onSubmit={handleSubmit}>
+                <Form.Group>
+                  <FormLabel className="question">How old are you?</FormLabel>
+                  <Form.Control className="custom-input"
+                    type="number"
+                    id="age"
+                    name="age"
+                    placeholder="Enter your age"
+                    min="0"
+                    value={age}
+                    onChange={handleChange}
+                    required
+                  />
+                </Form.Group>
+                <Button variant="primary" className="next-button" type="submit">Next</Button>
+              </Form>
+            </CardBody>
+          </Card>
+        </CardBody>
+      </Card>
     </div>
   );
 };
