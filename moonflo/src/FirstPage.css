@@ -1,0 +1,6 @@
+.intro {
+    background-image: url(./img/Backgroud_Intro.JPG);
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Firstpage from './pages/firstpage';
 import Question2 from './pages/question2';
 import Question3 from './pages/question3';
 import Question4 from './pages/question4';
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "firstpage",
+    element: <Firstpage />,
   },
   {
     path: "question2",
