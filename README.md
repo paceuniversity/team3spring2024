@@ -4,7 +4,7 @@
 
 ## Team members
 
-Julia Tretyakov - Product Owner
+Julia Tretyakov - Developer
 
 Audrey Louie - Scrum Master
 
