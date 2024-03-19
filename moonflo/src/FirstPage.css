@@ -1,6 +1,54 @@
-.intro {
+body {
     background-image: url(./img/Backgroud_Intro.JPG);
     height: 100vh;
     background-size: cover;
     background-position: center;
+    margin:0;
+    display:grid;
+    place-items:center;
+}
+
+.moon{
+    animation: spin 2s linear infinite;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    margin-bottom: 30rem;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 
+        inset 0 0 50px #fff,
+        inset 20px 0 60px #d56e8a,
+        inset -20px 0 60px #6390e9,
+        inset 20px 0 300px #d56e8a,
+        inset -20px 0 300px #6390e9,
+        0 0 50px #fff,
+        -10px 0 60px #d56e8a,
+        10px 0 60px #6390e9;
+        justify-self: center;
+        align-items: center;
+}
+@keyframes spin{
+    0%{
+        top: 20px;
+    }
+    25%{
+        top: 22px;
+    }
+    50%{
+        top: 30px;
+    }
+    75%{
+        top: 27px
+    }
+    100%{
+        transform: rotate(360deg);
+        top:20px;
+    }
+}
+
+.intro h1{
+    font-size: 3.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2rem;
 }
