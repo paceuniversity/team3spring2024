@@ -1,6 +1,7 @@
 .body-background {
   background-color: #D4AFB9; /* Set your desired background color */
 }
+  
 .App {
   text-align: center;
 }
@@ -25,6 +26,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  font-family: 'Handlee';
 }
 
 .App-link {
