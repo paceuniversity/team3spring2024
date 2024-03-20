@@ -1,4 +1,4 @@
-body {
+.intro {
     background-image: url(./img/Backgroud_Intro.JPG);
     height: 100vh;
     background-size: cover;
@@ -6,6 +6,9 @@ body {
     margin:0;
     display:grid;
     place-items:center;
+    font-family: 'Handlee';
+    text-align: center;
+    color:#fff;
 }
 
 .moon{
