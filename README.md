@@ -4,7 +4,7 @@
 
 ## Team members
 
-Julia Tretyakov
+Julia Tretyakov - Developer
 
 Audrey Louie - Scrum Master
 
@@ -14,6 +14,7 @@ Jennifer Garcia - Product Owner
 
 
 ## App description
+MoonFlo is an all-inclusive menstrual tracking app designed to support women with their well-being. With features like daily diary entries, uplifting affirmations, and meditation sessions, MoonFlo prioritizes mental health while empowering users to understand their bodies better. Track menstrual symptoms, receive predictive insights, and access educational resources for comprehensive self-care. Plus, with meditation instructions that aim for efficient and fulfilling sessions, MoonFlo promotes mindfulness and inner balance. Join the MoonFlo community today, where harmony meets empowerment, and every cycle counts!
 
 ## XP Game 
 [XP Game](https://docs.google.com/document/d/1tfcLbvcMktMy5Bp-CvnqDtgWNCwPweYSJJIJcFvkvTg/edit)
