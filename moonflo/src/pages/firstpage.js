@@ -7,7 +7,6 @@ import Signup from "./signup";
 
 const FirstPage = () => {
   const navigate = useNavigate(); // Initialize navigate
-
   const handleSignUpClick = () => {
     navigate("/signup"); // Redirect to the sign-in page
   };

@@ -1,10 +1,19 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
+import Question1 from './question1';
 import './loginsignup.css'
 
 const Signup= ()=>{
+    const navigate = useNavigate(); 
+
+    const handleQ1Click = (event) => {
+        event.preventDefault();
+        navigate("/question1"); // Redirect to question1 page
+      };
+
     return (
         <div className='container'>
-            <form action= " ">
+            <form onSubmit={handleQ1Click}>
                 <h1>Signup</h1>
                 <div className="input-box">
                     <input type = "text" placeholder='Name' required/>
@@ -16,7 +25,7 @@ const Signup= ()=>{
                     <input type = "password" placeholder='Password' required/>
                 </div>
 
-                <button type = "submit"> Sign Up</button>
+                <button type="submit" >Signup</button>
 
             </form>
         </div>
