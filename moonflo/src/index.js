@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Firstpage from './pages/firstpage';
+import Login from './pages/login';
+import Signup from './pages/signup';
 import Question1 from './pages/question1';
 import Question2 from './pages/question2';
 import Question3 from './pages/question3';
@@ -22,6 +24,14 @@ const router = createBrowserRouter([
   {
     path: "firstpage",
     element: <Firstpage />,
+  },
+  {
+    path: "signup",
+    element: <Signup />,
+  },
+  {
+    path: "login",
+    element: <Login />,
   },
   {
     path: "question1",
