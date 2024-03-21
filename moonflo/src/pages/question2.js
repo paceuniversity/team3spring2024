@@ -5,21 +5,27 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Button, Card, CardBody, Form } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 
 const Question2 = () => {
+  const navigate = useNavigate(); // used to pass data between pages
+  const location = useLocation(); // used to access data passed
+  const queryParams = new URLSearchParams(location.search);
+  const age = queryParams.get('age'); // get the age of user from previous question
+
   const [lastPeriod, setLastPeriod] = useState(null);
 
+  // when user clicks next
   const handleSubmit = (e) => {
     e.preventDefault();
-   
-    console.log("Submitted last period:", lastPeriod);
-
-    window.location.href = "/question3"; // Redirects to next question
+    navigate(`/question3?age=${age}&lastPeriod=${lastPeriod}`); // navigate to next page with data
   };
 
+  // when user clicks skip
   const handleSkip = () => {
     console.log("User chose to skip");
-    window.location.href = "/question3"; // Redirects to next question
+    navigate(`/question3?age=${age}&lastPeriod=${lastPeriod}`); // navigate to next page with data
   };
 
   return (

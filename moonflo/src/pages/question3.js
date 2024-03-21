@@ -3,25 +3,32 @@ import "../App.css";
 import "../questions.css";
 import { Button, Card, CardBody, Form, FormLabel } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Question3 = () => {
+  const navigate = useNavigate(); // used to pass data to the next page
+  const location = useLocation(); // used to get data from the last page
+  const queryParams = new URLSearchParams(location.search);
+  const age = queryParams.get('age'); // get user's age info
+  const lastPeriod = queryParams.get('lastPeriod'); // get user's last period info
   const [cycleLength, setCycleLength] = useState("");
 
   const handleChange = (e) => {
     setCycleLength(e.target.value);
   };
 
+  // when user clicks next
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted age:", cycleLength);
-    // Redirect to question 4
-    window.location.href = "/question4";
+    // navigate to question 4 with data
+    navigate(`/question4?age=${age}&lastPeriod=${lastPeriod}&cycleLength=${cycleLength}`);
   };
 
+  // when user clicks skip
   const handleSkip = () => {
     console.log("User chose to skip");
-    // Redirect to question 4
-    window.location.href = "/question4";
+    // navigate to question 4 with data
+    navigate(`/question4?age=${age}&lastPeriod=${lastPeriod}&cycleLength=${cycleLength}`);
   };
 
   return (
@@ -36,11 +43,11 @@ const Question3 = () => {
                 <Form.Group>
                   <FormLabel className="question">How long is your average cycle length?</FormLabel>
                   <Form.Control className="custom-input"
-                    type="number"
+                    type="number" // user must enter a number
                     id="cycleLength"
                     name="cycleLength"
                     placeholder="Enter number of days"
-                    min="0"
+                    min="0" // user can't enter a value less than 0
                     value={cycleLength}
                     onChange={handleChange}
                     required
