@@ -27,7 +27,7 @@ const Question4 = () => {
     console.log("Submitted cycle length:", cycleLength);
     console.log("Submitted period length:", periodLength);
     
-   // window.location.href = "";  use to redirect to next page
+    navigate(`/calendar?age=${age}&lastPeriod=${lastPeriod}&cycleLength=${cycleLength}&periodLength=${periodLength}`);
   };
 
   // when user clicks on skip
@@ -37,7 +37,7 @@ const Question4 = () => {
     console.log("Submitted cycle length:", cycleLength);
     console.log("User chose to skip");
   
-   // window.location.href = "";  use to redirect to next page
+    navigate(`/calendar?age=${age}&lastPeriod=${lastPeriod}&cycleLength=${cycleLength}&periodLength=${periodLength}`);
   };
 
   return (
