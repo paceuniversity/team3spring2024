@@ -2,11 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import "../FirstPage.css";
-
+import Login from "./login";
+import Signup from "./signup";
 
 const FirstPage = () => {
   const navigate = useNavigate(); // Initialize navigate
-
   const handleSignUpClick = () => {
     navigate("/signup"); // Redirect to the sign-in page
   };

@@ -1,7 +1,5 @@
 import React from 'react';
-import { useNavigate } from "react-router-dom";
-import Question1 from './question1';
-import './loginsignup.css'
+
 
 const Signup= ()=>{
     const navigate = useNavigate(); 

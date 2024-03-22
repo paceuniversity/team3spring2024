@@ -10,11 +10,13 @@ import Question1 from './pages/question1';
 import Question2 from './pages/question2';
 import Question3 from './pages/question3';
 import Question4 from './pages/question4';
+import Calendar from './pages/calendar';
 
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+
 
 const router = createBrowserRouter([
   {
@@ -24,10 +26,6 @@ const router = createBrowserRouter([
   {
     path: "firstpage",
     element: <Firstpage />,
-  },
-  {
-    path: "login",
-    element: <Login />,
   },
   {
     path: "signup",
@@ -48,6 +46,10 @@ const router = createBrowserRouter([
   {
     path: "question4",
     element: <Question4 />,
+  },
+  {
+    path: "calendar",
+    element: <Calendar/>,
   },
 ]);
 
