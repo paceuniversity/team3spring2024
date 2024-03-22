@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { useNavigate } from "react-router-dom";
+import './loginsignup.css'
 
 const Signup= ()=>{
     const navigate = useNavigate(); 
@@ -31,3 +32,4 @@ const Signup= ()=>{
 }
 
 export default Signup;
+
