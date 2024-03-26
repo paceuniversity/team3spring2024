@@ -8,6 +8,7 @@ import '../Calendar.css';
 const PeriodCalendar = () => {
   const [date, setDate] = useState(new Date());
   const [predictedPeriodDates, setPredictedPeriodDates] = useState([]);
+  const [lastPeriodDates, setLastPeriodDates] = useState([]);
   const location = useLocation();
 
   useEffect(() => {
@@ -32,6 +33,14 @@ const PeriodCalendar = () => {
       }
 
       setPredictedPeriodDates(predictedDates);
+
+      const lastPeriodDates = []; // stores dates of last period
+      for (let j = 0; j < periodLength; j++) {
+        const lastPeriodDate = new Date(lastPeriodDateString);
+        lastPeriodDate.setDate(lastPeriodDate.getDate() + j);
+        lastPeriodDates.push(lastPeriodDate);
+      }
+      setLastPeriodDates(lastPeriodDates);
     }
   }, [location]);
 
@@ -39,6 +48,10 @@ const PeriodCalendar = () => {
     // Checking if the date is present in predicted period dates
     if (predictedPeriodDates.find((d) => d.toDateString() === date.toDateString())) {
       return 'predicted-period';
+    }
+    // Checking if the date is present in last period dates
+    if (lastPeriodDates.find((d) => d.toDateString() === date.toDateString())) {
+      return 'last-period';
     }
     return '';
   };
