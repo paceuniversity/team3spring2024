@@ -1,5 +1,6 @@
 body{
   font-family: 'Handlee';
+  background-color: #D4AFB9;
 }
 
 /* Style for the container */
@@ -44,6 +45,19 @@ body{
   padding-bottom: 20px;
 }
 
+/* Style for predicted period */
+.predicted-period{
+  background-color: #eec6c6; 
+  color: white; 
+}
+
+.last-period{
+  background-color: #b74c4c; 
+  color: white; 
+  z-index: 0;
+}
+
+
 .react-calendar {
   width: 100%;
   margin: auto; 
@@ -68,11 +82,5 @@ body{
 
 .react-calendar__month-view__weekdays{
   font-family: 'Handlee';
-}
-
-/* Style for predicted period */
-.predicted-period {
-  background-color: #eec6c6; 
-  color: white; 
 }
 
