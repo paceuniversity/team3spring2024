@@ -11,6 +11,9 @@ import Question2 from './pages/question2';
 import Question3 from './pages/question3';
 import Question4 from './pages/question4';
 import Calendar from './pages/calendar';
+import Diary from './pages/diary';
+import Meditation from './pages/meditation';
+import Settings from './pages/settings';
 
 import {
   createBrowserRouter,
@@ -54,6 +57,18 @@ const router = createBrowserRouter([
   {
     path: "calendar",
     element: <Calendar/>,
+  },
+  {
+    path: "diary",
+    element: <Diary/>,
+  },
+  {
+    path: "meditation",
+    element: <Meditation/>,
+  },
+  {
+    path: "settings",
+    element: <Settings/>,
   },
 ]);
 
