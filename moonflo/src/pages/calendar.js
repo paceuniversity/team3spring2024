@@ -5,6 +5,7 @@ import 'react-calendar/dist/Calendar.css';
 import { Card } from 'react-bootstrap';
 import '../Calendar.css';
 import NavBar from '../components/NavBar';
+import CycleInfo from './cycleinfo';
 
 const PeriodCalendar = () => {
   const [date, setDate] = useState(new Date());
@@ -83,7 +84,9 @@ const PeriodCalendar = () => {
         </Card.Body>
       </Card>
       <NavBar /> 
+      <CycleInfo/>
     </div>
+    
   );
 };
 
