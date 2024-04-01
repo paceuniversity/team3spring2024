@@ -14,6 +14,7 @@ import Calendar from './pages/calendar';
 import Diary from './pages/diary';
 import Meditation from './pages/meditation';
 import Settings from './pages/settings';
+import CycleInfo from './pages/cycleinfo'
 
 import {
   createBrowserRouter,
@@ -70,6 +71,11 @@ const router = createBrowserRouter([
     path: "settings",
     element: <Settings/>,
   },
+  {
+    path: "cycleinfo",
+    element: <CycleInfo/>,
+  },
+    
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
