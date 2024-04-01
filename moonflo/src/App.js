@@ -1,8 +1,3 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import "./App.css";
-import "./FirstPage.css";
-
 
 const App = () => {
   const navigate = useNavigate(); // Initialize navigate
