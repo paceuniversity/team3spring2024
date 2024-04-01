@@ -1,0 +1,86 @@
+body{
+  font-family: 'Handlee';
+  background-color: #D4AFB9;
+}
+
+/* Style for the container */
+.react-calendar__navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style for the month label */
+.react-calendar__navigation__label {
+  flex-grow: 0; 
+  text-align: center;
+  width: 100px; 
+}
+
+/* Style for the navigation buttons */
+.react-calendar__navigation button {
+  margin: 0 50; 
+  font-family: 'Handlee';
+}
+
+.react-calendar__tile {
+  font-family: 'Handlee';
+}
+
+
+.calendar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title{
+  text-align: center;
+  font-size: 3vh;
+}
+
+.calendar{
+  margin: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* Style for predicted period */
+.predicted-period{
+  background-color: #eec6c6; 
+  color: white; 
+}
+
+.last-period{
+  background-color: #b74c4c; 
+  color: white; 
+  z-index: 0;
+}
+
+
+.react-calendar {
+  width: 100%;
+  margin: auto; 
+  font-size: 2.7vh;
+}
+
+.react-calendar__tile--now,
+.react-calendar__tile--active {
+  background-color: #D4AFB9;
+}
+ 
+
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+  background-color: #D4AFB9;
+}
+
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: #a9abac;
+}
+
+.react-calendar__month-view__weekdays{
+  font-family: 'Handlee';
+}
+

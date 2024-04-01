@@ -4,15 +4,22 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Firstpage from './pages/firstpage';
+import Login from './pages/login';
+import Signup from './pages/signup';
 import Question1 from './pages/question1';
 import Question2 from './pages/question2';
 import Question3 from './pages/question3';
 import Question4 from './pages/question4';
+import Calendar from './pages/calendar';
+import Diary from './pages/diary';
+import Meditation from './pages/meditation';
+import Settings from './pages/settings';
 
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+
 
 const router = createBrowserRouter([
   {
@@ -22,6 +29,14 @@ const router = createBrowserRouter([
   {
     path: "firstpage",
     element: <Firstpage />,
+  },
+  {
+    path: "login",
+    element: <Login />,
+  },
+  {
+    path: "signup",
+    element: <Signup />,
   },
   {
     path: "question1",
@@ -38,6 +53,22 @@ const router = createBrowserRouter([
   {
     path: "question4",
     element: <Question4 />,
+  },
+  {
+    path: "calendar",
+    element: <Calendar/>,
+  },
+  {
+    path: "diary",
+    element: <Diary/>,
+  },
+  {
+    path: "meditation",
+    element: <Meditation/>,
+  },
+  {
+    path: "settings",
+    element: <Settings/>,
   },
 ]);
 
