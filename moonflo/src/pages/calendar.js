@@ -74,7 +74,7 @@ const PeriodCalendar = () => {
   };
 
   return (
-    <div>
+    <div className='parent-calender-container'>
       <Card className='calendar'>
         <Card.Title className='title'>Period Calendar</Card.Title>
         <Card.Body>
@@ -83,8 +83,8 @@ const PeriodCalendar = () => {
           </div>
         </Card.Body>
       </Card>
-      <NavBar /> 
       <CycleInfo/>
+      <NavBar /> 
     </div>
     
   );
