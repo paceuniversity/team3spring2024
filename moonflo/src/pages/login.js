@@ -1,38 +1,47 @@
-import React from 'react';
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { database } from '../FirebaseConfig.js';
 import './loginsignup.css'
 
-const Login = ()=>{
-    const navigate = useNavigate(); 
-    const handleSignUpClick = () => {
-        navigate("/signup"); // Redirect to the sign-in page
-      };
+const Login = () => {
+    const history = useNavigate();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+
+        signInWithEmailAndPassword(database, email, password)
+            .then(() => {
+                console.log("User signed in successfully");
+                history('/diary');
+            })
+            .catch(err => {
+                console.error("Error signing in:", err);
+                alert(err.code);
+            });
+    };
 
     return (
         <div className='container'>
-            <form action= " ">
-                <h1> Login</h1>
+            <form onSubmit={handleSubmit}>
+                <h1>Login</h1>
                 <div className="input-box">
-                    <input type = "text" placeholder='Username' required/>
+                    <input name="email" placeholder="Email" required />
                 </div>
                 <div className="input-box">
-                    <input type = "password" placeholder='Password' required/>
+                    <input name="password" type="password" placeholder='Password' required />
                 </div>
-
-                <div className = " remember-forgot">
-                    <label><input type ="checkbox" />Remember me</label>
-                    < a href = "#"> Forgot password?</a>
+                <div className='submit'>
+                <button type="submit">Login</button>
                 </div>
-
-                <button type = "submit"> Login</button>
-
                 <div className="register-link">
-                    <p>Don't have an account? <a onClick={handleSignUpClick} href = "#"> Register</a></p>
+                    <p>Don't have an account? <Link to="/signup">Register</Link></p>
                 </div>
-
             </form>
         </div>
-    )
+    );
 }
 
 export default Login;

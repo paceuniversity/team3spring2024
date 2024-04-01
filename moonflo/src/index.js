@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Firstpage from './pages/firstpage';
 import Login from './pages/login';
 import Signup from './pages/signup';
 import Question1 from './pages/question1';
@@ -26,10 +25,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-  },
-  {
-    path: "firstpage",
-    element: <Firstpage />,
   },
   {
     path: "login",

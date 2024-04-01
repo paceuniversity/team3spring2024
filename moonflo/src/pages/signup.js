@@ -1,35 +1,59 @@
-import React from 'react';
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { database } from '../FirebaseConfig.js';
 import './loginsignup.css'
 
-const Signup= ()=>{
-    const navigate = useNavigate(); 
+const Signup = () => {
+    const history = useNavigate();
+    const [passwordError, setPasswordError] = useState("");
 
-    const handleQ1Click = (event) => {
-        event.preventDefault();
-        navigate("/question1"); // Redirect to question1 page
-      };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        const confirmPassword = e.target.confirmPassword.value;
+
+        // Check if passwords match
+        if (password !== confirmPassword) {
+            setPasswordError("Passwords do not match");
+            return;
+        }
+
+        createUserWithEmailAndPassword(database, email, password)
+            .then(() => {
+                console.log("User signed up successfully");
+                history('/question1');
+            })
+            .catch(err => {
+                console.error("Error signing up:", err);
+                alert(err.code);
+            });
+    };
 
     return (
         <div className='container'>
-            <form onSubmit={handleQ1Click}>
-                <h1>Signup</h1>
+            <form onSubmit={handleSubmit}>
+                <h1>Sign Up</h1>
                 <div className="input-box">
-                    <input type = "text" placeholder='Name' required/>
+                    <input name="email" placeholder="Email" required />
                 </div>
                 <div className="input-box">
-                    <input type = "text" placeholder='Username' required/>
+                    <input name="password" type="password" placeholder='Password (must be at least 6 characters long)' required />
                 </div>
                 <div className="input-box">
-                    <input type = "password" placeholder='Password' required/>
+                    <input name="confirmPassword" type="password" placeholder='Confirm Password' required />
+                    {passwordError && <p className="error-message">{passwordError}</p>}
                 </div>
-
-                <button type="submit" >Signup</button>
-
+                <div className='submit'>
+                <button type="submit">Sign Up</button>
+                </div>
+                <div className="register-link">
+                    <p>Already have an account? <Link to="/login">Login</Link></p>
+                </div>
             </form>
         </div>
-    )
+    );
 }
 
 export default Signup;
-

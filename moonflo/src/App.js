@@ -1,23 +1,23 @@
-import FirstPage from './pages/firstpage.js'; // Importing FirstPage component
-import Question1 from './pages/question1.js';
-import Question2 from './pages/question2.js';
-import Login from './pages/login.js';
-import Signup from './pages/signup.js';
-import Calendar from 'react-calendar';
-import InfoPage from './pages/cycleinfo';
 
-import './App.css';
-import { First } from 'react-bootstrap/esm/PageItem.js';
+const App = () => {
+  const navigate = useNavigate(); // Initialize navigate
+  const handleSignUpClick = () => {
+    navigate("/signup"); // Redirect to the sign-in page
+  };
 
-
-function App() {
+  const handleLoginClick = () => {
+    navigate("/login"); // Redirect to the log-in page
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <FirstPage/>
-      </header>
+    <div className="intro">
+      <h1>Welcome To <br /> MoonFlo</h1>
+      <div className="button-container">
+      <button className="left-button" onClick={handleLoginClick}>Login</button>
+      <button className="right-button" onClick={handleSignUpClick}>Sign Up</button>
+      </div>
+      <div className="moon"></div>
     </div>
   );
-}
+};
 
 export default App;
