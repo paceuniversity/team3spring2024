@@ -4,6 +4,7 @@ import Question2 from './pages/question2.js';
 import Login from './pages/login.js';
 import Signup from './pages/signup.js';
 import Calendar from 'react-calendar';
+import InfoPage from './pages/cycleinfo';
 
 import './App.css';
 import { First } from 'react-bootstrap/esm/PageItem.js';

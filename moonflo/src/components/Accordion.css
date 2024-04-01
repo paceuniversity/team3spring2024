@@ -1,0 +1,61 @@
+// under components Accordion.css
+.accordion {
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.accordion-title {
+  padding: 10px;
+  background-color: #f7f7f7;
+  border: none;
+  outline: none;
+  width: 100%;
+  text-align: left;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.accordion-title:hover {
+  background-color: #e2e2e2;
+}
+
+.accordion-content {
+  padding: 20px;
+  border-top: 1px solid #ccc;
+  display: none; 
+  overflow: auto; 
+}
+
+
+.accordion-content {
+  display: block;
+}
+
+
+.accordion-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.accordion-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.accordion-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.content-container {
+  max-width: 800px; 
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+}
+.accordion-title {
+  width: 200px; 
+  height: 50px; 
+
+}
+
