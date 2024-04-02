@@ -14,14 +14,16 @@ body{
 .react-calendar__navigation__label {
   flex-grow: 0; 
   text-align: center;
-  width: 100px; 
+  width: 100%; 
 }
 
 /* Style for the navigation buttons */
 .react-calendar__navigation button {
-  margin: 0 50; 
+  margin: 0 10px; /* Adjust the margin between buttons as needed */
   font-family: 'Handlee';
+  padding: 5px 10px; /* Adjust the padding as needed */
 }
+
 
 .react-calendar__tile {
   font-family: 'Handlee';
@@ -49,19 +51,21 @@ body{
 .predicted-period{
   background-color: #eec6c6; 
   color: white; 
+  border-radius: 0;
 }
 
 .last-period{
   background-color: #b74c4c; 
   color: white; 
   z-index: 0;
+  border-radius: 0;
 }
 
 
 .react-calendar {
   width: 100%;
   margin: auto; 
-  font-size: 2.7vh;
+  font-size: 2.5vh;
 }
 
 .react-calendar__tile--now,
