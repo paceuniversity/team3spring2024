@@ -1,0 +1,28 @@
+.setting-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh; 
+  }
+  
+  .setting-card {
+    width: 100%;
+    max-width: 400px;
+   
+  }
+  
+  .setting-card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+
+.setting-button{
+    margin-top:30px;
+    background-color: #92aee7 !important;
+    border: none !important;
+    color:#111111 !important;
+    border-radius: 15px !important;
+}

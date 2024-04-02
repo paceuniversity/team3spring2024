@@ -3,6 +3,8 @@ import NavBar from "../components/NavBar";
 import { signOut } from "firebase/auth";
 import { database } from '../FirebaseConfig.js'; 
 import { useNavigate } from "react-router-dom";
+import { Button, Card, CardBody } from "react-bootstrap";
+import "./settings.css";
 
 const Settings = () => {
     const history = useNavigate();
@@ -19,10 +21,14 @@ const Settings = () => {
     };
 
     return (
-        <div>
-            <h1>Settings</h1>
-            <button onClick={handleClick}>Sign Out</button>
-            <NavBar />
+        <div className="setting-card-container">
+            <Card className="setting-card">
+                <CardBody className="setting-card-body">
+                    <h1>Settings</h1>
+                    <Button className="setting-button" onClick={handleClick}>Sign Out</Button>
+                    <NavBar />
+                </CardBody>
+            </Card>
         </div>
     );
 };

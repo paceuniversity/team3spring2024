@@ -19,9 +19,9 @@ body{
 
 /* Style for the navigation buttons */
 .react-calendar__navigation button {
-  margin: 0 10px; /* Adjust the margin between buttons as needed */
+  margin: 0 10px; 
   font-family: 'Handlee';
-  padding: 5px 10px; /* Adjust the padding as needed */
+  padding: 5px 10px; 
 }
 
 
