@@ -19,6 +19,7 @@ const App = () => {
       <div className="button-container">
       <button className="left-button" onClick={handleLoginClick}>Login</button>
       <button className="right-button" onClick={handleSignUpClick}>Sign Up</button>
+      
       </div>
       <div className="moon"></div>
     </div>
