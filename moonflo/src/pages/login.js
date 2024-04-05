@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { database } from '../FirebaseConfig.js';
+import { auth } from '../FirebaseConfig.js';
 import './loginsignup.css'
 
 const Login = () => {
@@ -12,7 +12,7 @@ const Login = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
 
-        signInWithEmailAndPassword(database, email, password)
+        signInWithEmailAndPassword(auth, email, password)
             .then(() => {
                 console.log("User signed in successfully");
                 history('/diary');

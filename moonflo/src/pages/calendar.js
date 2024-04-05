@@ -6,62 +6,78 @@ import { Card } from 'react-bootstrap';
 import '../Calendar.css';
 import NavBar from '../components/NavBar';
 import CycleInfo from './cycleinfo';
+import { ref, set, get } from 'firebase/database';
+import { database, auth } from '../FirebaseConfig'; // Import FirebaseConfig
 
 const PeriodCalendar = () => {
   const [date, setDate] = useState(new Date());
   const [predictedPeriodDates, setPredictedPeriodDates] = useState([]);
   const [lastPeriodDates, setLastPeriodDates] = useState([]);
   const location = useLocation();
+  const currentUser = auth.currentUser; // Get the current authenticated user
 
   useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const lastPeriodDateString = queryParams.get('lastPeriod'); // gets user's last period info
-    const cycleLength = parseInt(queryParams.get('cycleLength')); // gets user's cycle length info
-    const periodLength = parseInt(queryParams.get('periodLength')); // gets user's period length info
+    if (currentUser) {
+      const userRef = ref(database, `users/${currentUser.uid}`); // Reference to the current user's node
 
-    if (lastPeriodDateString && cycleLength && periodLength) {
-      // store user's information in local storage
-      localStorage.setItem('lastPeriodDate', lastPeriodDateString);
-      localStorage.setItem('cycleLength', cycleLength);
-      localStorage.setItem('periodLength', periodLength);
-    }
+      const queryParams = new URLSearchParams(location.search);
+      const lastPeriodDateString = queryParams.get('lastPeriod');
+      const cycleLength = parseInt(queryParams.get('cycleLength'));
+      const periodLength = parseInt(queryParams.get('periodLength'));
 
-    // retrieve user's information from local storage
-    const storedLastPeriodDate = localStorage.getItem('lastPeriodDate');
-    const storedCycleLength = parseInt(localStorage.getItem('cycleLength'));
-    const storedPeriodLength = parseInt(localStorage.getItem('periodLength'));
-
-    if (
-      (lastPeriodDateString && cycleLength && periodLength) || // check if information is available in URL
-      (storedLastPeriodDate && storedCycleLength && storedPeriodLength) // check if information is available in local storage
-    ) {
-      const lastPeriodDate = new Date(lastPeriodDateString || storedLastPeriodDate);
-      const cycleLengthToUse = cycleLength || storedCycleLength;
-      const periodLengthToUse = periodLength || storedPeriodLength;
-
-      const predictedStartDate = new Date(lastPeriodDate);
-      predictedStartDate.setDate(predictedStartDate.getDate() + cycleLengthToUse);
-
-      const predictedDates = []; // store predicted dates
-      // calculate predicted dates based on user's info
-      for (let i = 0; i < periodLengthToUse; i++) {
-        const predictedDate = new Date(predictedStartDate);
-        predictedDate.setDate(predictedStartDate.getDate() + i);
-        predictedDates.push(predictedDate);
+      if (lastPeriodDateString && cycleLength && periodLength) {
+        // Store user's information under their UID node in Firebase Realtime Database
+        set(userRef, {
+          lastPeriodDate: lastPeriodDateString,
+          cycleLength: cycleLength,
+          periodLength: periodLength
+        });
       }
 
-      setPredictedPeriodDates(predictedDates);
+      // Retrieve user's information from Firebase Realtime Database
+      get(userRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          const userInfo = snapshot.val();
+          const storedLastPeriodDate = userInfo.lastPeriodDate;
+          const storedCycleLength = userInfo.cycleLength;
+          const storedPeriodLength = userInfo.periodLength;
 
-      const lastPeriodDates = []; // stores last period dates
-      // calculates last period dates based on user's info
-      for (let j = 0; j < periodLengthToUse; j++) {
-        const lastPeriodDate = new Date(lastPeriodDateString || storedLastPeriodDate);
-        lastPeriodDate.setDate(lastPeriodDate.getDate() + j);
-        lastPeriodDates.push(lastPeriodDate);
-      }
-      setLastPeriodDates(lastPeriodDates);
+          if (
+            (lastPeriodDateString && cycleLength && periodLength) || // check if information is available in URL
+            (storedLastPeriodDate && storedCycleLength && storedPeriodLength) // check if information is available in local storage
+          ) {
+            const lastPeriodDate = new Date(lastPeriodDateString || storedLastPeriodDate);
+            const cycleLengthToUse = cycleLength || storedCycleLength;
+            const periodLengthToUse = periodLength || storedPeriodLength;
+
+            const predictedStartDate = new Date(lastPeriodDate);
+            predictedStartDate.setDate(predictedStartDate.getDate() + cycleLengthToUse);
+
+            const predictedDates = []; // store predicted dates
+            // calculate predicted dates based on user's info
+            for (let i = 0; i < periodLengthToUse; i++) {
+              const predictedDate = new Date(predictedStartDate);
+              predictedDate.setDate(predictedStartDate.getDate() + i);
+              predictedDates.push(predictedDate);
+            }
+
+            setPredictedPeriodDates(predictedDates);
+
+            const lastPeriodDates = []; // stores last period dates
+            // calculates last period dates based on user's info
+            for (let j = 0; j < periodLengthToUse; j++) {
+              const lastPeriodDate = new Date(lastPeriodDateString || storedLastPeriodDate);
+              lastPeriodDate.setDate(lastPeriodDate.getDate() + j);
+              lastPeriodDates.push(lastPeriodDate);
+            }
+            setLastPeriodDates(lastPeriodDates);
+          }
+        }
+      }).catch((error) => {
+        console.error("Error getting data:", error);
+      });
     }
-  }, [location]);
+  }, [location, currentUser]);
 
   const tileClassName = ({ date }) => {
     if (predictedPeriodDates.find((d) => d.toDateString() === date.toDateString())) {
@@ -86,7 +102,6 @@ const PeriodCalendar = () => {
       <CycleInfo/>
       <NavBar /> 
     </div>
-    
   );
 };
 
