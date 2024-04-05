@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { database } from '../FirebaseConfig.js';
+import { auth } from '../FirebaseConfig.js';
 import './loginsignup.css'
 
 const Signup = () => {
@@ -20,7 +20,7 @@ const Signup = () => {
             return;
         }
 
-        createUserWithEmailAndPassword(database, email, password)
+        createUserWithEmailAndPassword(auth, email, password)
             .then(() => {
                 console.log("User signed up successfully");
                 history('/question1');

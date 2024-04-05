@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../components/NavBar";
 import { signOut } from "firebase/auth";
-import { database } from '../FirebaseConfig.js'; 
+import { auth } from '../FirebaseConfig.js'; 
 import { useNavigate } from "react-router-dom";
 import { Button, Card, CardBody } from "react-bootstrap";
 import "./settings.css";
@@ -10,7 +10,7 @@ const Settings = () => {
     const history = useNavigate();
 
     const handleClick = () => {
-        signOut(database) 
+        signOut(auth) 
             .then((val) => {
                 console.log(val);
                 history('/');
