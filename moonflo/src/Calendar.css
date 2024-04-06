@@ -42,9 +42,10 @@ body{
 }
 
 .calendar{
-  margin: 30px;
+  margin: 10px;
   padding-top: 20px;
   padding-bottom: 20px;
+  margin-top: 0px;
 }
 
 /* Style for predicted period */
@@ -71,6 +72,7 @@ body{
 .react-calendar__tile--now,
 .react-calendar__tile--active {
   background-color: #D4AFB9;
+  border-radius: 0;
 }
  
 
@@ -93,4 +95,5 @@ body{
   flex-direction: column;
   justify-content: space-evenly;
   min-height: 100vh;
+  padding-top:5px;
 }
