@@ -5,7 +5,6 @@ import 'react-calendar/dist/Calendar.css';
 import { Card } from 'react-bootstrap';
 import '../Calendar.css';
 import NavBar from '../components/NavBar';
-import CycleInfo from './cycleinfo';
 import { ref, set, get } from 'firebase/database';
 import { database, auth } from '../FirebaseConfig'; // Import FirebaseConfig
 
@@ -99,7 +98,6 @@ const PeriodCalendar = () => {
           </div>
         </Card.Body>
       </Card>
-      <CycleInfo/>
       <NavBar /> 
     </div>
   );

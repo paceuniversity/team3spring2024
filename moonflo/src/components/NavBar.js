@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from 'react-router-dom';
-import { BsHouseDoor, BsCalendar, BsMusicNote, BsGear } from 'react-icons/bs';
+import { BsHouseDoor, BsCalendar, BsMusicNote, BsGear, BsBook } from 'react-icons/bs';
 import './NavBar.css'; 
 
 const NavBar = () =>{
@@ -28,6 +28,13 @@ const NavBar = () =>{
                 <li>
                     <NavLink to="/meditation" activeClassName="active">
                         <BsMusicNote size={iconSize} strokeWidth={strokeWidth}/>
+                    </NavLink>
+                </li>
+            </ul>
+            <ul className="nav-link">
+                <li>
+                    <NavLink to="/periodInfo" activeClassName="active">
+                        <BsBook size={iconSize} strokeWidth={strokeWidth}/>
                     </NavLink>
                 </li>
             </ul>

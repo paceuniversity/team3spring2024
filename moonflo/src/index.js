@@ -13,7 +13,7 @@ import Calendar from './pages/calendar';
 import Diary from './pages/diary';
 import Meditation from './pages/meditation';
 import Settings from './pages/settings';
-import CycleInfo from './pages/cycleinfo'
+import PeriodInfo from './pages/periodInfo';
 
 import {
   createBrowserRouter,
@@ -67,8 +67,8 @@ const router = createBrowserRouter([
     element: <Settings/>,
   },
   {
-    path: "cycleinfo",
-    element: <CycleInfo/>,
+    path: "periodInfo",
+    element: <PeriodInfo/>,
   },
     
 ]);
