@@ -1,3 +1,4 @@
+// PeriodCalendar.js
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Calendar from 'react-calendar';
@@ -7,11 +8,14 @@ import '../Calendar.css';
 import NavBar from '../components/NavBar';
 import { ref, set, get } from 'firebase/database';
 import { database, auth } from '../FirebaseConfig'; // Import FirebaseConfig
+import SymptomTracker from '../components/Symptoms';
 
 const PeriodCalendar = () => {
   const [date, setDate] = useState(new Date());
   const [predictedPeriodDates, setPredictedPeriodDates] = useState([]);
   const [lastPeriodDates, setLastPeriodDates] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null); // Track the selected date
+  const [showSymptomTracker, setShowSymptomTracker] = useState(false); // Track whether to show symptom tracker
   const location = useLocation();
   const currentUser = auth.currentUser; // Get the current authenticated user
 
@@ -88,16 +92,33 @@ const PeriodCalendar = () => {
     return '';
   };
 
+  // Function to handle date selection
+  const handleDateClick = (value) => {
+    if (value <= new Date()) {
+      setSelectedDate(value);
+      setShowSymptomTracker(true);
+    } else {
+      alert("Please select a past or current date.");
+    }
+  };
+
+  // Function to close symptom tracker
+  const handleCloseSymptomTracker = () => {
+    setShowSymptomTracker(false);
+    setSelectedDate(null);
+  };
+
   return (
     <div className='parent-calender-container'>
       <Card className='calendar'>
         <Card.Title className='title'>Period Calendar</Card.Title>
         <Card.Body>
           <div className="calendar-container">
-            <Calendar onChange={setDate} value={date} tileClassName={tileClassName} calendarType='US' />
+            <Calendar onChange={setDate} value={date} tileClassName={tileClassName} calendarType='US' onClickDay={handleDateClick} />
           </div>
         </Card.Body>
       </Card>
+      {showSymptomTracker && selectedDate && <SymptomTracker selectedDate={selectedDate} onClose={handleCloseSymptomTracker} />}
       <NavBar /> 
     </div>
   );
