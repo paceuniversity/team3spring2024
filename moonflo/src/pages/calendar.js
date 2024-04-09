@@ -12,6 +12,7 @@ const PeriodCalendar = () => {
   const [date, setDate] = useState(new Date());
   const [predictedPeriodDates, setPredictedPeriodDates] = useState([]);
   const [lastPeriodDates, setLastPeriodDates] = useState([]);
+  const [currentPhase, setCurrentPhase] = useState('');
   const location = useLocation();
   const currentUser = auth.currentUser; // Get the current authenticated user
 
@@ -96,6 +97,11 @@ const PeriodCalendar = () => {
           <div className="calendar-container">
             <Calendar onChange={setDate} value={date} tileClassName={tileClassName} calendarType='US' />
           </div>
+          {currentPhase && (
+            <div className="current-phase">
+              <p>You're currently in this phase. <a href="/cycleinfo">Learn more about your cycle</a></p>
+            </div>
+          )}
         </Card.Body>
       </Card>
       <NavBar /> 
