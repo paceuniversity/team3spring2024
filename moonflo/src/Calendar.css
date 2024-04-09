@@ -97,3 +97,32 @@ body{
   min-height: 100vh;
   padding-top:5px;
 }
+
+/* In your CSS file */
+.symptom-tracker-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1; 
+}
+.button-container button{
+  margin: 10px;
+  margin-left:35px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: none;
+}
+.button-container button:hover{
+  background-color: #d8dcde;
+  color:black;
+}
+
+
+
