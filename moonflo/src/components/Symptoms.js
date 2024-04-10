@@ -46,7 +46,7 @@ const SymptomTracker = ({ selectedDate, onClose }) => {
         <h4>Date Selected: {selectedDate.toDateString()}</h4>
         <br></br>
         <h4>Select the following you are experiencing</h4>
-        <div className="button-container">
+        <div className="symptoms-button-container">
           <Button 
             className={`Period ${selectedSymptoms.includes('Period') ? 'selected' : ''}`} 
             onClick={() => handleSymptomSelect('Period')}
