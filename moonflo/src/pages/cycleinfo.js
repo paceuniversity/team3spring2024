@@ -1,11 +1,10 @@
 import React from 'react';
+import { useState } from 'react';
 import Accordion from '../components/Accordion.js';
 import Cycle from '../img/Cycle.jpg';
 import Cycle2 from '../img/Cycle2.jpg';
 import Accordions from '../components/Accordion.css';
 import '../cycleinfo.css';
-
-
 
 
 const accordionData = [
@@ -74,6 +73,17 @@ const accordionData = [
 ];
 
 const CycleInfo = () => {
+
+  const [openSection, setOpenSection] = useState(null);
+
+  const openAccordion = index => {
+    if (openSection === index) {
+      setOpenSection(null);
+    } else {
+      setOpenSection(index);
+    }
+  };
+
   return (
 <div id='cycleinfo'>
 
@@ -90,7 +100,7 @@ const CycleInfo = () => {
   </ul>
   <p>Your menstrual cycle can say a lot about your health. Understanding your cycle better is key. The menstrual cycle is divided into 4 phases which are menstruation, the follicular phase, ovulation and the luteal phase. Click on each phase below to learn more!</p>
   {accordionData.map((section, index) => (
-    <Accordion key={index} title={section.title} content={section.content} />
+    <Accordion key={index} title={section.title} content={section.content} isOpen={openSection === index} onClick={() => openAccordion(index)} />
   ))}
 
  </div>
