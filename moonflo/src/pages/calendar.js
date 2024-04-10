@@ -16,6 +16,7 @@ const PeriodCalendar = () => {
   const [selectedDate, setSelectedDate] = useState(null); // Track the selected date
   const [showSymptomTracker, setShowSymptomTracker] = useState(false); // Track whether to show symptom tracker
   const [currentPhase, setCurrentPhase] = useState('');
+  const [trackedSymptomDates, setTrackedSymptomDates] = useState([]); // Store dates where symptoms are tracked
   const location = useLocation();
   const currentUser = auth.currentUser; // Get the current authenticated user
 
@@ -79,10 +80,24 @@ const PeriodCalendar = () => {
       }).catch((error) => {
         console.error("Error getting data:", error);
       });
+
+      const symptomDatesRef = ref(database, `users/${currentUser.uid}/symptoms`);
+      get(symptomDatesRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          const symptomDates = Object.keys(snapshot.val());
+          setTrackedSymptomDates(symptomDates);
+        }
+      }).catch((error) => {
+        console.error("Error getting symptom dates:", error);
+      });
     }
   }, [location, currentUser]);
 
+  // Define tileClassName function
   const tileClassName = ({ date }) => {
+    if (trackedSymptomDates.includes(date.toDateString())) {
+      return 'tracked-symptom';
+    }
     if (predictedPeriodDates.find((d) => d.toDateString() === date.toDateString())) {
       return 'predicted-period';
     }
@@ -109,13 +124,26 @@ const PeriodCalendar = () => {
   };
 
   return (
-    <div className='parent-calender-container'>
+    <div className='parent-calendar-container'>
       <Card className='calendar'>
         <Card.Title className='title'>Period Calendar</Card.Title>
         <Card.Body>
           <div className="calendar-container">
-            <Calendar onChange={setDate} value={date} tileClassName={tileClassName} calendarType='US' onClickDay={handleDateClick} />
+            <Calendar
+              onChange={setDate}
+              value={date}
+              tileClassName={tileClassName}
+              calendarType='US'
+              onClickDay={handleDateClick}
+            />
           </div>
+          <p className="caption">*Select a date to track a symptom</p>
+          <h5 className='calendar-key'>Calendar Key:</h5>
+          <ul className='calendar-key-list'>
+            <li className='calendar-key-last'>Last period</li>
+            <li className='calendar-key-next'>Perdicted next period</li>
+            <li className='calendar-key-tracked'>Symptoms tracked</li>
+          </ul>
           {currentPhase && (
             <div className="current-phase">
               <p>You're currently in this phase. <a href="/cycleinfo">Learn more about your cycle</a></p>

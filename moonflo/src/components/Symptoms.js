@@ -63,7 +63,7 @@ const SymptomTracker = ({ selectedDate, onClose }) => {
             className={`Energy ${selectedSymptoms.includes('Energy') ? 'selected' : ''}`} 
             onClick={() => handleSymptomSelect('Energy')}
           >
-            <BsLightning size={iconSize} /> <br />Energy
+            <BsLightning size={iconSize} /> <br />Energetic
           </Button>
           <Button 
             className={`Moody ${selectedSymptoms.includes('Moody') ? 'selected' : ''}`} 
