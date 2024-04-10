@@ -2,6 +2,11 @@ body{
   font-family: 'Handlee';
   background-color: #D4AFB9;
 }
+.react-calendar__tile--active{
+  background-color: transparent;
+  border-radius:0;
+  color:black;
+}
 
 /* Style for the container */
 .react-calendar__navigation {
@@ -45,7 +50,11 @@ body{
   margin: 10px;
   padding-top: 20px;
   padding-bottom: 20px;
-  margin-top: 0px;
+}
+.tracked-symptom {
+  background-color: rgb(196, 193, 193); 
+  border: 1px solid lightgray; 
+  border-radius: 0;
 }
 
 .predicted-period{
@@ -90,8 +99,7 @@ body{
   font-size: 2.5vh;
 }
 
-.react-calendar__tile--now,
-.react-calendar__tile--active {
+.react-calendar__tile--now {
   background-color: #D4AFB9;
   border-radius: 0;
 }
@@ -147,6 +155,28 @@ body{
   background-color: #d8dcde;
   color:black;
 }
+.calendar-key{
+  margin-top: 0;
+  margin-bottom: 0px;
+}
+.calendar-key-last{
+  color:#a74242;
+}
+.calendar-key-next{
+  color:#d5a0a0;
+}
+.calendar-key-tracked{
+  color:rgb(142, 140, 140);
+}
+.caption{
+  color:rgb(104, 100, 100);
+  margin-bottom: 5px; 
+}
+.calendar-key-list{
+  margin-top: 0px;
+}
+
+
 
 
 
