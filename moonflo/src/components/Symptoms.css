@@ -13,3 +13,38 @@
 .Sexual-Activity{
     background-color: #c0a9ef;
 }
+
+.selected {
+    background-color: rgb(87, 86, 86); 
+    color: white; 
+}
+.x-circle-button {
+    position: absolute;
+    top: 20px; 
+    right: 20px; 
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color:black;
+}
+.symptom-tracker-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+.save-button {
+    margin-top: 10px; 
+    padding:5px;
+    background-color: #D4AFB9;
+    border: none;
+}
+.save-button:hover {
+    background-color: #d8dcde;
+    color:black;
+}
+  
+  
+  
+  

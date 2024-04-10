@@ -48,7 +48,6 @@ body{
   margin-top: 0px;
 }
 
-/* Style for predicted period */
 .predicted-period{
   background-color: #eec6c6; 
   color: white; 
@@ -66,8 +65,8 @@ body{
   text-align: center;
   margin-top: 10px;
   font-size: 2vh;
-  color: #4a4a4a; /* Adjust color as needed */
-  background-color: #F9E4E6; /* Adjust background color as needed */
+  color: #4a4a4a; 
+  background-color: #F9E4E6; 
   padding: 10px;
   border-radius: 5px;
 }
@@ -77,12 +76,12 @@ body{
 }
 
 .current-phase a {
-  color: #4a4a4a; /* Adjust link color as needed */
+  color: #4a4a4a; 
   text-decoration: underline;
 }
 
 .current-phase a:hover {
-  color: #000; /* Adjust link hover color as needed */
+  color: #000; 
 }
 
 .react-calendar {
@@ -96,7 +95,6 @@ body{
   background-color: #D4AFB9;
   border-radius: 0;
 }
- 
 
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
@@ -120,7 +118,6 @@ body{
   padding-top:5px;
 }
 
-/* In your CSS file */
 .symptom-tracker-popup {
   position: absolute;
   top: 50%;
@@ -131,6 +128,11 @@ body{
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   z-index: 1; 
+}
+.button-container{
+  column-count: 2; 
+  column-gap: 20px;
+  
 }
 .button-container button{
   margin: 10px;

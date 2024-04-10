@@ -1,4 +1,3 @@
-// PeriodCalendar.js
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Calendar from 'react-calendar';
@@ -14,6 +13,8 @@ const PeriodCalendar = () => {
   const [date, setDate] = useState(new Date());
   const [predictedPeriodDates, setPredictedPeriodDates] = useState([]);
   const [lastPeriodDates, setLastPeriodDates] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null); // Track the selected date
+  const [showSymptomTracker, setShowSymptomTracker] = useState(false); // Track whether to show symptom tracker
   const [currentPhase, setCurrentPhase] = useState('');
   const location = useLocation();
   const currentUser = auth.currentUser; // Get the current authenticated user
