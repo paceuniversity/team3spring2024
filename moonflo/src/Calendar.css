@@ -111,7 +111,7 @@ body{
 
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background: #a9abac;
+  background: transparent;
 }
 
 .react-calendar__month-view__weekdays{

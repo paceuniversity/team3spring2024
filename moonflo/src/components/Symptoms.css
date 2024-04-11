@@ -39,6 +39,7 @@
     padding:5px;
     background-color: #D4AFB9;
     border: none;
+    border-radius: 20px;
 }
 .save-button:hover {
     background-color: #d8dcde;
