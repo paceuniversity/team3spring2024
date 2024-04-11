@@ -35,6 +35,7 @@ const QuoteDisplay = ({ apiUrl, className }) => {
     <div className={className}>
       <Card className="diary-entry-card">
        <CardBody> 
+       <h4 className='quote-caption'>Quote of the Day</h4>
       {quote.text && (
         <div className="card text-center">
           <div className="quote-card-body">

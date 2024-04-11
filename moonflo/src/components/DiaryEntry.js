@@ -29,7 +29,7 @@ const DiaryEntry = () => {
       <Card className="diary-entry-card">
         <CardBody>
           <div>
-            <h4 className='diary-title'>Tell me about your day!</h4>
+            <h4 className='diary-title'>Tell me about your day!</h4> 
           </div>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="diaryEntryTextarea">
@@ -49,13 +49,15 @@ const DiaryEntry = () => {
         </CardBody>
       </Card>
       {submittedEntries.map((submittedEntry, index) => (
-        <Card key={index} className='submitted-entry-card'> 
+        <Card key={index} className='submitted-entry-card'>
           <CardBody>
             <h4>{submittedEntry.date}</h4>
             <p className='submitted-entry'>{submittedEntry.entry}</p>
           </CardBody>
         </Card>
       ))}
+      <h1 id="hidden">.</h1>
+      <h1 id="hidden">.</h1>
     </div>
   );
 };
