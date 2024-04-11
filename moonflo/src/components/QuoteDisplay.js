@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import NavBar from '../components/NavBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './QuoteDisplay.css';
+import { Card, CardBody } from 'react-bootstrap';
 
 const QuoteDisplay = ({ apiUrl, className }) => {
   const [quote, setQuote] = useState({});
@@ -32,15 +33,18 @@ const QuoteDisplay = ({ apiUrl, className }) => {
 
   return (
     <div className={className}>
-      <NavBar />
+      <Card className="diary-entry-card">
+       <CardBody> 
       {quote.text && (
         <div className="card text-center">
-          <div className="card-body">
+          <div className="quote-card-body">
             <p className="card-text">{quote.text}</p>
             {quote.author && <p className="card-text text-muted"> - {quote.author}</p>}
           </div>
         </div>
       )}
+      </CardBody>
+      </Card>
     </div>
   );
 };
