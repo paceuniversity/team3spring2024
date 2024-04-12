@@ -28,9 +28,6 @@ const QuoteDisplay = ({ apiUrl, className }) => {
     fetchQuote();
   }, [apiUrl]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
-
   return (
     <div className={className}>
       <Card className="diary-entry-card">
