@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Card, CardBody } from 'react-bootstrap';
 import './DiaryEntry.css';
+import { BsTrash } from 'react-icons/bs';
 
 const DiaryEntry = () => {
   const [entry, setEntry] = useState('');
@@ -16,6 +17,14 @@ const DiaryEntry = () => {
   const handleEntryChange = (event) => {
     setEntry(event.target.value);
   };
+
+  const handleDeleteEntry = (index) => {
+    const newEntries = [...submittedEntries]; // Create a copy
+    newEntries.splice(index, 1); // Remove the entry at the specified index
+    setSubmittedEntries(newEntries);
+  };
+  
+   
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -50,11 +59,14 @@ const DiaryEntry = () => {
       </Card>
       {submittedEntries.map((submittedEntry, index) => (
         <Card key={index} className='submitted-entry-card'>
-          <CardBody>
-            <h4>{submittedEntry.date}</h4>
-            <p className='submitted-entry'>{submittedEntry.entry}</p>
-          </CardBody>
-        </Card>
+        <CardBody>
+          <h4>{submittedEntry.date}</h4>
+          <p className='submitted-entry'>{submittedEntry.entry}</p>
+          <a href="#" className="diary-trash-button" onClick={() => handleDeleteEntry(index)}> 
+            <BsTrash size={20}/>
+          </a>
+        </CardBody>
+      </Card>
       ))}
       <h1 id="hidden">.</h1>
       <h1 id="hidden">.</h1>
