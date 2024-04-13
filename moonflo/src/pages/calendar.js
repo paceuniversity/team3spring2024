@@ -5,7 +5,7 @@ import 'react-calendar/dist/Calendar.css';
 import { Card } from 'react-bootstrap';
 import '../Calendar.css';
 import NavBar from '../components/NavBar';
-import { ref, set, get } from 'firebase/database';
+import { ref, set, get, onValue, off } from 'firebase/database'; // Import onValue and off from Firebase to listen for changes
 import { database, auth } from '../FirebaseConfig'; // Import FirebaseConfig
 import SymptomTracker from '../components/Symptoms';
 
@@ -82,14 +82,20 @@ const PeriodCalendar = () => {
       });
 
       const symptomDatesRef = ref(database, `users/${currentUser.uid}/symptoms`);
-      get(symptomDatesRef).then((snapshot) => {
+      onValue(symptomDatesRef, (snapshot) => {
         if (snapshot.exists()) {
           const symptomDates = Object.keys(snapshot.val());
           setTrackedSymptomDates(symptomDates);
         }
-      }).catch((error) => {
-        console.error("Error getting symptom dates:", error);
+      }, {
+        onlyOnce: false // Listen continuously for changes
       });
+
+      // Clean up function to remove the listener when component unmounts
+      return () => {
+        // Remove the listener
+        off(symptomDatesRef);
+      };
     }
   }, [location, currentUser]);
 
@@ -141,7 +147,7 @@ const PeriodCalendar = () => {
           <h5 className='calendar-key'>Calendar Key:</h5>
           <ul className='calendar-key-list'>
             <li className='calendar-key-last'>Last period</li>
-            <li className='calendar-key-next'>Perdicted next period</li>
+            <li className='calendar-key-next'>Predicted next period</li>
             <li className='calendar-key-tracked'>Symptoms tracked</li>
           </ul>
           {currentPhase && (
@@ -152,7 +158,7 @@ const PeriodCalendar = () => {
         </Card.Body>
       </Card>
       {showSymptomTracker && selectedDate && <SymptomTracker selectedDate={selectedDate} onClose={handleCloseSymptomTracker} />}
-      <NavBar /> 
+      <NavBar />
     </div>
   );
 };
