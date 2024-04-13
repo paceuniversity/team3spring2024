@@ -55,11 +55,13 @@ const DiaryEntry = () => {
     }
   };
 
-  const handleEditClick = (index) => {
+  const handleEditClick = (event, index) => {
+    event.preventDefault(); // Prevent default behavior of the anchor element
     const currentEntry = submittedEntries[index].entry;
     setEditEntry(currentEntry); // Set edit entry state with existing content
     setEditState({ ...editState, [index]: true }); // Set edit mode for the entry
   };
+  
 
   const handleUpdateEntry = (index) => {
     const newEntries = [...submittedEntries];
@@ -146,9 +148,10 @@ const DiaryEntry = () => {
             <a href="#" className="diary-trash-button" onClick={() => handleDeleteEntry(index)}>
               <BsTrash size={20} />
             </a>
-            <a href="#" className="diary-edit-button" onClick={() => handleEditClick(index)}>
+            <a href="#" className="diary-edit-button" onClick={(event) => handleEditClick(event, index)}>
               <BsPencil size={18} />
             </a>
+
           </CardBody>
         </Card>
       ))}
