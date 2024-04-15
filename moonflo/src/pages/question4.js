@@ -1,43 +1,47 @@
 import React, { useState } from "react";
-import "../App.css";
-import "../questions.css";
 import { Button, Card, CardBody, Form, FormLabel } from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ref, set } from 'firebase/database';
+import { database, auth } from '../FirebaseConfig';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Question4 = () => {
-  const navigate = useNavigate(); // used to pass data from one page to another
-  const location = useLocation(); // used to get data from previous page
+  const navigate = useNavigate();
+  const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const age = queryParams.get('age'); // gets user's age info
-  const lastPeriod = queryParams.get('lastPeriod'); // gets user's last period info
-  const cycleLength = queryParams.get('cycleLength'); // gets user's cycle length info
+  const age = queryParams.get('age');
+  const lastPeriod = queryParams.get('lastPeriod');
+  const cycleLength = queryParams.get('cycleLength');
   const [periodLength, setPeriodLength] = useState("");
 
   const handleChange = (e) => {
     setPeriodLength(e.target.value);
   };
 
-  // when user clicks on next
   const handleSubmit = (e) => {
     e.preventDefault();
-    // printing to the console for now
-    console.log("Age from Question 1:", age);
-    console.log("Submitted last period:", lastPeriod);
-    console.log("Submitted cycle length:", cycleLength);
-    console.log("Submitted period length:", periodLength);
-    
-    navigate(`/diary?age=${age}&lastPeriod=${lastPeriod}&cycleLength=${cycleLength}&periodLength=${periodLength}`);
+
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      const userRef = ref(database, `users/${currentUser.uid}`);
+
+      set(userRef, {
+        age: age,
+        lastPeriod: lastPeriod,
+        cycleLength: cycleLength,
+        periodLength: periodLength
+      }).then(() => {
+        // Navigation to the Calendar page after successful storage
+        navigate('/calendar');
+      }).catch((error) => {
+        console.error("Error storing data:", error);
+        // Handle error here, maybe display a message to the user
+      });
+    }
   };
 
-  // when user clicks on skip
   const handleSkip = () => {
-    console.log("Age from Question 1:", age);
-    console.log("Submitted last period:", lastPeriod);
-    console.log("Submitted cycle length:", cycleLength);
-    console.log("User chose to skip");
-  
-    navigate(`/diary?age=${age}&lastPeriod=${lastPeriod}&cycleLength=${cycleLength}&periodLength=${periodLength}`);
+    navigate('/calendar');
   };
 
   return (
@@ -47,16 +51,17 @@ const Question4 = () => {
           <h5>To help us better predict your period cycle, please answer the following questions:</h5>
           <Card className="inner-card">
             <CardBody className="custom-body-inner">
-            <a className="skip-button" onClick={handleSkip}>Skip</a>
+              <a className="skip-button" onClick={handleSkip}>Skip</a>
               <Form onSubmit={handleSubmit}>
                 <Form.Group>
                   <FormLabel className="question">How long does your period last?</FormLabel>
-                  <Form.Control className="custom-input"
-                    type="number" // user must enter a number
+                  <Form.Control
+                    className="custom-input"
+                    type="number"
                     id="periodLength"
                     name="periodLength"
                     placeholder="Enter number of days"
-                    min="0" // ensure user doesn't enter a negative number
+                    min="0"
                     value={periodLength}
                     onChange={handleChange}
                     required
