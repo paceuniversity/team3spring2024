@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link} from 'react-router-dom';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { Card } from 'react-bootstrap';
@@ -8,6 +8,7 @@ import NavBar from '../components/NavBar';
 import { ref, set, get, onValue, off } from 'firebase/database'; // Import onValue and off from Firebase to listen for changes
 import { database, auth } from '../FirebaseConfig'; // Import FirebaseConfig
 import SymptomTracker from '../components/Symptoms';
+
 
 const PeriodCalendar = () => {
   const [date, setDate] = useState(new Date());
@@ -20,6 +21,26 @@ const PeriodCalendar = () => {
   const location = useLocation();
   const currentUser = auth.currentUser; // Get the current authenticated user
 
+  // calculation for phases of the cycle 
+  const calculateCurrentPhase = (cycleLength) => {
+    if (lastPeriodDates.length > 0 && cycleLength > 0) {
+      const today = new Date();
+      
+      const daysSinceLastPeriod = Math.round((today - lastPeriodDates[lastPeriodDates.length - 1]) / (1000 * 60 * 60 * 24)); // Calculate days since last period
+      
+      if (daysSinceLastPeriod <= cycleLength) {
+        setCurrentPhase('Menstruation');
+      } else if (daysSinceLastPeriod <= cycleLength + 4) { // Assuming ovulation occurs around day 14
+        setCurrentPhase('Follicular Phase');
+      } else if (daysSinceLastPeriod <= cycleLength + 14) {
+        setCurrentPhase('Ovulation');
+      } else {
+        setCurrentPhase('Luteal Phase');
+      }
+    }
+  };
+
+  
   useEffect(() => {
     if (currentUser) {
       const userRef = ref(database, `users/${currentUser.uid}`); // Reference to the current user's node
@@ -28,7 +49,9 @@ const PeriodCalendar = () => {
       const lastPeriodDateString = queryParams.get('lastPeriod');
       const cycleLength = parseInt(queryParams.get('cycleLength'));
       const periodLength = parseInt(queryParams.get('periodLength'));
-
+      
+      calculateCurrentPhase(cycleLength);
+    
       if (lastPeriodDateString && cycleLength && periodLength) {
         // Store user's information under their UID node in Firebase Realtime Database
         set(userRef, {
@@ -97,7 +120,8 @@ const PeriodCalendar = () => {
         off(symptomDatesRef);
       };
     }
-  }, [location, currentUser]);
+    
+  }, [location, currentUser, lastPeriodDates]);
 
   // Define tileClassName function
   const tileClassName = ({ date }) => {
@@ -143,6 +167,9 @@ const PeriodCalendar = () => {
               onClickDay={handleDateClick}
             />
           </div>
+          <div className="current-phase">
+            <p>You're currently in {currentPhase}. <Link to="/periodInfo">Learn more about your cycle</Link></p>
+          </div>
           <p className="caption">*Select a date to track a symptom</p>
           <h5 className='calendar-key'>Calendar Key:</h5>
           <ul className='calendar-key-list'>
@@ -150,11 +177,6 @@ const PeriodCalendar = () => {
             <li className='calendar-key-next'>Predicted next period</li>
             <li className='calendar-key-tracked'>Symptoms tracked</li>
           </ul>
-          {currentPhase && (
-            <div className="current-phase">
-              <p>You're currently in this phase. <a href="/cycleinfo">Learn more about your cycle</a></p>
-            </div>
-          )}
         </Card.Body>
       </Card>
       {showSymptomTracker && selectedDate && <SymptomTracker selectedDate={selectedDate} onClose={handleCloseSymptomTracker} />}
