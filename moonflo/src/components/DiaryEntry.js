@@ -3,7 +3,8 @@ import { Form, Button, Card, CardBody } from 'react-bootstrap';
 import './DiaryEntry.css';
 import { BsPencil, BsTrash } from 'react-icons/bs';
 import { ref, set, get } from 'firebase/database'; // Firebase modules
-import { database, auth } from '../FirebaseConfig'; // Import FirebaseConfig
+import { database, auth, storage } from '../FirebaseConfig'; // Import FirebaseConfig
+import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const DiaryEntry = () => {
   const [mainEntry, setMainEntry] = useState('');
@@ -11,6 +12,7 @@ const DiaryEntry = () => {
   const [date, setDate] = useState(new Date().toLocaleDateString());
   const [submittedEntries, setSubmittedEntries] = useState([]);
   const [editState, setEditState] = useState({}); // Track edit state for entries
+  const [image, setImage] = useState(null); 
 
   useEffect(() => {
     // Get current date for entry
@@ -33,6 +35,12 @@ const DiaryEntry = () => {
         });
     }
   }, []);
+
+  const handleImageChange = (event) => {
+    if (event.target.files[0]) {
+      setImage(event.target.files[0]);
+    }
+  };
 
   const handleMainEntryChange = (event) => {
     setMainEntry(event.target.value);
@@ -77,13 +85,24 @@ const DiaryEntry = () => {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const currentUser = auth.currentUser;
     if (currentUser) {
+      let imageId = '';
+      let imageUrl = '';
+      if (image) {
+        const imageName = `${Date.now()}-${image.name}`;
+        const imageRef = storageRef(storage, `images/${imageName}`);
+        await uploadBytes(imageRef, image).then(async () => {
+          imageUrl = await getDownloadURL(imageRef);
+          imageId = imageName; 
+        });
+      }
       const newEntry = {
         date: date,
         entry: mainEntry,
+        imageId
       };
       const updatedEntries = [...submittedEntries, newEntry];
       setSubmittedEntries(updatedEntries);
@@ -114,6 +133,12 @@ const DiaryEntry = () => {
                 placeholder="Type here"
                 rows={10}
                 className="left-aligned"
+              />
+            </Form.Group>
+            <Form.Group controlId="diaryEntryImageUpload">
+              <Form.Control
+                type="file"
+                onChange={handleImageChange}
               />
             </Form.Group>
             <div className='diary-submit'>
