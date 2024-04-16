@@ -173,7 +173,7 @@ const PeriodCalendar = () => {
             />
           </div>
           <div className="current-phase">
-             <p>You're currently in <span className="current-phase-word">{currentPhase}</span>. <Link to="/periodInfo">Learn more about your cycle</Link></p>
+             <p>You're currently in <span style={{ fontWeight: 'bold', color: 'maroon', fontSize: '20px' }}>{currentPhase}</span>. <Link to="/periodInfo">Learn more about your cycle</Link></p>
           </div>
           <p className="caption">*Select a date to track a symptom</p>
           <h5 className="calendar-key">Calendar Key:</h5>

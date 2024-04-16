@@ -92,11 +92,6 @@ body{
   color: #000; 
 }
 
-.current-phase .current-phase-word {
-  color: red
-  font-weight bold; 
-}
-
 .react-calendar {
   width: 100%;
   margin: auto; 
