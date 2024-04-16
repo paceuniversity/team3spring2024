@@ -74,7 +74,7 @@ const PeriodCalendar = () => {
                   }
                 }
               };
-
+              // updates the current phase based on user input from firebase
               calculateCurrentPhase(cycleLength);
             } else {
               console.warn('Missing or invalid data for period calculations');
@@ -163,7 +163,7 @@ const PeriodCalendar = () => {
             />
           </div>
           <div className="current-phase">
-             <p>You're currently in <span style={{ fontWeight: 'bold', color: 'maroon', fontSize: '20px' }}>{currentPhase}</span>. <Link to="/periodInfo">Learn more about your cycle</Link></p>
+             <p>You're currently in <span style={{ fontWeight: 'bold', color: 'maroon', fontSize: '20px' }}>{currentPhase}</span>. <Link to="/periodInfo">Learn more about your cycle</Link></p> 
           </div>
 
           <p className="caption">*Select a date to track a symptom</p>
