@@ -84,6 +84,7 @@ body{
   margin: 0;
 }
 
+/* Underline the text */
 .current-phase a {
   color: #4a4a4a; 
   text-decoration: underline;
