@@ -26,10 +26,13 @@ const QuoteDisplay = ({ apiUrl, className }) => {
     };
 
     fetchQuote();
+    const interval = setInterval(fetchQuote, 86400000);
+
+    return () => clearInterval(interval);
   }, [apiUrl]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className={className}>

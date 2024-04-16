@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, Link} from 'react-router-dom';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { Card } from 'react-bootstrap';
 import '../Calendar.css';
 import NavBar from '../components/NavBar';
-import { ref, set, get } from 'firebase/database';
-import { database, auth } from '../FirebaseConfig'; // Import FirebaseConfig
+import { ref, get, onValue, off } from 'firebase/database';
+import { database, auth } from '../FirebaseConfig';
 import SymptomTracker from '../components/Symptoms';
-
+import { Link } from 'react-router-dom';
 
 const PeriodCalendar = () => {
   const [date, setDate] = useState(new Date());
   const [predictedPeriodDates, setPredictedPeriodDates] = useState([]);
   const [lastPeriodDates, setLastPeriodDates] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(null); // Track the selected date
-  const [showSymptomTracker, setShowSymptomTracker] = useState(false); // Track whether to show symptom tracker
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [showSymptomTracker, setShowSymptomTracker] = useState(false);
   const [currentPhase, setCurrentPhase] = useState('');
   const [trackedSymptomDates, setTrackedSymptomDates] = useState([]); // Store dates where symptoms are tracked
   const [cycleLength, setCycleLength] = useState(28);
@@ -112,9 +111,9 @@ const PeriodCalendar = () => {
           }
         }
       }).catch((error) => {
-        console.error("Error getting data:", error);
-      });
-
+          console.error("Error getting data:", error);
+        });
+      
       const symptomDatesRef = ref(database, `users/${currentUser.uid}/symptoms`);
       get(symptomDatesRef).then((snapshot) => {
         if (snapshot.exists()) {
@@ -128,7 +127,8 @@ const PeriodCalendar = () => {
     
   }, [location, currentUser]);
 
-  // Define tileClassName function
+
+  //Definr titleClassName function
   const tileClassName = ({ date }) => {
     if (trackedSymptomDates.includes(date.toDateString())) {
       return 'tracked-symptom';
@@ -142,33 +142,33 @@ const PeriodCalendar = () => {
     return '';
   };
 
-  // Function to handle date selection
+  //Function to handle data selection
   const handleDateClick = (value) => {
     if (value <= new Date()) {
       setSelectedDate(value);
       setShowSymptomTracker(true);
     } else {
-      alert("Please select a past or current date.");
+      alert('Please select a past or current date.');
     }
   };
 
-  // Function to close symptom tracker
+  //Function to close symption tracker
   const handleCloseSymptomTracker = () => {
     setShowSymptomTracker(false);
     setSelectedDate(null);
   };
 
   return (
-    <div className='parent-calendar-container'>
-      <Card className='calendar'>
-        <Card.Title className='title'>Period Calendar</Card.Title>
+    <div className="parent-calendar-container">
+      <Card className="calendar">
+        <Card.Title className="title">Period Calendar</Card.Title>
         <Card.Body>
           <div className="calendar-container">
             <Calendar
               onChange={setDate}
               value={date}
               tileClassName={tileClassName}
-              calendarType='US'
+              calendarType="US"
               onClickDay={handleDateClick}
             />
           </div>
@@ -176,16 +176,18 @@ const PeriodCalendar = () => {
              <p>You're currently in <span className="current-phase-word">{setCurrentPhase}</span>. <Link to="/periodInfo">Learn more about your cycle</Link></p>
           </div>
           <p className="caption">*Select a date to track a symptom</p>
-          <h5 className='calendar-key'>Calendar Key:</h5>
-          <ul className='calendar-key-list'>
-            <li className='calendar-key-last'>Last period</li>
-            <li className='calendar-key-next'>Perdicted next period</li>
-            <li className='calendar-key-tracked'>Symptoms tracked</li>
+          <h5 className="calendar-key">Calendar Key:</h5>
+          <ul className="calendar-key-list">
+            <li className="calendar-key-last">Last period</li>
+            <li className="calendar-key-next">Predicted next period</li>
+            <li className="calendar-key-tracked">Symptoms tracked</li>
           </ul>
         </Card.Body>
       </Card>
-      {showSymptomTracker && selectedDate && <SymptomTracker selectedDate={selectedDate} onClose={handleCloseSymptomTracker} />}
-      <NavBar /> 
+      {showSymptomTracker && selectedDate && (
+        <SymptomTracker selectedDate={selectedDate} onClose={handleCloseSymptomTracker} />
+      )}
+      <NavBar />
     </div>
   );
 };

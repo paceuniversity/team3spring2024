@@ -39,4 +39,19 @@
 #hidden{
     color: #D4AFB9;
 }
-
+.diary-trash-button{
+    color:black;
+    cursor: pointer;
+}
+.diary-trash-button:hover{
+    color: rgb(182, 32, 32);
+}
+.diary-edit-button{
+    color:black;
+    cursor:pointer;
+    margin-left: 10px;
+}
+.diary-edit-button:hover{
+    color:rgb(143, 142, 142);
+   
+}
