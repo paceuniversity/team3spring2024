@@ -61,16 +61,21 @@ const PeriodCalendar = () => {
               const calculateCurrentPhase = (cycleLength) => {
                 if (lastPeriodDates.length > 0 && cycleLength > 0) {
                   const today = new Date();
-                  const daysSinceLastPeriod = Math.round((today - new Date(lastPeriodDates)) / (1000 * 60 * 60 * 24));
+                  const lastPeriodDate = lastPeriodDates[lastPeriodDates.length - 1];
+                  const daysSinceLastPeriod = Math.round((today - lastPeriodDate) / (1000 * 60 * 60 * 24));
+
+                  // Calculate the day within the cycle
+                  const dayWithinCycle = (daysSinceLastPeriod % cycleLength) + 1;
             
-                  if (daysSinceLastPeriod <= cycleLength) {
-                    setCurrentPhase('Menstruation');
-                  } else if (daysSinceLastPeriod <= cycleLength + 4) {
-                    setCurrentPhase('Follicular Phase');
-                  } else if (daysSinceLastPeriod <= cycleLength + 14) {
-                    setCurrentPhase('Ovulation');
+                  // Define the phases based on the day within the cycle
+                  if (dayWithinCycle <= periodLength) {
+                    setCurrentPhase('Menstruation'); // Menstruation phase
+                  } else if (dayWithinCycle <= cycleLength - 14) {
+                    setCurrentPhase('Ovulation'); // Ovulation phase
+                  } else if (dayWithinCycle <= cycleLength - 4) {
+                    setCurrentPhase('Luteal Phase'); // Luteal phase
                   } else {
-                    setCurrentPhase('Luteal Phase');
+                    setCurrentPhase('Follicular Phase'); // Follicular phase
                   }
                 }
               };
