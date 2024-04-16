@@ -70,6 +70,7 @@ body{
   border-radius: 0;
 }
 
+/* Style for displaying current phase */
 .current-phase {
   text-align: center;
   margin-top: 10px;
