@@ -18,27 +18,10 @@ const PeriodCalendar = () => {
   const [showSymptomTracker, setShowSymptomTracker] = useState(false); // Track whether to show symptom tracker
   const [currentPhase, setCurrentPhase] = useState('');
   const [trackedSymptomDates, setTrackedSymptomDates] = useState([]); // Store dates where symptoms are tracked
+  const [cycleLength, setCycleLength] = useState(28);
+  const [periodLength, setPeriodLength] = useState(4); // Default cycle length
   const location = useLocation();
   const currentUser = auth.currentUser; // Get the current authenticated user
-
-  // calculation for phases of the cycle 
-  const calculateCurrentPhase = (cycleLength) => {
-    if (lastPeriodDates.length > 0 && cycleLength > 0) {
-      const today = new Date();
-      
-      const daysSinceLastPeriod = Math.round((today - lastPeriodDates[lastPeriodDates.length - 1]) / (1000 * 60 * 60 * 24)); // Calculate days since last period
-      
-      if (daysSinceLastPeriod <= cycleLength) {
-        setCurrentPhase('Menstruation');
-      } else if (daysSinceLastPeriod <= cycleLength + 4) { // Assuming ovulation occurs around day 14
-        setCurrentPhase('Follicular Phase');
-      } else if (daysSinceLastPeriod <= cycleLength + 14) {
-        setCurrentPhase('Ovulation');
-      } else {
-        setCurrentPhase('Luteal Phase');
-      }
-    }
-  };
 
   
   useEffect(() => {
@@ -47,10 +30,23 @@ const PeriodCalendar = () => {
 
       const queryParams = new URLSearchParams(location.search);
       const lastPeriodDateString = queryParams.get('lastPeriod');
-      const cycleLength = parseInt(queryParams.get('cycleLength'));
-      const periodLength = parseInt(queryParams.get('periodLength'));
-      
-      calculateCurrentPhase(cycleLength);
+      const cycleLengthParam = queryParams.get('cycleLength');
+      const periodLengthParam = queryParams.get('periodLength');
+     
+      // Parse cycleLengthParam into an integer if it's a valid number
+    let cycleLength = parseInt(cycleLengthParam);
+    cycleLength = isNaN(cycleLength) ? 28 : cycleLength; // Default to 28 if not a number
+
+    let periodLength = parseInt(periodLengthParam);
+    periodLength = isNaN(periodLength) ? 4 : periodLength; // Default to 5 if not a number
+
+
+      console.log("lastPeriodDates:", lastPeriodDates);
+      console.log("cycleLength:", cycleLength);
+      console.log("periodLength:", periodLength);
+
+      setCycleLength(cycleLength);
+      setPeriodLength(periodLength); 
     
       if (lastPeriodDateString && cycleLength && periodLength) {
         // Store user's information under their UID node in Firebase Realtime Database
@@ -60,6 +56,7 @@ const PeriodCalendar = () => {
           periodLength: periodLength
         });
       }
+  
 
       // Retrieve user's information from Firebase Realtime Database
       get(userRef).then((snapshot) => {
@@ -98,6 +95,20 @@ const PeriodCalendar = () => {
               lastPeriodDates.push(lastPeriodDate);
             }
             setLastPeriodDates(lastPeriodDates);
+
+            // Calculate the current phase
+            const today = new Date();
+            const daysSinceLastPeriod = Math.round((today - lastPeriodDates[lastPeriodDates.length - 1]) / (1000 * 60 * 60 * 24));
+             
+             if (daysSinceLastPeriod <= cycleLengthToUse) {
+              setCurrentPhase('Menstruation');
+            } else if (daysSinceLastPeriod <= cycleLengthToUse + 4) {
+              setCurrentPhase('Follicular Phase');
+            } else if (daysSinceLastPeriod <= cycleLengthToUse + periodLengthToUse) {
+              setCurrentPhase('Ovulation');
+            } else {
+              setCurrentPhase('Luteal Phase');
+            }
           }
         }
       }).catch((error) => {
@@ -115,7 +126,7 @@ const PeriodCalendar = () => {
       });
     }
     
-  }, [location, currentUser, lastPeriodDates]);
+  }, [location, currentUser]);
 
   // Define tileClassName function
   const tileClassName = ({ date }) => {
@@ -162,7 +173,7 @@ const PeriodCalendar = () => {
             />
           </div>
           <div className="current-phase">
-            <p>You're currently in {currentPhase}. <Link to="/periodInfo">Learn more about your cycle</Link></p>
+             <p>You're currently in <span className="current-phase-word">{setCurrentPhase}</span>. <Link to="/periodInfo">Learn more about your cycle</Link></p>
           </div>
           <p className="caption">*Select a date to track a symptom</p>
           <h5 className='calendar-key'>Calendar Key:</h5>
