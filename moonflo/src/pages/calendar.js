@@ -16,109 +16,119 @@ const PeriodCalendar = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [showSymptomTracker, setShowSymptomTracker] = useState(false);
   const [currentPhase, setCurrentPhase] = useState('');
-  const [trackedSymptomDates, setTrackedSymptomDates] = useState([]);
-  const currentUser = auth.currentUser;
+  const [trackedSymptomDates, setTrackedSymptomDates] = useState([]); // Store dates where symptoms are tracked
+  const [cycleLength, setCycleLength] = useState(28);
+  const [periodLength, setPeriodLength] = useState(4); // Default cycle length
+  const location = useLocation();
+  const currentUser = auth.currentUser; // Get the current authenticated user
 
-  const calculateCurrentPhase = (cycleLength) => {
-    if (lastPeriodDates.length > 0 && cycleLength > 0) {
-      const today = new Date();
-      const daysSinceLastPeriod = Math.round((today - lastPeriodDates[lastPeriodDates.length - 1]) / (1000 * 60 * 60 * 24));
-
-      if (daysSinceLastPeriod <= cycleLength) {
-        setCurrentPhase('Menstruation');
-      } else if (daysSinceLastPeriod <= cycleLength + 4) {
-        setCurrentPhase('Follicular Phase');
-      } else if (daysSinceLastPeriod <= cycleLength + 14) {
-        setCurrentPhase('Ovulation');
-      } else {
-        setCurrentPhase('Luteal Phase');
-      }
-    }
-  };
-
+  
   useEffect(() => {
     if (currentUser) {
-      const userRef = ref(database, `users/${currentUser.uid}`);
+      const userRef = ref(database, `users/${currentUser.uid}`); // Reference to the current user's node
 
-      get(userRef)
-        .then((snapshot) => {
-          if (snapshot.exists()) {
-            const userInfo = snapshot.val();
-            const lastPeriodDateString = userInfo.lastPeriod;
-            const cycleLength = parseInt(userInfo.cycleLength);
-            const periodLength = parseInt(userInfo.periodLength);
+      const queryParams = new URLSearchParams(location.search);
+      const lastPeriodDateString = queryParams.get('lastPeriod');
+      const cycleLengthParam = queryParams.get('cycleLength');
+      const periodLengthParam = queryParams.get('periodLength');
+     
+      // Parse cycleLengthParam into an integer if it's a valid number
+    let cycleLength = parseInt(cycleLengthParam);
+    cycleLength = isNaN(cycleLength) ? 28 : cycleLength; // Default to 28 if not a number
 
-            console.log("Retrieved user info:", userInfo);
+    let periodLength = parseInt(periodLengthParam);
+    periodLength = isNaN(periodLength) ? 4 : periodLength; // Default to 5 if not a number
 
-            if (lastPeriodDateString && cycleLength > 0 && periodLength > 0) {
-              const lastPeriodDate = new Date(lastPeriodDateString);
 
-              const predictedStartDate = new Date(lastPeriodDate);
-              predictedStartDate.setDate(predictedStartDate.getDate() + cycleLength);
+      console.log("lastPeriodDates:", lastPeriodDates);
+      console.log("cycleLength:", cycleLength);
+      console.log("periodLength:", periodLength);
 
-              const predictedDates = [];
-              for (let i = 0; i < periodLength; i++) {
-                const predictedDate = new Date(predictedStartDate);
-                predictedDate.setDate(predictedStartDate.getDate() + i);
-                predictedDates.push(predictedDate);
-              }
+      setCycleLength(cycleLength);
+      setPeriodLength(periodLength); 
+    
+      if (lastPeriodDateString && cycleLength && periodLength) {
+        // Store user's information under their UID node in Firebase Realtime Database
+        set(userRef, {
+          lastPeriodDate: lastPeriodDateString,
+          cycleLength: cycleLength,
+          periodLength: periodLength
+        });
+      }
+  
 
-              setPredictedPeriodDates(predictedDates);
+      // Retrieve user's information from Firebase Realtime Database
+      get(userRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          const userInfo = snapshot.val();
+          const storedLastPeriodDate = userInfo.lastPeriodDate;
+          const storedCycleLength = userInfo.cycleLength;
+          const storedPeriodLength = userInfo.periodLength;
 
-              const lastPeriodDates = [];
-              for (let j = 0; j < periodLength; j++) {
-                const lastPeriodDate = new Date(lastPeriodDateString);
-                lastPeriodDate.setDate(lastPeriodDate.getDate() + j);
-                lastPeriodDates.push(lastPeriodDate);
-              }
-              setLastPeriodDates(lastPeriodDates);
+          if (
+            (lastPeriodDateString && cycleLength && periodLength) || // check if information is available in URL
+            (storedLastPeriodDate && storedCycleLength && storedPeriodLength) // check if information is available in local storage
+          ) {
+            const lastPeriodDate = new Date(lastPeriodDateString || storedLastPeriodDate);
+            const cycleLengthToUse = cycleLength || storedCycleLength;
+            const periodLengthToUse = periodLength || storedPeriodLength;
 
-              calculateCurrentPhase(cycleLength);
+            const predictedStartDate = new Date(lastPeriodDate);
+            predictedStartDate.setDate(predictedStartDate.getDate() + cycleLengthToUse);
+
+            const predictedDates = []; // store predicted dates
+            // calculate predicted dates based on user's info
+            for (let i = 0; i < periodLengthToUse; i++) {
+              const predictedDate = new Date(predictedStartDate);
+              predictedDate.setDate(predictedStartDate.getDate() + i);
+              predictedDates.push(predictedDate);
+            }
+
+            setPredictedPeriodDates(predictedDates);
+
+            const lastPeriodDates = []; // stores last period dates
+            // calculates last period dates based on user's info
+            for (let j = 0; j < periodLengthToUse; j++) {
+              const lastPeriodDate = new Date(lastPeriodDateString || storedLastPeriodDate);
+              lastPeriodDate.setDate(lastPeriodDate.getDate() + j);
+              lastPeriodDates.push(lastPeriodDate);
+            }
+            setLastPeriodDates(lastPeriodDates);
+
+            // Calculate the current phase
+            const today = new Date();
+            const daysSinceLastPeriod = Math.round((today - lastPeriodDates[lastPeriodDates.length - 1]) / (1000 * 60 * 60 * 24));
+             
+             if (daysSinceLastPeriod <= cycleLengthToUse) {
+              setCurrentPhase('Menstruation');
+            } else if (daysSinceLastPeriod <= cycleLengthToUse + 4) {
+              setCurrentPhase('Follicular Phase');
+            } else if (daysSinceLastPeriod <= cycleLengthToUse + periodLengthToUse) {
+              setCurrentPhase('Ovulation');
             } else {
-              console.warn('Missing or invalid data for period calculations');
+              setCurrentPhase('Luteal Phase');
             }
           }
-        })
-        .catch((error) => {
+        }
+      }).catch((error) => {
           console.error("Error getting data:", error);
         });
-
-      const userSymptomsRef = ref(database, `users/${currentUser.uid}/symptoms`);
-
-      const handleSymptomData = (snapshot) => {
+      
+      const symptomDatesRef = ref(database, `users/${currentUser.uid}/symptoms`);
+      get(symptomDatesRef).then((snapshot) => {
         if (snapshot.exists()) {
           const symptomDates = Object.keys(snapshot.val());
           setTrackedSymptomDates(symptomDates);
         }
-      };
-
-      // Listen for changes to symptom data
-      onValue(userSymptomsRef, handleSymptomData);
-
-      return () => {
-        // Stop listening for changes when the component unmounts
-        off(userSymptomsRef, handleSymptomData);
-      };
+      }).catch((error) => {
+        console.error("Error getting symptom dates:", error);
+      });
     }
-  }, [currentUser]);
+    
+  }, [location, currentUser]);
 
-  useEffect(() => {
-    if (showSymptomTracker) {
-      // Fetch symptom data again if the SymptomTracker is shown
-      const userSymptomsRef = ref(database, `users/${currentUser.uid}/symptoms`);
-      get(userSymptomsRef)
-        .then((snapshot) => {
-          if (snapshot.exists()) {
-            const symptomDates = Object.keys(snapshot.val());
-            setTrackedSymptomDates(symptomDates);
-          }
-        })
-        .catch((error) => {
-          console.error("Error getting symptom data:", error);
-        });
-    }
-  }, [showSymptomTracker, currentUser]);
 
+  //Definr titleClassName function
   const tileClassName = ({ date }) => {
     if (trackedSymptomDates.includes(date.toDateString())) {
       return 'tracked-symptom';
@@ -132,6 +142,7 @@ const PeriodCalendar = () => {
     return '';
   };
 
+  //Function to handle data selection
   const handleDateClick = (value) => {
     if (value <= new Date()) {
       setSelectedDate(value);
@@ -141,6 +152,7 @@ const PeriodCalendar = () => {
     }
   };
 
+  //Function to close symption tracker
   const handleCloseSymptomTracker = () => {
     setShowSymptomTracker(false);
     setSelectedDate(null);
@@ -161,10 +173,7 @@ const PeriodCalendar = () => {
             />
           </div>
           <div className="current-phase">
-            <p>
-              You're currently in {currentPhase}.{' '}
-              <Link to="/periodInfo">Learn more about your cycle</Link>
-            </p>
+             <p>You're currently in <span className="current-phase-word">{setCurrentPhase}</span>. <Link to="/periodInfo">Learn more about your cycle</Link></p>
           </div>
           <p className="caption">*Select a date to track a symptom</p>
           <h5 className="calendar-key">Calendar Key:</h5>

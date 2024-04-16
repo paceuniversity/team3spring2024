@@ -73,9 +73,8 @@ body{
 .current-phase {
   text-align: center;
   margin-top: 10px;
-  font-size: 2vh;
+  font-size: 14xp;
   color: #4a4a4a; 
-  background-color: #F9E4E6; 
   padding: 10px;
   border-radius: 5px;
 }
@@ -91,6 +90,11 @@ body{
 
 .current-phase a:hover {
   color: #000; 
+}
+
+.current-phase .current-phase-word {
+  color: red
+  font-weight bold; 
 }
 
 .react-calendar {
