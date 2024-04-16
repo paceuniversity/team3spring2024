@@ -4,10 +4,10 @@ import 'react-calendar/dist/Calendar.css';
 import { Card } from 'react-bootstrap';
 import '../Calendar.css';
 import NavBar from '../components/NavBar';
-import { ref, get, onValue, off } from 'firebase/database';
+import { ref, get, set  } from 'firebase/database';
 import { database, auth } from '../FirebaseConfig';
 import SymptomTracker from '../components/Symptoms';
-import { Link } from 'react-router-dom';
+import { Link , useLocation} from 'react-router-dom';
 
 const PeriodCalendar = () => {
   const [date, setDate] = useState(new Date());
@@ -25,7 +25,7 @@ const PeriodCalendar = () => {
   
   useEffect(() => {
     if (currentUser) {
-      const userRef = ref(database, `users/${currentUser.uid}`); // Reference to the current user's node
+      const userRef = ref(database, `user-info`); // Reference to the current user's node
 
       const queryParams = new URLSearchParams(location.search);
       const lastPeriodDateString = queryParams.get('lastPeriod');
@@ -97,7 +97,7 @@ const PeriodCalendar = () => {
 
             // Calculate the current phase
             const today = new Date();
-            const daysSinceLastPeriod = Math.round((today - lastPeriodDates[lastPeriodDates.length - 1]) / (1000 * 60 * 60 * 24));
+            const daysSinceLastPeriod = Math.round((today - new Date (lastPeriodDates)) / (1000 * 60 * 60 * 24));
              
              if (daysSinceLastPeriod <= cycleLengthToUse) {
               setCurrentPhase('Menstruation');
@@ -173,7 +173,7 @@ const PeriodCalendar = () => {
             />
           </div>
           <div className="current-phase">
-             <p>You're currently in <span className="current-phase-word">{setCurrentPhase}</span>. <Link to="/periodInfo">Learn more about your cycle</Link></p>
+             <p>You're currently in <span className="current-phase-word">{currentPhase}</span>. <Link to="/periodInfo">Learn more about your cycle</Link></p>
           </div>
           <p className="caption">*Select a date to track a symptom</p>
           <h5 className="calendar-key">Calendar Key:</h5>
