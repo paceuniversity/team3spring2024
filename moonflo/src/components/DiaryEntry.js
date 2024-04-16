@@ -179,7 +179,8 @@ const DiaryEntry = () => {
             ) : (
               <p className='submitted-entry'>{submittedEntry.entry}</p>
             )}
-            {<img src={submittedEntry.imageUrl} alt="Diary Entry photo" style={{width: '100%'}} />}
+            {<img src={submittedEntry.imageUrl} alt="Diary Entry photo"/>}
+            <br/>
             <a href="#" className="diary-trash-button" onClick={() => handleDeleteEntry(index)}>
               <BsTrash size={20} />
             </a>
