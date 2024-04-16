@@ -57,6 +57,7 @@ const PeriodCalendar = () => {
               }
               setLastPeriodDates(lastPeriodDates);
 
+              // cal for period phase 
               const calculateCurrentPhase = (cycleLength) => {
                 if (lastPeriodDates.length > 0 && cycleLength > 0) {
                   const today = new Date();
