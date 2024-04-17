@@ -43,7 +43,9 @@ const QuoteDisplay = ({ apiUrl, className }) => {
         <div className="card text-center">
           <div className="quote-card-body">
             <p className="card-text">{quote.text}</p>
-            {quote.author && <p className="card-text text-muted"> - {quote.author}</p>}
+            {quote.author && <p className="card-text text-muted"> - {quote.author.split(', ').filter((part, index, array) => {
+            return part.trim().toLowerCase() !== "type.fit";
+        }).join(' ')}</p>}
           </div>
         </div>
       )}
