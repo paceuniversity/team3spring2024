@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Card, CardBody } from 'react-bootstrap';
-import { BsPencil, BsTrash } from 'react-icons/bs';
-import { ref, get, set } from 'firebase/database';
-import { database, auth, storage } from '../FirebaseConfig';
-import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import './DiaryEntry.css';
+import { BsPencil, BsTrash } from 'react-icons/bs';
+import { ref, set, get } from 'firebase/database'; // Firebase modules
+import { database, auth, storage } from '../FirebaseConfig'; // Import FirebaseConfig
+import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const DiaryEntry = () => {
   const [mainEntry, setMainEntry] = useState('');
@@ -13,6 +13,7 @@ const DiaryEntry = () => {
   const [editState, setEditState] = useState({});
   const [image, setImage] = useState(null);
   const [refresh, setRefresh] = useState(false); // State to force re-render
+  const [editedEntry, setEditedEntry] = useState(''); // Track the entry being edited
 
   useEffect(() => {
     const fetchEntries = async () => {
@@ -46,7 +47,11 @@ const DiaryEntry = () => {
   };
 
   const handleMainEntryChange = (event) => {
-    setMainEntry(event.target.value);
+    if (!editState.hasOwnProperty('index')) {
+      setMainEntry(event.target.value);
+    } else {
+      setEditedEntry(event.target.value);
+    }
   };
 
   const handleDeleteEntry = (index) => {
@@ -65,15 +70,15 @@ const DiaryEntry = () => {
   const handleEditClick = (event, index) => {
     event.preventDefault();
     const currentEntry = submittedEntries[index].entry;
-    setMainEntry(currentEntry);
-    setEditState({ ...editState, [index]: true });
+    setEditedEntry(currentEntry);
+    setEditState({ index });
   };
 
   const handleUpdateEntry = async (index) => {
     const newEntries = [...submittedEntries];
-    newEntries[index].entry = mainEntry;
+    newEntries[index].entry = editedEntry;
     setSubmittedEntries(newEntries);
-    setEditState({ ...editState, [index]: false });
+    setEditState({}); // Reset edit state
 
     // Update entries in Firebase
     const currentUser = auth.currentUser;
@@ -119,7 +124,6 @@ const DiaryEntry = () => {
     }
   };
   
-
   return (
     <div>
       <Card className="diary-entry-card">
@@ -154,12 +158,12 @@ const DiaryEntry = () => {
         <Card key={index} className='submitted-entry-card'>
           <CardBody>
             <h4>{submittedEntry.date}</h4>
-            {editState[index] ? (
+            {editState.hasOwnProperty('index') && editState.index === index ? (
               <Form onSubmit={() => handleUpdateEntry(index)}>
                 <Form.Group controlId={`editEntryTextarea-${index}`}>
                   <Form.Control
                     as="textarea"
-                    value={mainEntry}
+                    value={editedEntry}
                     onChange={handleMainEntryChange}
                     placeholder="Edit your entry"
                     rows={10}
@@ -171,18 +175,20 @@ const DiaryEntry = () => {
                 </div>
               </Form>
             ) : (
-              <p className='submitted-entry'>{submittedEntry.entry}</p>
-            )}
-            {submittedEntry.imageUrl && (
+              <div>
+                <p className='submitted-entry'>{submittedEntry.entry}</p>
+                {submittedEntry.imageUrl && (
               <img src={submittedEntry.imageUrl} alt="Diary Entry photo" />
             )}
-            <br/>
-            <a href="#" className="diary-trash-button" onClick={() => handleDeleteEntry(index)}>
-              <BsTrash size={20} />
-            </a>
-            <a href="#" className="diary-edit-button" onClick={(event) => handleEditClick(event, index)}>
-              <BsPencil size={18} />
-            </a>
+                <br/>
+                <a href="#" className="diary-trash-button" onClick={() => handleDeleteEntry(index)}>
+                  <BsTrash size={20} />
+                </a>
+                <a href="#" className="diary-edit-button" onClick={(event) => handleEditClick(event, index)}>
+                  <BsPencil size={18} />
+                </a>
+              </div>
+            )}
           </CardBody>
         </Card>
       ))}
