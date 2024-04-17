@@ -53,7 +53,7 @@ MoonFlo is an all-inclusive menstrual tracking app designed to support women wit
 
 ### Sprint 3
 
-* [Sprint planning]()
+* [Sprint planning]() | [Sprint Backlog ] (https://docs.google.com/spreadsheets/d/16LdmRbjguXlF04vx6SLn2043veE7lPeCDQScBimvBFM/edit#gid=964327825)
 * [Scrums]()
 * [Sprint demo video]()
 * [Sprint retrospective]()
