@@ -178,7 +178,7 @@ const DiaryEntry = () => {
               <div>
                 <p className='submitted-entry'>{submittedEntry.entry}</p>
                 {submittedEntry.imageUrl && (
-              <img src={submittedEntry.imageUrl} alt="Diary Entry photo" />
+              <img className='submitted-entry-pic' src={submittedEntry.imageUrl} alt="Diary Entry photo" />
             )}
                 <br/>
                 <a href="#" className="diary-trash-button" onClick={() => handleDeleteEntry(index)}>
