@@ -15,25 +15,33 @@ const DiaryEntry = () => {
   const [image, setImage] = useState(null); 
 
   useEffect(() => {
-    // Get current date for entry
-    const currentDate = new Date().toLocaleDateString();
-    setDate(currentDate);
 
-    // Retrieve saved entries from Firebase
-    const currentUser = auth.currentUser;
-    if (currentUser) {
-      const userRef = ref(database, `users/${currentUser.uid}/diaryEntries`);
-      get(userRef)
-        .then((snapshot) => {
-          if (snapshot.exists()) {
-            const retrievedEntries = Object.values(snapshot.val());
-            setSubmittedEntries(retrievedEntries); // Update state with retrieved entries
-          }
-        })
-        .catch((error) => {
-          console.error('Error fetching entries:', error);
-        });
+    const fetchEntries = async () => {
+      // Get current date for entry
+      const currentDate = new Date().toLocaleDateString();
+      setDate(currentDate);
+      // Retrieve saved entries from Firebase
+      const currentUser = auth.currentUser;
+
+      if (currentUser) {
+        const userRef = ref(database, `users/${currentUser.uid}/diaryEntries`);
+        const snapshot = await get(userRef);
+        if (snapshot.exists()) {
+          const entries = Object.values(snapshot.val());
+          const entriesWithImages = await Promise.all(entries.map(async entry => {
+            if (entry.imageId) {
+              const url = await getDownloadURL(storageRef(storage, `images/${entry.imageId}`));
+              return { ...entry, imageUrl: url };
+            }
+            return entry;
+          }));
+          setSubmittedEntries(entriesWithImages);
+        }
+      }
+
+
     }
+    fetchEntries();
   }, []);
 
   const handleImageChange = (event) => {
@@ -115,6 +123,7 @@ const DiaryEntry = () => {
       console.error('User not authenticated. Please sign in to save entries.');
     }
     setMainEntry(''); // Clear for the next entry
+    setImage(null);
   };
 
   return (
@@ -170,13 +179,14 @@ const DiaryEntry = () => {
             ) : (
               <p className='submitted-entry'>{submittedEntry.entry}</p>
             )}
+            {<img src={submittedEntry.imageUrl} alt="Diary Entry photo"/>}
+            <br/>
             <a href="#" className="diary-trash-button" onClick={() => handleDeleteEntry(index)}>
               <BsTrash size={20} />
             </a>
             <a href="#" className="diary-edit-button" onClick={(event) => handleEditClick(event, index)}>
               <BsPencil size={18} />
             </a>
-
           </CardBody>
         </Card>
       ))}
