@@ -1,0 +1,28 @@
+.delete-account-btn, .delete-cancel-btn, .delete-confirm-btn{
+    margin-top:30px;
+    border: none !important;
+    color:#111111 !important;
+    border-radius: 15px !important;
+    padding: 5px;  
+}
+
+.delete-account-btn,.delete-confirm-btn{
+    background-color: rgb(213, 95, 95);
+}
+
+.delete-cancel-btn{
+    background-color: lightgray;
+}
+
+.delete-account-title{
+    font-weight: 500;
+    font-size: 25px;
+}
+
+.delete-text{
+   color: rgb(218, 28, 28); 
+}
+
+.delete-cancel-btn, .delete-confirm-btn{
+    font-weight:600;
+}
