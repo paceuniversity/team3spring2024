@@ -1,14 +1,17 @@
 import { useState } from "react";
-import { getAuth, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth'; // Import Firebase auth methods
+import { getAuth, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
+import { getDatabase, ref, remove } from 'firebase/database'; // Import Firebase Realtime Database functions
 import { useNavigate } from "react-router-dom";
+
 import './DeleteAccount.css';
 
 const DeleteAccount = () => {
     const [showModal, setShowModal] = useState(false);
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
-    const auth = getAuth(); // Initialize Firebase auth
+    const auth = getAuth();
     const navigate = useNavigate();
+    const database = getDatabase(); // Initialize Firebase Realtime Database
 
     const toggleModal = () => {
         setShowModal(!showModal);
@@ -24,31 +27,40 @@ const DeleteAccount = () => {
     
         const { currentUser } = auth;
     
-        // Create the credential
         const credential = EmailAuthProvider.credential(
             currentUser.email,
             password
         );
     
         try {
-            // Re-authenticate the user with the credential
             await reauthenticateWithCredential(currentUser, credential);
-            // If reauthentication succeeds, delete the account
             await currentUser.delete();
             console.log("Account deleted successfully!");
-            // Show confirmation message
+            // Delete user's information from the Realtime Database
+            await deleteUserFromDatabase(currentUser.uid);
             alert("Your account has been successfully deleted.");
-            // Redirect to the homepage
             navigate('/');
         } catch (error) {
-                setError("Incorrect password, please try again.");
-                console.error("Error deleting account:", error);
-            }
+            setError("Incorrect password, please try again.");
+            console.error("Error deleting account:", error);
+        }
     };      
 
     const handleModalContentClick = (e) => {
         e.stopPropagation();
     };
+
+  
+    const deleteUserFromDatabase = async (uid) => {
+        const userRef = ref(database, 'users/' + uid); // Use uid directly as key
+        try {
+          console.log("Deleting user's information from the database");
+          await remove(userRef);
+          console.log("User's information deleted from the database");
+        } catch (error) {
+          console.error("Error deleting user's information from the database:", error);
+        }
+      };
 
     return (
         <div>
