@@ -40,6 +40,13 @@ const NavBar = () =>{
             </ul>
             <ul className="nav-link">
                 <li>
+                    <NavLink to="/medInfo" activeClassName="active">
+                        <BsBook size={iconSize} strokeWidth={strokeWidth}/>
+                    </NavLink>
+                </li>
+            </ul>
+            <ul className="nav-link">
+                <li>
                     <NavLink to="/settings" activeClassName="active">
                         <BsGear size={iconSize} strokeWidth={strokeWidth}/>
                     </NavLink>
