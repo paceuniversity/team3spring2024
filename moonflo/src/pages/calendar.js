@@ -206,12 +206,19 @@ const PeriodCalendar = () => {
             />
           </div>
           
-          <label>When was your last period?</label>
-          <ReactDatePicker selected={selectedDate} onChange={(date) => setSelectedDate(date)} />
+          <div className="last-period-date">
+          <label>Update the start date of your last period: </label>
+          <ReactDatePicker
+            selected={selectedDate || lastPeriodStartDate}
+            onChange={(date) => setSelectedDate(date)}
+            maxDate={new Date()} // Set maxDate to the current date
+            className="custom-datepicker"
+          />
+
           <Button className="last-period-btn" onClick={handleSave} disabled={!selectedDate || saving}>
             {saving ? 'Saving...' : 'Save'}
           </Button>
-        
+          </div>
           <p className="caption">*Select a date to track a symptom</p>
           <h5 className="calendar-key">Calendar Key:</h5>
           <ul className="calendar-key-list">
@@ -224,6 +231,8 @@ const PeriodCalendar = () => {
       {showSymptomTracker && selectedDate && (
         <SymptomTracker selectedDate={selectedDate} onClose={handleCloseSymptomTracker} />
       )}
+      <h1 id='hidden'>.</h1>
+      <h1 id='hidden'>.</h1>
       <NavBar />
     </div>
   );

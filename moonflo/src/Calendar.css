@@ -188,7 +188,16 @@ body{
   background:#c6a4ac!important;
   border:none;
   color: black !important;
+  width: 70px;
 }
 
+.custom-datepicker {
+  margin-left: 10px;
+  width: 95px; 
+}
+
+.last-period-date{
+  text-align: center;
+}
 
 
