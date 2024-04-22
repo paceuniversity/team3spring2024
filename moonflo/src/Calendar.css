@@ -181,7 +181,14 @@ body{
   margin-top: 0px;
 }
 
-
+.last-period-btn{
+  margin: 10px;
+  border-radius: 15px;
+  padding: 2px;
+  background:#c6a4ac!important;
+  border:none;
+  color: black !important;
+}
 
 
 
