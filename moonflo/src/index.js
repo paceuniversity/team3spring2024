@@ -14,6 +14,7 @@ import Diary from './pages/diary';
 import Meditation from './pages/meditation';
 import Settings from './pages/settings';
 import PeriodInfo from './pages/periodInfo';
+import MedInfo from './pages/medInfo';
 
 import {
   createBrowserRouter,
@@ -70,6 +71,11 @@ const router = createBrowserRouter([
     path: "periodInfo",
     element: <PeriodInfo/>,
   },
+  {
+    path: "medInfo",
+    element: <MedInfo/>,
+  },
+    
     
 ]);
 
