@@ -75,18 +75,21 @@ body{
   text-align: center;
   margin-top: 10px;
   color: #4a4a4a; 
-  padding: 10px;
+  padding: 5px;
   border-radius: 5px;
+  margin: 10px
 }
 
 .current-phase p {
   margin: 0;
+  font-size: 18px;
 }
 
 /* Underline the text */
 .current-phase a {
   color: #4a4a4a; 
   text-decoration: underline;
+  font-size: 16px;
 }
 
 .current-phase a:hover {
@@ -185,14 +188,14 @@ body{
   margin: 10px;
   border-radius: 15px;
   padding: 2px;
-  background:#c6a4ac!important;
+  background:#D4AFB9!important;
   border:none;
   color: black !important;
-  width: 70px;
+  width: 65px;
 }
 
 .custom-datepicker {
-  margin-left: 10px;
+  margin-left: 5px;
   text-align: center;
   width: 100px; 
 }
