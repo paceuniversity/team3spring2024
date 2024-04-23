@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { Card, Button, Form } from 'react-bootstrap'; // Import Button from react-bootstrap
+import { Card, Button } from 'react-bootstrap'; // Import Button from react-bootstrap
 import '../Calendar.css';
 import NavBar from '../components/NavBar';
-import { ref, get, set, onValue, off, update } from 'firebase/database';
+import { ref, get, onValue, off, update } from 'firebase/database';
 import { database, auth } from '../FirebaseConfig';
 import SymptomTracker from '../components/Symptoms';
 import { Link } from 'react-router-dom';
@@ -141,8 +141,9 @@ const PeriodCalendar = () => {
     if (lastPeriodDates.find((d) => d.toDateString() === dateString)) {
       return 'last-period';
     }
-    return '';
+    return ''; 
   };
+  
   
   const handleDateClick = (value) => {
     if (value <= new Date()) {
@@ -180,9 +181,6 @@ const PeriodCalendar = () => {
         setSaving(false);
       });
   };
-  
-  
-  
 
   const updatePredictedDates = (lastPeriodDate, cycleLength, periodLength) => {
     const predictedStartDate = new Date(lastPeriodDate);
@@ -205,10 +203,10 @@ const PeriodCalendar = () => {
 
   return (
     <div className="parent-calendar-container">
-      <Card>
+      <Card className="current-phase">
         <Card.Body>
-          <div className="current-phase">
-             <p>You're currently in <span style={{ fontWeight: 'bold', color: 'maroon', fontSize: '18px' }}>{currentPhase}</span>. <Link to="/periodInfo">Learn more about your cycle</Link></p> 
+          <div >
+             <p>You're currently in <span style={{ fontWeight: 'bold', color: 'maroon', fontSize: '18px' }}>{currentPhase}</span>. <br></br><Link to="/periodInfo">Learn more about your cycle</Link></p> 
           </div>
           </Card.Body>
       </Card>
@@ -235,7 +233,7 @@ const PeriodCalendar = () => {
           />
 
           <Button className="last-period-btn" onClick={handleSave} disabled={!selectedDate || saving}>
-            {saving ? 'Saving...' : 'Save'}
+            {saving ? 'Saving...' : 'Save'} 
           </Button>
           </div>
           <p className="caption">*Select a date to track a symptom</p>
