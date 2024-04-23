@@ -8,7 +8,7 @@ const Meditation = () => {
         <div>
             <NavBar />
             <Timer seconds={300} /> 
-            <medInfo />  // Include the medInfo component in the render
+            <medInfo />  
         </div>
     );
 };
