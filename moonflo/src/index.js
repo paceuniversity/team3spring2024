@@ -16,6 +16,9 @@ import Settings from './pages/settings';
 import PeriodInfo from './pages/periodInfo';
 import MedInfo from './pages/medInfo';
 
+
+
+
 import {
   createBrowserRouter,
   RouterProvider,
