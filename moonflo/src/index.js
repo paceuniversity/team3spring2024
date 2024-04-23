@@ -15,6 +15,9 @@ import Meditation from './pages/meditation';
 import Settings from './pages/settings';
 import PeriodInfo from './pages/periodInfo';
 
+
+
+
 import {
   createBrowserRouter,
   RouterProvider,
