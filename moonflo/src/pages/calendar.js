@@ -127,18 +127,23 @@ const PeriodCalendar = () => {
   }, [showSymptomTracker, currentUser]);
 
   const tileClassName = ({ date }) => {
-    if (trackedSymptomDates.includes(date.toDateString())) {
+    const dateString = date.toDateString();
+    
+    if (trackedSymptomDates.includes(dateString) && lastPeriodDates.find((d) => d.toDateString() === dateString)) {
+      return 'last-period';
+    }
+    if (trackedSymptomDates.includes(dateString)) {
       return 'tracked-symptom';
     }
-    if (predictedPeriodDates.find((d) => d.toDateString() === date.toDateString())) {
+    if (predictedPeriodDates.find((d) => d.toDateString() === dateString)) {
       return 'predicted-period';
     }
-    if (lastPeriodDates.find((d) => d.toDateString() === date.toDateString())) {
+    if (lastPeriodDates.find((d) => d.toDateString() === dateString)) {
       return 'last-period';
     }
     return '';
   };
-
+  
   const handleDateClick = (value) => {
     if (value <= new Date()) {
       setSelectedDate(value);
@@ -150,13 +155,24 @@ const PeriodCalendar = () => {
 
   const handleSave = () => {
     setSaving(true);
-
+  
+    const selectedDateCopy = new Date(selectedDate); // Create a copy of selectedDate
+  
     const userRef = ref(database, `users/${currentUser.uid}`);
-    const updates = { lastPeriod: selectedDate.toDateString() };
+    const updates = { lastPeriod: selectedDateCopy.toDateString() };
     update(userRef, updates)
       .then(() => {
         console.log('Last period start date updated successfully!');
-        updatePredictedDates(selectedDate, parseInt(userInfo.cycleLength), parseInt(userInfo.periodLength));
+        // Manually update lastPeriodDates state
+        const updatedLastPeriodDates = [];
+        for (let j = 0; j < parseInt(userInfo.periodLength); j++) {
+          const lastPeriodDate = new Date(selectedDateCopy);
+          lastPeriodDate.setDate(lastPeriodDate.getDate() + j);
+          updatedLastPeriodDates.push(lastPeriodDate);
+        }
+        setLastPeriodDates(updatedLastPeriodDates);
+        // Update predicted dates if needed
+        updatePredictedDates(selectedDateCopy, parseInt(userInfo.cycleLength), parseInt(userInfo.periodLength));
         setSaving(false);
       })
       .catch((error) => {
@@ -164,6 +180,9 @@ const PeriodCalendar = () => {
         setSaving(false);
       });
   };
+  
+  
+  
 
   const updatePredictedDates = (lastPeriodDate, cycleLength, periodLength) => {
     const predictedStartDate = new Date(lastPeriodDate);
@@ -231,7 +250,7 @@ const PeriodCalendar = () => {
       {showSymptomTracker && selectedDate && (
         <SymptomTracker selectedDate={selectedDate} onClose={handleCloseSymptomTracker} />
       )}
-      <h1 id='hidden'>.</h1>
+       <h1 id='hidden'>.</h1>
       <h1 id='hidden'>.</h1>
       <NavBar />
     </div>

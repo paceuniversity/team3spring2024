@@ -63,7 +63,7 @@ body{
   border-radius: 0;
 }
 
-.last-period{
+.react-calendar__tile.last-period {
   background-color: #b74c4c; 
   color: white; 
   z-index: 0;
@@ -193,7 +193,8 @@ body{
 
 .custom-datepicker {
   margin-left: 10px;
-  width: 95px; 
+  text-align: center;
+  width: 100px; 
 }
 
 .last-period-date{
