@@ -1,0 +1,13 @@
+ .period-info{
+    font-size: 19px;
+    margin-top: 10px;
+ }
+ .period-info-save{
+    text-align: center;
+ }
+ .period-info-save-btn{
+    border-radius: 20px;
+    background-color: #D4AFB9 !important;
+    color:black;
+    border: none !important;
+ }

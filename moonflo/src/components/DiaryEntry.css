@@ -13,6 +13,7 @@
     background-color: #92aee7;
     border:none;
     border-radius: 20px;
+    color:black;
 }
 .diary-submit button:hover{
     background-color: grey;
@@ -52,10 +53,8 @@
     margin-left: 10px;
 }
 .diary-edit-button:hover{
-    color:rgb(143, 142, 142);
-   
+    color:rgb(143, 142, 142); 
 }
-
 img {
     width: 50%
 }
