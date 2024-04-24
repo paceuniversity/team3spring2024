@@ -31,7 +31,6 @@ const QuoteDisplay = ({ apiUrl, className }) => {
     return () => clearInterval(interval);
   }, [apiUrl]);
 
-  if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
