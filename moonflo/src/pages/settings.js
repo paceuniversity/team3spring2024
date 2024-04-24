@@ -31,7 +31,7 @@ const Settings = () => {
         <div className="setting-card-container">
           <Card className="setting-card">
             <CardBody className="setting-card-body">
-              <h1>Settings</h1>
+              <h1>Account Info</h1>
               <a className="edit-button" onClick={handleEditClick}>
                 {isEdit ? <BsXCircle/> : <BsPencilSquare />}
               </a>
