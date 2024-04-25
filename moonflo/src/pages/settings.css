@@ -7,8 +7,8 @@
   
   .setting-card {
     width: 100%;
-    max-width: 400px;
-   
+    max-width: 500px;
+
   }
   
   .setting-card-body {
@@ -35,7 +35,7 @@
   position: absolute;
   top: 10px;
   right: 15px; 
-  font-size: 20px; 
+  font-size: 22px; 
   color: black; 
   cursor: pointer;
 }

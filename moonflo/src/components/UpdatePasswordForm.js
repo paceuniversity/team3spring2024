@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
 import { auth } from '../FirebaseConfig.js'; 
 import { Button } from "react-bootstrap";
+import "./UpdatePasswordForm.css";
 
 const UpdatePasswordForm = () => {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -80,7 +81,9 @@ const UpdatePasswordForm = () => {
           required
         />
       </div>
-      <Button type="submit">Save</Button>
+      <div className="password-save">
+        <Button className="password-save-btn" type="submit">Update Password</Button>
+      </div>
     </form>
   );
 };

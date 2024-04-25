@@ -1,14 +1,31 @@
- .period-info{
-    font-size: 19px;
-    margin-top: 10px;
-    padding-right: 45px;
+.period-info {
+   font-size: 19px;
+   margin-top: 10px;
+   padding-right: 20px;
+   margin-right: 20px;
  }
- .period-info-save{
-    text-align: center;
+ 
+ .period-info input[type="number"] {
+   width: 230px; 
+   float: right;
  }
- .period-info-save-btn{
-    border-radius: 20px;
-    background-color: #D4AFB9 !important;
-    color:black;
-    border: none !important;
+ 
+ .period-info label {
+   display: inline-block;
+   margin-left:70px;
+   padding-right:10px;
  }
+ 
+ .period-info-save {
+   text-align: center;
+ }
+ 
+ .period-info-save .period-info-save-btn {
+   border-radius: 20px;
+   background-color: #D4AFB9 !important;
+   color: black;
+   border: none !important;
+   text-align: center;
+   margin-left: 40px;
+ }
+ 
