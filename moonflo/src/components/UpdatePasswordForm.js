@@ -54,6 +54,7 @@ const UpdatePasswordForm = () => {
       <div className="form-group">
         <label htmlFor="currentPassword">Current Password: </label>
         <input
+          className="password-form"
           type="password"
           id="currentPassword"
           value={currentPassword}
@@ -64,6 +65,7 @@ const UpdatePasswordForm = () => {
       <div className="form-group">
         <label htmlFor="newPassword">New Password: </label>
         <input
+          className="password-form"
           type="password"
           id="newPassword"
           value={newPassword}
@@ -74,6 +76,7 @@ const UpdatePasswordForm = () => {
       <div className="form-group">
         <label htmlFor="confirmPassword">Confirm New Password: </label>
         <input
+          className="password-form"
           type="password"
           id="confirmPassword"
           value={confirmPassword}
