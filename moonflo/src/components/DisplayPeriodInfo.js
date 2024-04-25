@@ -102,7 +102,7 @@ const DisplayPeriodInfo = ({ isEdit }) => {
                   />
                 </p>
                 <div className="period-info-save">
-                <Button className="period-info-save-btn" onClick={handleSave}>Save</Button>
+                <Button className="period-info-save-btn" onClick={handleSave}>Save Info</Button>
                 </div>
               </>
             ) : (
