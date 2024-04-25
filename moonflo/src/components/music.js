@@ -39,9 +39,6 @@ const Music = ({ selectedDate, onClose }) => {
   return (
     <div className="music-popup">
       <div className="music-content">
-      <a href="#" onClick={onClose} className="x-circle-button">
-        <BsXCircle size={30}/>
-      </a>
         <h2>Pick a song to start your meditation session</h2>
         <div className="music-button-container">
           <Button 
@@ -76,7 +73,6 @@ const Music = ({ selectedDate, onClose }) => {
           </Button>
         </div>
         <br></br>
-        <Button onClick={handleSubmit} className="save-button">Save</Button>
       </div>
     </div>
   );
