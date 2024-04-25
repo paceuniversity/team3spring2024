@@ -1,17 +1,19 @@
-.Period{
-    background-color: #b74c4c;  
-}
+
 .Pain{
     background-color: #F4BA90;
+    color:black; 
 }
 .Energy{
     background-color: #f4d98b;
+    color:black; 
 }
 .Moody{
     background-color: #8ea5e5;
+    color:black; 
 }
 .Sexual-Activity{
     background-color: #c0a9ef;
+    color:black; 
 }
 
 .selected {
@@ -40,6 +42,7 @@
     background-color: #D4AFB9;
     border: none;
     border-radius: 20px;
+    color:black;
 }
 .save-button:hover {
     background-color: #d8dcde;

@@ -1,0 +1,50 @@
+.timer {
+    background-color: white;
+    border-radius: 6px;
+    padding: 15px;
+    margin: 30px;
+    margin-bottom: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}
+
+
+/* make the buttons stacked*/
+.timer div {
+    display: flex;
+    flex-direction: column;  
+    align-items: center; 
+}
+
+
+
+.timer button {
+    margin: 10px;
+    padding: 6px ; 
+    font-size: 14px; 
+    cursor: pointer;
+}
+
+
+
+text {
+    fill: rgb(0, 0, 0);
+    font-size: 40px;
+    
+}
+
+
+.timer select {
+    background-color: #eed1da;
+    width: 200px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border-color: #d6b2be;
+    padding: 6px ; 
+    cursor: pointer;
+    display: block; /* Ensures that the select fills the container */
+    text-align: center;
+}

@@ -48,12 +48,6 @@ const SymptomTracker = ({ selectedDate, onClose }) => {
         <h4>Select the following you are experiencing</h4>
         <div className="symptoms-button-container">
           <Button 
-            className={`Period ${selectedSymptoms.includes('Period') ? 'selected' : ''}`} 
-            onClick={() => handleSymptomSelect('Period')}
-          >
-            <BsDroplet size={iconSize} /> <br />Period
-          </Button>
-          <Button 
             className={`Pain ${selectedSymptoms.includes('Pain') ? 'selected' : ''}`} 
             onClick={() => handleSymptomSelect('Pain')}
           >

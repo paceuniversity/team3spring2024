@@ -1,39 +1,75 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
-import { signOut } from "firebase/auth";
-import { auth } from '../FirebaseConfig.js'; 
+import { signOut, getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { Button, Card, CardBody } from "react-bootstrap";
 import DeleteAccount from "../components/DeleteAccount";
+import DisplayPeriodInfo from "../components/DisplayPeriodInfo";
+import { BsPencilSquare, BsXCircle } from "react-icons/bs";
+import UpdatePasswordForm from "../components/UpdatePasswordForm"; // Import the UpdatePasswordForm component
 import "./settings.css";
 
-
 const Settings = () => {
-    const history = useNavigate();
+  const history = useNavigate();
+  const [isEdit, setIsEdit] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+  const auth = getAuth();
 
-    const handleClick = () => {
-        signOut(auth) 
-            .then((val) => {
-                console.log(val);
-                history('/');
-            })
-            .catch(error => {
-                console.error("Error signing out:", error);
-            });
-    };
+  const fetchUserEmail = () => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserEmail(user.email);
+      } else {
+        setUserEmail("");
+      }
+    });
+  };
 
-    return (
-        <div className="setting-card-container">
-            <Card className="setting-card">
-                <CardBody className="setting-card-body">
-                    <h1>Settings</h1>
-                    <Button className="setting-button" onClick={handleClick}>Sign Out</Button>
-                    <DeleteAccount/>
-                    <NavBar />
-                </CardBody>
-            </Card>
-        </div>
-    );
+  useEffect(() => {
+    fetchUserEmail();
+  }, []);
+
+  const handleClick = () => {
+    signOut(auth)
+      .then(() => {
+        history("/");
+      })
+      .catch((error) => {
+        console.error("Error signing out:", error);
+      });
+  };
+
+  const handleEditClick = () => {
+    setIsEdit(!isEdit);
+  };
+
+  return (
+    <div className="setting-card-container">
+      <Card className="setting-card">
+        <CardBody className="setting-card-body">
+          <h1>Account Info</h1>
+          <a className="edit-button" onClick={handleEditClick}>
+            {isEdit ? <BsXCircle /> : <BsPencilSquare />}
+          </a>
+          <DisplayPeriodInfo isEdit={isEdit} />
+          {isEdit && <UpdatePasswordForm />} {/* Render UpdatePasswordForm only when isEdit is true */}
+          {!isEdit && (
+            <>
+              <div className="email-password-container">
+                <p>Email: {userEmail}</p>
+                <p>Password: *********</p>
+              </div>
+              <Button className="setting-button" onClick={handleClick}>
+                Sign Out
+              </Button>
+              <DeleteAccount />
+            </>
+          )}
+          <NavBar />
+        </CardBody>
+      </Card>
+    </div>
+  );
 };
 
 export default Settings;
