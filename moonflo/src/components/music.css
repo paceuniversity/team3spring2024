@@ -1,0 +1,30 @@
+.Relax{
+    background-color: #b74c4c;  
+}
+.Peace{
+    background-color: #F4BA90;
+}
+.Balance{
+    background-color: #f4d98b;
+}
+.Elevate{
+    background-color: #8ea5e5;
+}
+.Soaring{
+    background-color: #c0a9ef;
+}
+
+.selected {
+    background-color: rgb(87, 86, 86); 
+    color: white; 
+}
+
+.music-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+  
+  
