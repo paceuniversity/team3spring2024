@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import Accordion from '../components/Accordion.js';
 import Accordions from '../components/Accordion.css';
-import '../medinfo.css';
+import './medinfo.css';
 
 
 const accordionData = [

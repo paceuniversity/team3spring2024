@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { Card, Button } from 'react-bootstrap'; // Import Button from react-bootstrap
-import '../Calendar.css';
+import './Calendar.css';
 import NavBar from '../components/NavBar';
 import { ref, get, onValue, off, update } from 'firebase/database';
 import { database, auth } from '../FirebaseConfig';

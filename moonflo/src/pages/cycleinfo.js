@@ -4,7 +4,7 @@ import Accordion from '../components/Accordion.js';
 import Cycle from '../img/Cycle.jpg';
 import Cycle2 from '../img/Cycle2.jpg';
 import Accordions from '../components/Accordion.css';
-import '../cycleinfo.css';
+import './cycleinfo.css';
 
 
 const accordionData = [
