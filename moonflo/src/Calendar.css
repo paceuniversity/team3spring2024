@@ -204,4 +204,72 @@ body{
   text-align: center;
 }
 
+@media only screen and (max-width: 500px) {
+  .calendar-container {
+    flex-direction: column;
+    align-items: center;
+  }
 
+  .calendar {
+    margin: 10px 0;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .parent-calender-container {
+    padding-top: 0;
+  }
+
+  .symptoms-button-container {
+    column-count: 1;
+  }
+
+  .symptoms-button-container button {
+    margin: 10px auto;
+  }
+
+  .last-period-btn {
+    margin: 10px auto;
+    margin-left: 10px;
+  }
+
+  .custom-datepicker {
+    margin-left: 0;
+  }
+
+  .last-period-date {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .react-calendar {
+    font-size: 2vh;
+  }
+
+  .calendar-key-list {
+    font-size: 14px;
+  }
+
+  .caption {
+    font-size: 14px;
+  }
+  .symptom-tracker-popup {
+    width: 350px;
+    padding: 10px;
+  }
+  .symptoms-button-container {
+    text-align: center;
+    column-count: 1;
+  }
+
+  .symptoms-button-container button {
+    margin: 10px auto;
+  }
+ 
+  .react-calendar__navigation{
+    font-size: 14px;
+  }
+  .title{
+    font-size: 20px;
+  }
+}
