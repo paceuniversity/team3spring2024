@@ -206,7 +206,7 @@ const PeriodCalendar = () => {
       <Card className="current-phase">
         <Card.Body>
           <div >
-             <p>You're currently in <span style={{ fontWeight: 'bold', color: 'maroon', fontSize: '18px' }}>{currentPhase}</span>. <br></br><Link to="/periodInfo">Learn more about your cycle</Link></p> 
+             <p>You're currently in <span style={{ fontWeight: 'bold', color: 'maroon', fontSize: '18px' }}>{currentPhase}</span>. <br></br><Link to="/medInfo">Learn more about your cycle</Link></p> 
           </div>
           </Card.Body>
       </Card>
