@@ -24,3 +24,84 @@ table {
   th {
     background-color: pink;
   }
+  .medInfoContainer {
+    position: relative;
+  }
+  
+  .floatingHeader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    font-size: 25px;
+  }
+  .infoContainer {
+    display: grid;
+    place-items: center;
+    grid-gap:20px;
+    margin: 30px;
+    margin-top: 75px;
+  }
+  
+  .infoContainer a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    
+  }
+  
+  .infoContainer a img {
+    width: 100%;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 20px;
+  }
+  
+  .content-caption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+    box-sizing: border-box; 
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    color:black;
+    font-size: 20px;
+  }
+  
+  @media (min-width: 700px) {
+    .infoContainer {
+      grid-gap: 15px;
+    }
+  
+    .infoContainer a img {
+      max-height: calc(50vh - 30px);
+      height: 50vh;
+      object-fit: cover;
+    }
+  }
+  .backButton {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    padding: 5px 10px;
+    z-index: 1001;
+    font-size: 18px;
+  }
+  
+  .backButton:hover {
+    background-color: #f0f0f0;
+  }
+  .hidden{
+    color:#D4AFB9;
+  }
