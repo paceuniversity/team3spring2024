@@ -48,8 +48,8 @@ body{
 
 .calendar{
   margin: 10px;
-  padding-top: 20px;
   padding-bottom: 20px;
+  margin-top: 75px;
 }
 .tracked-symptom {
   background-color: rgb(196, 193, 193); 
@@ -77,19 +77,21 @@ body{
   color: #4a4a4a; 
   padding: 5px;
   border-radius: 5px;
-  margin: 10px
+  margin: 10px;
+  
 }
 
 .current-phase p {
   margin: 0;
-  font-size: 18px;
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
 /* Underline the text */
 .current-phase a {
   color: #4a4a4a; 
   text-decoration: underline;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .current-phase a:hover {
@@ -211,7 +213,7 @@ body{
   }
 
   .calendar {
-    margin: 10px 0;
+    margin-top: 75px;
     margin-left: 10px;
     margin-right: 10px;
   }
@@ -271,5 +273,15 @@ body{
   }
   .title{
     font-size: 20px;
+  }
+  .current-phase p {
+    margin: 0;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  .current-phase a {
+    color: #4a4a4a; 
+    text-decoration: underline;
+    font-size: 16px;
   }
 }

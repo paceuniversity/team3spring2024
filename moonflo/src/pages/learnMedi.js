@@ -65,7 +65,7 @@ const LearnMedi = () => {
   return (
 <div id='medinfo'>
 
-  <h1>Learn how to Meditation!</h1>
+  <h1>Learn How to Meditation!</h1>
   <p>Meditation is a practice that nurtures your inner well-being and cultivates mindfulness. It involves dedicating time to quieting the mind, fostering a deeper connection with the present moment. Through meditation, you embark on a journey of self-discovery and inner peace. The practice varies widely, encompassing techniques such as Zen meditation, Yoga meditation, Chakra meditation, and Sound Bath meditation, each offering unique paths to mental clarity and emotional balance.</p>
   <strong>What You Might Feel And Why</strong>
         <p>Many people often feel a range of sensations, which can very from person to person and session to session. Here are some common experience reported by individuals:</p>

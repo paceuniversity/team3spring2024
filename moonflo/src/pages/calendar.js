@@ -202,17 +202,14 @@ const PeriodCalendar = () => {
   };
 
   return (
+    
     <div className="parent-calendar-container">
-      <Card className="current-phase">
+       <div className="floatingHeader">Period Calendar</div>
+      <Card className="calendar">   
         <Card.Body>
-          <div >
+          <div className="current-phase">
              <p>You're currently in <span style={{ fontWeight: 'bold', color: 'maroon', fontSize: '18px' }}>{currentPhase}</span>. <br></br><Link to="/medInfo">Learn more about your cycle</Link></p> 
           </div>
-          </Card.Body>
-      </Card>
-      <Card className="calendar">
-        <Card.Title className="title">Period Calendar</Card.Title>
-        <Card.Body>
           <div className="calendar-container">
             <Calendar
               onChange={setDate}
