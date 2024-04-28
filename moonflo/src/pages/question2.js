@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../App.css";
-import "../questions.css";
+import "./questions.css";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Button, Card, CardBody, Form } from "react-bootstrap";

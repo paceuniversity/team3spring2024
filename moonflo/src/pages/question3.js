@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../App.css";
-import "../questions.css";
+import "./questions.css";
 import { Button, Card, CardBody, Form, FormLabel } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useLocation, useNavigate } from 'react-router-dom';
