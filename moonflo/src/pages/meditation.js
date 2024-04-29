@@ -1,57 +1,63 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import NavBar from '../components/NavBar';
-import MusicPlayer from '../components/MusicPlayer'; // Import the MusicPlayer component
+import MusicPlayer from '../components/MusicPlayer';
+import Timer from '../components/Timer';
+import PeaceMusic from '../components/peaceMusic';
 import './periodInfo.css';
-import { BsArrowLeft } from 'react-icons/bs'; 
+import { BsArrowLeft } from 'react-icons/bs';
 
 const Meditation = () => {
   const [activeComponent, setActiveComponent] = useState(null);
   const [selectedMusic, setSelectedMusic] = useState('');
 
   const handleClick = (component) => {
-    setActiveComponent(component); // Update activeComponent based on clicked image
+    setActiveComponent(component);
   };
 
   const handleBack = () => {
-    setActiveComponent(null); // Set activeComponent to null to go back to the content page
+    setActiveComponent(null);
   };
 
   const handleMusicSelection = (music) => {
     setSelectedMusic(music);
-    setActiveComponent('music'); // Set activeComponent to 'music' to render MusicPlayer
+    if (music === 'Peace') { // If the selected music is Peace, set the active component to PeaceMusic
+      setActiveComponent('peaceMusic');
+    } else { // Otherwise, set it to 'music' to render the MusicPlayer component
+      setActiveComponent('music');
+    }
   };
 
   return (
     <div>
       {activeComponent && (
         <div className="backButton" onClick={handleBack}>
-          <BsArrowLeft /> {/* Render the arrow left icon */}
+          <BsArrowLeft />
           Back
         </div>
       )}
       <div className="floatingHeader">Meditation</div>
       <div className="infoContainer">
-        {/* Render MusicPlayer or music options based on activeComponent */}
         {activeComponent === 'music' ? (
           <MusicPlayer selectedMusic={selectedMusic} />
+        ) : activeComponent === 'peaceMusic' ? (
+          <PeaceMusic />
         ) : (
           <div className="music-popup">
             <div className="music-content">
               <h2>Pick a song to start your meditation session</h2>
               <div className="music-button-container">
-                <Link to="#" onClick={() => handleMusicSelection('Relax')}>
+                <button onClick={() => handleMusicSelection('Relax')}>
                   Relax
-                </Link>
-                <Link to="#" onClick={() => handleMusicSelection('Peace')}>
+                </button>
+                <button onClick={() => handleMusicSelection('Peace')}>
                   Peace
-                </Link>
-                <Link to="#" onClick={() => handleMusicSelection('Balance')}>
+                </button>
+                <button onClick={() => handleMusicSelection('Balance')}>
                   Balance
-                </Link>
-                <Link to="#" onClick={() => handleMusicSelection('Elevate')}>
+                </button>
+                <button onClick={() => handleMusicSelection('Elevate')}>
                   Elevate
-                </Link>
+                </button>
               </div>
               <br></br>
             </div>
@@ -59,7 +65,7 @@ const Meditation = () => {
         )}
         <NavBar />
       </div>
-      <h1 className="hidden">..</h1>
+      {activeComponent === 'music' && <Timer />}
     </div>
   );
 };
