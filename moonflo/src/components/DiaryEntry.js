@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Card, CardBody } from 'react-bootstrap';
 import './DiaryEntry.css';
 import { BsPencil, BsTrash } from 'react-icons/bs';
-import { ref, set, get } from 'firebase/database'; // Firebase modules
-import { database, auth, storage } from '../FirebaseConfig'; // Import FirebaseConfig
+import { ref, set, get } from 'firebase/database';
+import { database, auth, storage } from '../FirebaseConfig';
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -14,9 +14,11 @@ const DiaryEntry = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [submittedEntries, setSubmittedEntries] = useState([]);
   const [editState, setEditState] = useState({});
+
   const [refresh, setRefresh] = useState(false); // State to force re-render
   const [editedEntry, setEditedEntry] = useState(''); // Track the entry being edited
   const [image, setImage] = useState(null); // Track the uploaded image
+
 
   useEffect(() => {
     const fetchEntries = async () => {
@@ -41,11 +43,14 @@ const DiaryEntry = () => {
       }
     };
     fetchEntries();
-  }, [refresh]); // Trigger useEffect when refresh state changes
+  }, [refresh]);
 
   const handleImageChange = (event) => {
-    if (event.target.files[0]) {
-      setImage(event.target.files[0]);
+    const file = event.target.files[0];
+    if (!editState.hasOwnProperty('index')) {
+      setImage(file);
+    } else {
+      setEditedImage(file);
     }
   };
 
@@ -66,7 +71,6 @@ const DiaryEntry = () => {
     newEntries.splice(index, 1);
     setSubmittedEntries(newEntries);
 
-    // Update entries in Firebase
     const currentUser = auth.currentUser;
     if (currentUser) {
       const userRef = ref(database, `users/${currentUser.uid}/diaryEntries`);
@@ -82,18 +86,29 @@ const DiaryEntry = () => {
 
   const handleEditClick = (event, index) => {
     event.preventDefault();
-    const currentEntry = submittedEntries[index].entry;
-    setEditedEntry(currentEntry);
-    setEditState({ index });
+    const currentEntry = submittedEntries[index];
+    setEditedEntry(currentEntry.entry);
+    setEditedImage(null); // Reset any previously edited image
+    setEditState({ index, image: currentEntry.imageId });
   };
 
   const handleUpdateEntry = async (index) => {
     const newEntries = [...submittedEntries];
     newEntries[index].entry = editedEntry;
-    setSubmittedEntries(newEntries);
-    setEditState({}); // Reset edit state
 
-    // Update entries in Firebase
+    if (editedImage) {
+      const imageName = `${Date.now()}-${editedImage.name}`;
+      const imageRef = storageRef(storage, `images/${imageName}`);
+      await uploadBytes(imageRef, editedImage);
+      const imageUrl = await getDownloadURL(imageRef);
+      newEntries[index].imageUrl = imageUrl;
+      newEntries[index].imageId = imageName;
+    }
+
+    setSubmittedEntries(newEntries);
+    setEditState({});
+    setEditedImage(null);
+
     const currentUser = auth.currentUser;
     if (currentUser) {
       const userRef = ref(database, `users/${currentUser.uid}/diaryEntries`);
@@ -106,44 +121,43 @@ const DiaryEntry = () => {
     const currentUser = auth.currentUser;
     if (currentUser) {
       let imageId = '';
+      let imageUrl = '';
       if (image) {
         const imageName = `${Date.now()}-${image.name}`;
         const imageRef = storageRef(storage, `images/${imageName}`);
         await uploadBytes(imageRef, image);
-        const imageUrl = await getDownloadURL(imageRef);
-        imageId = imageName; 
+        imageUrl = await getDownloadURL(imageRef);
+        imageId = imageName;
       }
       const newEntry = {
-        date: date,
+        date,
         entry: mainEntry,
-        imageId
+        imageId,
+        imageUrl
       };
       const updatedEntries = [...submittedEntries, newEntry];
       setSubmittedEntries(updatedEntries);
-      setRefresh(!refresh); // Trigger re-render
-      // Update entries in Firebase
+      setRefresh(!refresh);
+
       const userRef = ref(database, `users/${currentUser.uid}/diaryEntries`);
       set(userRef, updatedEntries);
-      console.log('Diary entry submitted:', mainEntry);
     } else {
       console.error('User not authenticated. Please sign in to save entries.');
     }
     setMainEntry('');
     setImage(null);
-    // Clear file input field
+
     const fileInput = document.getElementById('diaryEntryImageUpload');
     if (fileInput) {
       fileInput.value = null;
     }
   };
-  
+
   return (
     <div>
       <Card className="diary-entry-card">
         <CardBody>
-          <div>
-            <h4 className='diary-title'>Tell me about your day!</h4>
-          </div>
+          <h4 className='diary-title'>Tell me about your day!</h4>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="diaryEntryTextarea">
               <Form.Control
@@ -189,6 +203,12 @@ const DiaryEntry = () => {
                     className="left-aligned"
                   />
                 </Form.Group>
+                <Form.Group controlId={`editEntryImageUpload-${index}`}>
+                  <Form.Control
+                    type="file"
+                    onChange={handleImageChange}
+                  />
+                </Form.Group>
                 <div className='diary-submit'>
                   <Button type="submit">Save Edit</Button>
                 </div>
@@ -212,8 +232,9 @@ const DiaryEntry = () => {
         </Card>
         )
       ))}
-      <h1 id='hidden'>.</h1>
-      <h1 id='hidden'>.</h1>
+      <div style={{ padding: '100px 0', textAlign: 'center' }}>
+        Temporary space - Scroll down to see more
+      </div>
     </div>
   );
 };
