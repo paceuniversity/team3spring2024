@@ -25,14 +25,14 @@ const UpdatePasswordForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null); // Clear any previous errors
-
+  
     if (newPassword !== confirmPassword) {
       setError("New password and confirm password do not match");
       return; // Exit if passwords don't match
     }
-
+  
     const credential = EmailAuthProvider.credential(auth.currentUser.email, currentPassword);
-
+  
     try {
       // Reauthenticate the user
       await reauthenticateWithCredential(auth.currentUser, credential);
@@ -43,10 +43,15 @@ const UpdatePasswordForm = () => {
       setNewPassword("");
       setConfirmPassword("");
     } catch (error) {
-      console.error("Error updating password:", error);
-      setError(error.message); // Set user-friendly error message
+       if (error.code === "auth/weak-password") {
+        setError("Password is too weak. Use at least 6 characters.");
+      } 
+      else{
+        setError("Incorrect password, please try again.");
+      }
     }
   };
+  
 
   return (
     <form onSubmit={handleSubmit}>
