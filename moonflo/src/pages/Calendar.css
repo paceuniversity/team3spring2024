@@ -1,0 +1,287 @@
+body{
+  font-family: 'Handlee';
+  background-color: #D4AFB9;
+}
+.react-calendar__tile--active{
+  background-color: transparent;
+  border-radius:0;
+  color:black;
+}
+
+/* Style for the container */
+.react-calendar__navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style for the month label */
+.react-calendar__navigation__label {
+  flex-grow: 0; 
+  text-align: center;
+  width: 100%; 
+}
+
+/* Style for the navigation buttons */
+.react-calendar__navigation button {
+  margin: 0 10px; 
+  font-family: 'Handlee';
+  padding: 5px 10px; 
+}
+
+
+.react-calendar__tile {
+  font-family: 'Handlee';
+}
+
+
+.calendar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title{
+  text-align: center;
+  font-size: 3vh;
+}
+
+.calendar{
+  margin: 10px;
+  padding-bottom: 20px;
+  margin-top: 75px;
+}
+.tracked-symptom {
+  background-color: rgb(196, 193, 193); 
+  border: 1px solid lightgray; 
+  border-radius: 0;
+}
+
+.predicted-period{
+  background-color: #eec6c6; 
+  color: white; 
+  border-radius: 0;
+}
+
+.react-calendar__tile.last-period {
+  background-color: #b74c4c; 
+  color: white; 
+  z-index: 0;
+  border-radius: 0;
+}
+
+/* Style for displaying current phase */
+.current-phase {
+  text-align: center;
+  margin-top: 10px;
+  color: #4a4a4a; 
+  padding: 5px;
+  border-radius: 5px;
+  margin: 10px;
+  
+}
+
+.current-phase p {
+  margin: 0;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+/* Underline the text */
+.current-phase a {
+  color: #4a4a4a; 
+  text-decoration: underline;
+  font-size: 18px;
+}
+
+.current-phase a:hover {
+  color: #000; 
+}
+
+.react-calendar {
+  width: 100%;
+  margin: auto; 
+  font-size: 2.5vh;
+}
+
+.react-calendar__tile--now {
+  background-color: #D4AFB9;
+  border-radius: 0;
+}
+
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+  background-color: #D4AFB9;
+}
+
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: transparent;
+}
+
+.react-calendar__month-view__weekdays{
+  font-family: 'Handlee';
+}
+
+.parent-calender-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  min-height: 100vh;
+  padding-top:5px;
+}
+
+.symptom-tracker-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px; 
+  padding-right: 45px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1; 
+  font-size: 14px;
+  width: 500px; 
+}
+
+
+.symptoms-button-container{
+  column-count: 2; 
+  column-gap: 5px;
+  
+}
+.symptoms-button-container button{
+  margin: 10px;
+  margin-left:35px;
+  padding-left: 18px;
+  padding-right: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: none;
+}
+.symptoms-button-container button:hover{
+  background-color: #d8dcde;
+  color:black;
+}
+.calendar-key{
+  margin-top: 0;
+  margin-bottom: 0px;
+}
+.calendar-key-last{
+  color:#a74242;
+}
+.calendar-key-next{
+  color:#d5a0a0;
+}
+.calendar-key-tracked{
+  color:rgb(142, 140, 140);
+}
+.caption{
+  color:rgb(104, 100, 100);
+  margin-bottom: 5px; 
+}
+.calendar-key-list{
+  margin-top: 0px;
+}
+
+.last-period-btn{
+  margin: 10px;
+  border-radius: 15px;
+  padding: 2px;
+  background:#D4AFB9!important;
+  border:none;
+  color: black !important;
+  width: 65px;
+}
+
+.custom-datepicker {
+  margin-left: 5px;
+  text-align: center;
+  width: 100px; 
+}
+
+.last-period-date{
+  text-align: center;
+}
+
+@media only screen and (max-width: 500px) {
+  .calendar-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .calendar {
+    margin-top: 75px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .parent-calender-container {
+    padding-top: 0;
+  }
+
+  .symptoms-button-container {
+    column-count: 1;
+  }
+
+  .symptoms-button-container button {
+    margin: 10px auto;
+  }
+
+  .last-period-btn {
+    margin: 10px auto;
+    margin-left: 10px;
+  }
+
+  .custom-datepicker {
+    margin-left: 0;
+  }
+
+  .last-period-date {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .react-calendar {
+    font-size: 2vh;
+  }
+
+  .calendar-key-list {
+    font-size: 14px;
+  }
+
+  .caption {
+    font-size: 14px;
+  }
+  .symptom-tracker-popup {
+    width: 350px;
+    padding: 10px;
+  }
+  .symptoms-button-container {
+    text-align: center;
+    column-count: 1;
+  }
+
+  .symptoms-button-container button {
+    margin: 10px auto;
+  }
+ 
+  .react-calendar__navigation{
+    font-size: 14px;
+  }
+  .title{
+    font-size: 20px;
+  }
+  .current-phase p {
+    margin: 0;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  .current-phase a {
+    color: #4a4a4a; 
+    text-decoration: underline;
+    font-size: 16px;
+  }
+}

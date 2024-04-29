@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ref, set } from 'firebase/database';
 import { database, auth } from '../FirebaseConfig';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "./questions.css";
 
 const Question4 = () => {
   const navigate = useNavigate();

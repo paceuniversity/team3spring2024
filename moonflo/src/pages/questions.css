@@ -1,0 +1,63 @@
+.questions_container{
+    text-align: center;
+    background-color: #D4AFB9;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    font-family: 'Handlee';
+  }
+  
+  .custom-card{
+    margin: 2.5vh 10vw;
+    position: relative;
+  }
+  .custom-body{
+    margin: 10vw 10vh;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+  }
+  h5{
+    padding: 15px;
+  }
+  
+  .skip-button {
+    position: absolute;
+    top: 15px; 
+    right: 20px; 
+    text-decoration: none;
+    font-size: 18px;
+    color:#567cc8;
+  }
+  .next-button{
+    margin-top:50px;
+    background-color: #92aee7 !important;
+    border: none !important;
+    color:#111111 !important;
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+    border-radius: 15px !important;
+  }
+  .custom-input{
+    text-align: center;
+    border-color: #111111;
+  }
+  .form-control{
+    text-align: center;
+  }
+  .custom-body-inner{
+    margin-top:15vh;
+    margin-bottom:15vh;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .question{
+    padding-top: 0;
+    padding-bottom: 50px;
+  }
+  .inner-card{
+    background-color: #f7e7ea !important;
+  }

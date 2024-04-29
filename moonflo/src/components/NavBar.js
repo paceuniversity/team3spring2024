@@ -26,13 +26,6 @@ const NavBar = () =>{
             </ul>
             <ul className="nav-link">
                 <li>
-                    <NavLink to="/periodInfo" activeClassName="active">
-                        <BsBook size={iconSize} strokeWidth={strokeWidth}/>
-                    </NavLink>
-                </li>
-            </ul>
-            <ul className="nav-link">
-                <li>
                     <NavLink to="/meditation" activeClassName="active">
                         <BsMusicNote size={iconSize} strokeWidth={strokeWidth}/>
                     </NavLink>

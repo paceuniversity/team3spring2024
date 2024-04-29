@@ -4,7 +4,7 @@ import Accordion from '../components/Accordion.js';
 import Cycle from '../img/Cycle.jpg';
 import Cycle2 from '../img/Cycle2.jpg';
 import Accordions from '../components/Accordion.css';
-import '../cycleinfo.css';
+import './cycleinfo.css';
 
 
 const accordionData = [
@@ -418,7 +418,7 @@ const CycleInfo = () => {
   return (
 <div id='cycleinfo'>
 
-  <h1>Get to know your menstrual cycle!</h1>
+  <h1>Get to Know Your Menstrual Cycle!</h1>
   <p>Your menstrual cycle is how your body prepares for a potential pregnancy. It usually lasts around 28 days, but it can range anywhere from 21 to 35 days. During this time, your hormone levels fluctuate, causing various changes throughout the body.</p>
   <p>Many women track their menstrual cycle so that they know when their period is coming. This can help women prepare for their period and avoid the unexpected. While predicting your period is a major benefit to tracking your cycle, there are several other advantages to understanding your menstrual cycle.</p>
   <p>Knowing your menstrual cycle can provide key insights into your overall health and wellbeing. For example:</p>
