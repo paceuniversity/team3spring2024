@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Timer.css';
 
-const Timer = () => {
+const Timer = ({ onStatusChange }) => {
     const [selectedTime, setSelectedTime] = useState(""); // No default time selected initially
     const [timeLeft, setTimeLeft] = useState(0); 
     const [timerId, setTimerId] = useState(null);
@@ -20,6 +20,7 @@ const Timer = () => {
         } else if (timeLeft === 0 || !isActive) {
             clearTimeout(timerId);
             setIsActive(false); // Automatically stop the timer when it reaches zero or is paused
+            onStatusChange(isActive); // Notify parent component about timer status change
         }
         return () => clearTimeout(timerId);
     }, [isActive, timeLeft]);
@@ -27,11 +28,13 @@ const Timer = () => {
     const handleStart = () => {
         if (timeLeft > 0) {
             setIsActive(true);
+            onStatusChange(true); // Notify parent component that timer is started
         }
     };
 
     const handlePause = () => {
         setIsActive(false);
+        onStatusChange(false); // Notify parent component that timer is paused
     };
 
     const handleChangeTime = (event) => {
