@@ -3,6 +3,9 @@ import NavBar from '../components/NavBar';
 import MusicPlayer from '../components/MusicPlayer';
 import Timer from '../components/Timer';
 import PeaceMusic from '../components/peaceMusic';
+import RelaxMusic from '../components/relaxMusic';
+import BalanceMusic from '../components/balanceMusic';
+import ElevateMusic from '../components/elevateMusic';
 import './periodInfo.css';
 import { BsArrowLeft } from 'react-icons/bs';
 
@@ -20,11 +23,17 @@ const Meditation = () => {
 
   const handleMusicSelection = (music) => {
     setSelectedMusic(music);
-    if (music === 'Peace') { // If the selected music is Peace, set the active component to PeaceMusic
-      setActiveComponent('peaceMusic');
-    } else { // Otherwise, set it to 'music' to render the MusicPlayer component
-      setActiveComponent('music');
-    }
+    if (music === 'Peace') {
+        setActiveComponent('peaceMusic');
+      } else if (music === 'Relax') { 
+        setActiveComponent('relaxMusic');
+      } else if (music === 'Balance') { 
+        setActiveComponent('balanceMusic');
+      } else if (music === 'Elevate') { 
+        setActiveComponent('elevateMusic');
+      } else {
+        setActiveComponent('music');
+      }
   };
 
   return (
@@ -41,6 +50,12 @@ const Meditation = () => {
           <MusicPlayer selectedMusic={selectedMusic} />
         ) : activeComponent === 'peaceMusic' ? (
           <PeaceMusic />
+        ) : activeComponent === 'relaxMusic' ? ( 
+        <RelaxMusic />
+        ) : activeComponent === 'balanceMusic' ? ( 
+        <BalanceMusic />
+        ) : activeComponent === 'elevateMusic' ? ( 
+        <ElevateMusic />
         ) : (
           <div className="music-popup">
             <div className="music-content">
