@@ -1,30 +1,65 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import NavBar from '../components/NavBar';
-import Music from '../components/music';
-import Timer from '../components/Timer';
+import MusicPlayer from '../components/MusicPlayer'; // Import the MusicPlayer component
 import './periodInfo.css';
+import { BsArrowLeft } from 'react-icons/bs'; 
 
 const Meditation = () => {
-  const [selectedMusic, setSelectedMusic] = useState(null);
+  const [activeComponent, setActiveComponent] = useState(null);
+  const [selectedMusic, setSelectedMusic] = useState('');
 
-  const handleMusicSelect = (music) => {
-    setSelectedMusic(music); // Update selectedMusic state with the selected song
+  const handleClick = (component) => {
+    setActiveComponent(component); // Update activeComponent based on clicked image
   };
 
   const handleBack = () => {
-    setSelectedMusic(null); // Reset selectedMusic state when going back
+    setActiveComponent(null); // Set activeComponent to null to go back to the content page
+  };
+
+  const handleMusicSelection = (music) => {
+    setSelectedMusic(music);
+    setActiveComponent('music'); // Set activeComponent to 'music' to render MusicPlayer
   };
 
   return (
     <div>
+      {activeComponent && (
+        <div className="backButton" onClick={handleBack}>
+          <BsArrowLeft /> {/* Render the arrow left icon */}
+          Back
+        </div>
+      )}
       <div className="floatingHeader">Meditation</div>
       <div className="infoContainer">
-        {/* Render Music component if no song is selected */}
-        {!selectedMusic && (
-          <Music onSelect={handleMusicSelect} />
+        {/* Render MusicPlayer or music options based on activeComponent */}
+        {activeComponent === 'music' ? (
+          <MusicPlayer selectedMusic={selectedMusic} />
+        ) : (
+          <div className="music-popup">
+            <div className="music-content">
+              <h2>Pick a song to start your meditation session</h2>
+              <div className="music-button-container">
+                <Link to="#" onClick={() => handleMusicSelection('Relax')}>
+                  Relax
+                </Link>
+                <Link to="#" onClick={() => handleMusicSelection('Peace')}>
+                  Peace
+                </Link>
+                <Link to="#" onClick={() => handleMusicSelection('Balance')}>
+                  Balance
+                </Link>
+                <Link to="#" onClick={() => handleMusicSelection('Elevate')}>
+                  Elevate
+                </Link>
+              </div>
+              <br></br>
+            </div>
+          </div>
         )}
         <NavBar />
       </div>
+      <h1 className="hidden">..</h1>
     </div>
   );
 };

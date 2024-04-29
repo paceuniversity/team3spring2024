@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Timer from './Timer'; // Import the Timer component
-import relaxSong from './Relax.mp3'; // import song
-import peaceSong from './Peace.mp3'; // import song
-import balanceSong from './Balance.mp3'; // import song
-import elevateSong from './Elevate.mp3'; // import song
+import Relax from './Relax.mp3'; // import song
+import Peace from './Peace.mp3'; // import song
+import Balance from './Balance.mp3'; // import song
+import Elevate from './Elevate.mp3'; // import song
+
 
 const MusicPlayer = () => {
   const location = useLocation();
@@ -38,13 +39,13 @@ const MusicPlayer = () => {
   const getSongPath = (song) => {
     switch (song) {
       case 'Relax':
-        return relaxSong;
+        return Relax;
       case 'Peace':
-        return peaceSong;
+        return Peace;
       case 'Balance':
-        return balanceSong;
+        return Balance;
       case 'Elevate':
-        return elevateSong;
+        return Elevate;
       default:
         return '';
     }
