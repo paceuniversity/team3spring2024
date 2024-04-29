@@ -15,6 +15,7 @@ import Meditation from './pages/meditation';
 import Settings from './pages/settings';
 import PeriodInfo from './pages/periodInfo';
 import MedInfo from './pages/medInfo';
+import MusicPlayer from './components/MusicPlayer';
 
 
 
@@ -23,6 +24,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import { BsMusicPlayer } from 'react-icons/bs';
 
 
 const router = createBrowserRouter([
@@ -77,6 +79,10 @@ const router = createBrowserRouter([
   {
     path: "medInfo",
     element: <MedInfo/>,
+  },
+  {
+    path: "MusicPlayer",
+    element: <MusicPlayer/>,
   },
     
     
