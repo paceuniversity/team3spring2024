@@ -14,9 +14,9 @@ const DiaryEntry = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [submittedEntries, setSubmittedEntries] = useState([]);
   const [editState, setEditState] = useState({});
-
+  const [editedEntry, setEditedEntry] = useState('');
+  const [editedImage, setEditedImage] = useState(null);  
   const [refresh, setRefresh] = useState(false); // State to force re-render
-  const [editedEntry, setEditedEntry] = useState(''); // Track the entry being edited
   const [image, setImage] = useState(null); // Track the uploaded image
 
 
@@ -50,9 +50,10 @@ const DiaryEntry = () => {
     if (!editState.hasOwnProperty('index')) {
       setImage(file);
     } else {
-      setEditedImage(file);
+      setEditedImage(file); 
     }
   };
+  
 
   const handleMainEntryChange = (event) => {
     if (!editState.hasOwnProperty('index')) {
