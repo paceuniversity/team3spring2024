@@ -62,3 +62,14 @@ img {
     margin-bottom: 20px;
     width: 250px;
 }
+.diary-calendar{
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.has-entry {
+    background-color: lightgray;
+    color: black;
+    border-radius: 0;
+  }
+

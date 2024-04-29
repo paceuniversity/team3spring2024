@@ -43,8 +43,10 @@ const DiaryEntry = () => {
   };
 
   const handleDateClick = (date) => {
-    setSelectedDate(date.toLocaleDateString());
+    const formattedDate = date.toLocaleDateString();
+    setSelectedDate(selectedDate === formattedDate ? null : formattedDate);
   };
+
 
   const handleDeleteEntry = (index) => {
     const newEntries = [...submittedEntries];
@@ -125,11 +127,20 @@ const DiaryEntry = () => {
           </Form>
         </CardBody>
       </Card>
-      <Calendar
-        onClickDay={handleDateClick}
-        value={selectedDate ? new Date(selectedDate) : null}
-        tileClassName={({ date }) => submittedEntries.some(entry => entry.date === date.toLocaleDateString()) ? 'has-entry' : ''}
-      />
+      <Card className="diary-calendar">
+        <CardBody>
+          <h4 className='diary-title'>Diary Calendar</h4>
+          <Calendar 
+            onClickDay={handleDateClick}
+            value={selectedDate ? new Date(selectedDate) : null}
+            tileClassName={({ date }) => {
+              const formattedDate = date.toLocaleDateString();
+              return submittedEntries.some(entry => entry.date === formattedDate) ? 'has-entry' : '';
+            }}
+          />
+
+      </CardBody>
+      </Card>
       {submittedEntries.map((submittedEntry, index) => (
         selectedDate === submittedEntry.date && (
         <Card key={index} className='submitted-entry-card'>
