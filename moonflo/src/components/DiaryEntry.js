@@ -89,22 +89,33 @@ const DiaryEntry = () => {
     event.preventDefault();
     const currentEntry = submittedEntries[index];
     setEditedEntry(currentEntry.entry);
-    setEditedImage(null); // Reset any previously edited image
+    //setEditedImage(null)
     setEditState({ index, image: currentEntry.imageId });
   };
 
   const handleUpdateEntry = async (index) => {
-    const newEntries = [...submittedEntries];
-    newEntries[index].entry = editedEntry;
-
+    const newEntries = submittedEntries.map((entry, idx) => {
+      if (idx === index) {
+        return { ...entry, entry: editedEntry }; // Update the text entry
+      }
+      return entry; // Return unmodified entries
+    });
+  
     if (editedImage) {
       const imageName = `${Date.now()}-${editedImage.name}`;
       const imageRef = storageRef(storage, `images/${imageName}`);
-      await uploadBytes(imageRef, editedImage);
-      const imageUrl = await getDownloadURL(imageRef);
-      newEntries[index].imageUrl = imageUrl;
-      newEntries[index].imageId = imageName;
+      try {
+        await uploadBytes(imageRef, editedImage);
+        const imageUrl = await getDownloadURL(imageRef);
+        newEntries[index] = { ...newEntries[index], imageId: imageName, imageUrl }; // Update the image details
+      } catch (error) {
+        console.error('Failed to upload image:', error);
+        return; // Stop the update if the image upload fails
+      }
     }
+
+
+
 
     setSubmittedEntries(newEntries);
     setEditState({});
