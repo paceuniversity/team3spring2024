@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Card, CardBody } from 'react-bootstrap';
 import './DiaryEntry.css';
 import { BsPencil, BsTrash } from 'react-icons/bs';
-import { ref, set, get } from 'firebase/database';
-import { database, auth, storage } from '../FirebaseConfig';
-import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { ref, set, get } from 'firebase/database'; // Firebase modules
+import { database, auth } from '../FirebaseConfig'; // Import FirebaseConfig
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
@@ -14,11 +13,8 @@ const DiaryEntry = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [submittedEntries, setSubmittedEntries] = useState([]);
   const [editState, setEditState] = useState({});
-  const [editedEntry, setEditedEntry] = useState('');
-  const [editedImage, setEditedImage] = useState(null);  
   const [refresh, setRefresh] = useState(false); // State to force re-render
-  const [image, setImage] = useState(null); // Track the uploaded image
-
+  const [editedEntry, setEditedEntry] = useState(''); // Track the entry being edited
 
   useEffect(() => {
     const fetchEntries = async () => {
@@ -31,29 +27,12 @@ const DiaryEntry = () => {
         const snapshot = await get(userRef);
         if (snapshot.exists()) {
           const entries = Object.values(snapshot.val());
-          const entriesWithImages = await Promise.all(entries.map(async entry => {
-            if (entry.imageId) {
-              const url = await getDownloadURL(storageRef(storage, `images/${entry.imageId}`));
-              return { ...entry, imageUrl: url };
-            }
-            return entry;
-          }));
-          setSubmittedEntries(entriesWithImages);
+          setSubmittedEntries(entries);
         }
       }
     };
     fetchEntries();
-  }, [refresh]);
-
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (!editState.hasOwnProperty('index')) {
-      setImage(file);
-    } else {
-      setEditedImage(file); 
-    }
-  };
-  
+  }, [refresh]); // Trigger useEffect when refresh state changes
 
   const handleMainEntryChange = (event) => {
     if (!editState.hasOwnProperty('index')) {
@@ -72,6 +51,7 @@ const DiaryEntry = () => {
     newEntries.splice(index, 1);
     setSubmittedEntries(newEntries);
 
+    // Update entries in Firebase
     const currentUser = auth.currentUser;
     if (currentUser) {
       const userRef = ref(database, `users/${currentUser.uid}/diaryEntries`);
@@ -79,48 +59,20 @@ const DiaryEntry = () => {
     }
   };
 
-  const hasEntryForDate = (date) => {
-    const formattedDate = date.toLocaleDateString();
-    return submittedEntries.some(entry => entry.date === formattedDate);
-  };
-  
-
   const handleEditClick = (event, index) => {
     event.preventDefault();
-    const currentEntry = submittedEntries[index];
-    setEditedEntry(currentEntry.entry);
-    //setEditedImage(null)
-    setEditState({ index, image: currentEntry.imageId });
+    const currentEntry = submittedEntries[index].entry;
+    setEditedEntry(currentEntry);
+    setEditState({ index });
   };
 
   const handleUpdateEntry = async (index) => {
-    const newEntries = submittedEntries.map((entry, idx) => {
-      if (idx === index) {
-        return { ...entry, entry: editedEntry }; // Update the text entry
-      }
-      return entry; // Return unmodified entries
-    });
-  
-    if (editedImage) {
-      const imageName = `${Date.now()}-${editedImage.name}`;
-      const imageRef = storageRef(storage, `images/${imageName}`);
-      try {
-        await uploadBytes(imageRef, editedImage);
-        const imageUrl = await getDownloadURL(imageRef);
-        newEntries[index] = { ...newEntries[index], imageId: imageName, imageUrl }; // Update the image details
-      } catch (error) {
-        console.error('Failed to upload image:', error);
-        return; // Stop the update if the image upload fails
-      }
-    }
-
-
-
-
+    const newEntries = [...submittedEntries];
+    newEntries[index].entry = editedEntry;
     setSubmittedEntries(newEntries);
-    setEditState({});
-    setEditedImage(null);
+    setEditState({}); // Reset edit state
 
+    // Update entries in Firebase
     const currentUser = auth.currentUser;
     if (currentUser) {
       const userRef = ref(database, `users/${currentUser.uid}/diaryEntries`);
@@ -132,44 +84,30 @@ const DiaryEntry = () => {
     event.preventDefault();
     const currentUser = auth.currentUser;
     if (currentUser) {
-      let imageId = '';
-      let imageUrl = '';
-      if (image) {
-        const imageName = `${Date.now()}-${image.name}`;
-        const imageRef = storageRef(storage, `images/${imageName}`);
-        await uploadBytes(imageRef, image);
-        imageUrl = await getDownloadURL(imageRef);
-        imageId = imageName;
-      }
       const newEntry = {
-        date,
-        entry: mainEntry,
-        imageId,
-        imageUrl
+        date: date,
+        entry: mainEntry
       };
       const updatedEntries = [...submittedEntries, newEntry];
       setSubmittedEntries(updatedEntries);
-      setRefresh(!refresh);
-
+      setRefresh(!refresh); // Trigger re-render
+      // Update entries in Firebase
       const userRef = ref(database, `users/${currentUser.uid}/diaryEntries`);
       set(userRef, updatedEntries);
+      console.log('Diary entry submitted:', mainEntry);
     } else {
       console.error('User not authenticated. Please sign in to save entries.');
     }
     setMainEntry('');
-    setImage(null);
-
-    const fileInput = document.getElementById('diaryEntryImageUpload');
-    if (fileInput) {
-      fileInput.value = null;
-    }
   };
-
+  
   return (
     <div>
       <Card className="diary-entry-card">
         <CardBody>
-          <h4 className='diary-title'>Tell me about your day!</h4>
+          <div>
+            <h4 className='diary-title'>Tell me about your day!</h4>
+          </div>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="diaryEntryTextarea">
               <Form.Control
@@ -181,12 +119,6 @@ const DiaryEntry = () => {
                 className="left-aligned"
               />
             </Form.Group>
-            <Form.Group controlId="diaryEntryImageUpload">
-              <Form.Control
-                type="file"
-                onChange={handleImageChange}
-              />
-            </Form.Group>
             <div className='diary-submit'>
               <Button type="submit">Save</Button>
             </div>
@@ -196,7 +128,7 @@ const DiaryEntry = () => {
       <Calendar
         onClickDay={handleDateClick}
         value={selectedDate ? new Date(selectedDate) : null}
-        tileClassName={({ date }) => hasEntryForDate(date) ? 'has-entry' : ''}
+        tileClassName={({ date }) => submittedEntries.some(entry => entry.date === date.toLocaleDateString()) ? 'has-entry' : ''}
       />
       {submittedEntries.map((submittedEntry, index) => (
         selectedDate === submittedEntry.date && (
@@ -215,12 +147,6 @@ const DiaryEntry = () => {
                     className="left-aligned"
                   />
                 </Form.Group>
-                <Form.Group controlId={`editEntryImageUpload-${index}`}>
-                  <Form.Control
-                    type="file"
-                    onChange={handleImageChange}
-                  />
-                </Form.Group>
                 <div className='diary-submit'>
                   <Button type="submit">Save Edit</Button>
                 </div>
@@ -228,9 +154,6 @@ const DiaryEntry = () => {
             ) : (
               <div>
                 <p className='submitted-entry'>{submittedEntry.entry}</p>
-                {submittedEntry.imageUrl && (
-                  <img className='submitted-entry-pic' src={submittedEntry.imageUrl} alt="Diary Entry photo" />
-                )}
                 <br/>
                 <a href="#" className="diary-trash-button" onClick={() => handleDeleteEntry(index)}>
                   <BsTrash size={20} />
@@ -244,9 +167,8 @@ const DiaryEntry = () => {
         </Card>
         )
       ))}
-      <div style={{ padding: '100px 0', textAlign: 'center' }}>
-        Temporary space - Scroll down to see more
-      </div>
+      <h1 id='hidden'>.</h1>
+      <h1 id='hidden'>.</h1>
     </div>
   );
 };
