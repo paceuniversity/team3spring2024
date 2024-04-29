@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import './music.css';
 
-const Music = () => {
-  const [selectedMusic, setSelectedMusic] = useState([]);
 
-  const handleMusicSelect = (music) => {
-    if (selectedMusic.includes(music)) {
-      setSelectedMusic(selectedMusic.filter(item => item !== music));
-    } else {
-      setSelectedMusic([...selectedMusic, music]);
-    }
+const Music = () => {
+  const [selectedMusic, setSelectedMusic] = useState('');
+
+  const handleMusicSelection = (music) => {
+    setSelectedMusic(music);
   };
 
   return (
@@ -19,45 +16,37 @@ const Music = () => {
       <div className="music-content">
         <h2>Pick a song to start your meditation session</h2>
         <div className="music-button-container">
-          <Link
-            to={{ 
-              pathname: '/musicplayer', 
-              state: { selectedMusic: selectedMusic }
-            }}
-            className={`Relax ${selectedMusic.includes('Relax') ? 'selected' : ''}`}
-            onClick={() => handleMusicSelect('Relax')}
-          >
-            <Button>Relax</Button>
+          <Link to={{ pathname: '/MusicPlayer', state: { selectedMusic: 'Relax' } }}>
+            <Button
+              className={`Relax ${selectedMusic === 'Relax' ? 'selected' : ''}`}
+              onClick={() => handleMusicSelection('Relax')}
+            >
+              Relax
+            </Button>
           </Link>
-          <Link
-            to={{ 
-              pathname: '/musicplayer', 
-              state: { selectedMusic: selectedMusic }
-            }}
-            className={`Peace ${selectedMusic.includes('Peace') ? 'selected' : ''}`}
-            onClick={() => handleMusicSelect('Peace')}
-          >
-            <Button>Peace</Button>
+          <Link to={{ pathname: '/MusicPlayer', state: { selectedMusic: 'Peace' } }}>
+            <Button
+              className={`Peace ${selectedMusic === 'Peace' ? 'selected' : ''}`}
+              onClick={() => handleMusicSelection('Peace')}
+            >
+              Peace
+            </Button>
           </Link>
-          <Link
-            to={{ 
-              pathname: '/musicplayer', 
-              state: { selectedMusic: selectedMusic }
-            }}
-            className={`Balance ${selectedMusic.includes('Balance') ? 'selected' : ''}`}
-            onClick={() => handleMusicSelect('Balance')}
-          >
-            <Button>Balance</Button>
+          <Link to={{ pathname: '/MusicPlayer', state: { selectedMusic: 'Balance' } }}>
+            <Button
+              className={`Balance ${selectedMusic === 'Balance' ? 'selected' : ''}`}
+              onClick={() => handleMusicSelection('Balance')}
+            >
+              Balance
+            </Button>
           </Link>
-          <Link
-            to={{ 
-              pathname: '/musicplayer', 
-              state: { selectedMusic: selectedMusic }
-            }}
-            className={`Elevate ${selectedMusic.includes('Elevate') ? 'selected' : ''}`}
-            onClick={() => handleMusicSelect('Elevate')}
-          >
-            <Button>Elevate</Button>
+          <Link to={{ pathname: '/MusicPlayer', state: { selectedMusic: 'Elevate' } }}>
+            <Button
+              className={`Elevate ${selectedMusic === 'Elevate' ? 'selected' : ''}`}
+              onClick={() => handleMusicSelection('Elevate')}
+            >
+              Elevate
+            </Button>
           </Link>
         </div>
         <br></br>
