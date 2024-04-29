@@ -5,15 +5,18 @@ import { BsPencil, BsTrash } from 'react-icons/bs';
 import { ref, set, get } from 'firebase/database'; // Firebase modules
 import { database, auth, storage } from '../FirebaseConfig'; // Import FirebaseConfig
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 const DiaryEntry = () => {
   const [mainEntry, setMainEntry] = useState('');
   const [date, setDate] = useState(new Date().toLocaleDateString());
+  const [selectedDate, setSelectedDate] = useState(null);
   const [submittedEntries, setSubmittedEntries] = useState([]);
   const [editState, setEditState] = useState({});
-  const [image, setImage] = useState(null);
   const [refresh, setRefresh] = useState(false); // State to force re-render
   const [editedEntry, setEditedEntry] = useState(''); // Track the entry being edited
+  const [image, setImage] = useState(null); // Track the uploaded image
 
   useEffect(() => {
     const fetchEntries = async () => {
@@ -54,6 +57,10 @@ const DiaryEntry = () => {
     }
   };
 
+  const handleDateClick = (date) => {
+    setSelectedDate(date.toLocaleDateString());
+  };
+
   const handleDeleteEntry = (index) => {
     const newEntries = [...submittedEntries];
     newEntries.splice(index, 1);
@@ -66,6 +73,12 @@ const DiaryEntry = () => {
       set(userRef, newEntries);
     }
   };
+
+  const hasEntryForDate = (date) => {
+    const formattedDate = date.toLocaleDateString();
+    return submittedEntries.some(entry => entry.date === formattedDate);
+  };
+  
 
   const handleEditClick = (event, index) => {
     event.preventDefault();
@@ -154,7 +167,13 @@ const DiaryEntry = () => {
           </Form>
         </CardBody>
       </Card>
+      <Calendar
+        onClickDay={handleDateClick}
+        value={selectedDate ? new Date(selectedDate) : null}
+        tileClassName={({ date }) => hasEntryForDate(date) ? 'has-entry' : ''}
+      />
       {submittedEntries.map((submittedEntry, index) => (
+        selectedDate === submittedEntry.date && (
         <Card key={index} className='submitted-entry-card'>
           <CardBody>
             <h4>{submittedEntry.date}</h4>
@@ -178,8 +197,8 @@ const DiaryEntry = () => {
               <div>
                 <p className='submitted-entry'>{submittedEntry.entry}</p>
                 {submittedEntry.imageUrl && (
-              <img className='submitted-entry-pic' src={submittedEntry.imageUrl} alt="Diary Entry photo" />
-            )}
+                  <img className='submitted-entry-pic' src={submittedEntry.imageUrl} alt="Diary Entry photo" />
+                )}
                 <br/>
                 <a href="#" className="diary-trash-button" onClick={() => handleDeleteEntry(index)}>
                   <BsTrash size={20} />
@@ -191,6 +210,7 @@ const DiaryEntry = () => {
             )}
           </CardBody>
         </Card>
+        )
       ))}
       <h1 id='hidden'>.</h1>
       <h1 id='hidden'>.</h1>
