@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import MusicPlayer from '../components/MusicPlayer';
 import Timer from '../components/Timer';
@@ -44,8 +45,9 @@ const Meditation = () => {
           Back
         </div>
       )}
-      <div className="floatingHeader">Meditation</div>
+      <div className="floatingHeader">Meditation</div> 
       <div className="infoContainer">
+      <p>First time meditating? <br></br><Link to="/medInfo">Learn how to meditate here</Link></p> 
         {activeComponent === 'music' ? (
           <MusicPlayer selectedMusic={selectedMusic} />
         ) : activeComponent === 'peaceMusic' ? (
