@@ -1,36 +1,65 @@
+User
+.infoContainer {
+    background-color: rgb(255, 255, 255); 
+    border-radius: 20px; 
+    padding: 30px; 
+    margin: 20px auto; 
+    width: 90%;  
+    max-width: 500px; 
+    
+}
+
 .music-button-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Creates two columns */
-    gap: 40px 1px; /* First value for row gap, second for column gap */
-    padding: 20px; /* Padding around the entire grid container */
-    justify-content: center; /* Centers the grid within the container */
-    align-content: center; /* Aligns content vertically within the container */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    padding: 20px;
+    justify-content: center;
+    align-content: center;
+    background-color: rgb(255, 255, 255); 
+    border-radius: 20px; 
+   
 }
 
 .music-button-container button {
-    height: 150px; /* Fixed height to maintain a square shape */
-    width: 150px; /* Width equal to height to create a square */
-    padding: 10px; /* Padding inside the button */
-    font-size: 1rem; /* Font size for the text */
-    display: flex; /* Flexbox for internal alignment */
-    flex-direction: column; /* Stacks items vertically */
-    align-items: center; /* Center-aligns the items horizontally */
-    justify-content: center; /* Center-aligns the items vertically */
-    text-align: center; /* Ensures text is centered */
-    background-color: #f0f0f0; /* Background color of the buttons */
-    border: none; /* Removes the border */
-    border-radius: 10px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: transform 0.3s, box-shadow 0.3s; /* Transition for interaction */
+    height: 150px;
+    width: 150px;
+    padding: 10px;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: rgb(255, 239, 239); 
+    border: 1px solid #4d0116; 
+    border-radius: 15px; 
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .music-button-container button img {
-    margin-bottom: 5px; /* Space between the image and the text */
-    width: 100px; /* Width of the image */
-    height: 100px; /* Height of the image */
+    margin-bottom: 5px;
+    width: 100px;
+    height: 100px;
 }
 
 .music-button-container button:hover {
-    transform: scale(1.05); /* Scales up the button on hover */
-    box-shadow: 0px 4px 8px rgba(0,0,0,0.2); /* Shadow effect for depth */
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.music-content {
+    width: 100%; 
+    text-align: center; 
+  
+} 
+
+.music-content {
+    width: 100%;
+    text-align: center; /* Centers the text horizontally */
+    padding: 20px; /* Adds padding inside the content area */
+    background-color: white; /* Ensures the background is white */
+    border-radius: 20px; /* Rounds the corners */
+    margin: auto; /* Center align the content box if necessary */
 }
