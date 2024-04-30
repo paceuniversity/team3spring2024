@@ -27,6 +27,10 @@ const Timer = ({ onStatusChange, onPauseMusic }) => {
     }, [isActive, timeLeft]);
 
     const handleStartCancel = () => {
+        if (!selectedValue) {
+            console.error("Please select a time before starting.");
+            return;
+        }
         if (isActive) {
             setIsActive(false);
             setSelectedValue(""); // Reset the selected time
