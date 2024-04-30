@@ -1,32 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Timer from './Timer'; // Import the Timer component
 import Elevate from './Elevate.mp3'; // import song
 
-const ElevateMusic = () => {
+const RelaxMusic = ({ onPauseMusic }) => {
   const [audio, setAudio] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [timerStarted, setTimerStarted] = useState(false);
-  const [audioPosition, setAudioPosition] = useState(0);
+
+  useEffect(() => {
+    return () => {
+      // Cleanup: Pause audio and notify parent component when unmounting
+      if (audio) {
+        audio.pause();
+        onPauseMusic();
+      }
+    };
+  }, [audio, onPauseMusic]);
 
   const startMusic = () => {
     if (!audio) {
       const audioElement = new Audio(Elevate);
-      audioElement.currentTime = audioPosition;
       audioElement.play();
       setAudio(audioElement);
-      setIsPlaying(true);
       setTimerStarted(true);
     } else {
       audio.play();
-      setIsPlaying(true);
     }
   };
 
   const pauseMusic = () => {
     if (audio) {
       audio.pause();
-      setIsPlaying(false);
-      setAudioPosition(audio.currentTime);
     }
   };
 
@@ -36,20 +39,6 @@ const ElevateMusic = () => {
     } else {
       pauseMusic();
       setTimerStarted(false);
-      if (audio) {
-        audio.pause();
-        setIsPlaying(false);
-      }
-    }
-  };
-
-  const handlePauseMusic = (isPaused) => {
-    if (audio) {
-      if (isPaused) {
-        audio.pause();
-      } else {
-        audio.play();
-      }
     }
   };
 
@@ -62,9 +51,9 @@ const ElevateMusic = () => {
           Your browser does not support the audio element.
         </audio>
       )}
-      <Timer onStatusChange={handleTimerStatusChange} onPauseMusic={handlePauseMusic} />
+      <Timer onStatusChange={handleTimerStatusChange} onPauseMusic={pauseMusic} />
     </div>
   );
 };
 
-export default ElevateMusic;
+export default RelaxMusic;

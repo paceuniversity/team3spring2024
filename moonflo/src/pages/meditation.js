@@ -19,8 +19,8 @@ import elevateImg from '../img/elevate.png';
 const Meditation = () => {
   // State variables to manage active component and selected music
   const [activeComponent, setActiveComponent] = useState(null);
-  const [selectedMusic, setSelectedMusic] = useState('');
-
+  const [selectedMusic, setSelectedMusic] = useState(null);
+  
   // Function to handle click event and set active component
   const handleClick = (component) => {
     setActiveComponent(component);
@@ -28,7 +28,12 @@ const Meditation = () => {
 
   // Function to handle back button click and reset active component
   const handleBack = () => {
-    setActiveComponent(null);
+    // Stop the music if it's playing
+  if (activeComponent === 'relaxMusic') {
+    // Set selectedMusic to null to reset MusicPlayer component
+    setSelectedMusic(null);
+  }
+  setActiveComponent(null);
   };
 
   // Function to handle music selection and set active component accordingly
@@ -70,13 +75,13 @@ const Meditation = () => {
         {activeComponent === 'music' ? (
           <MusicPlayer selectedMusic={selectedMusic} />
         ) : activeComponent === 'peaceMusic' ? (
-          <PeaceMusic />
+          <PeaceMusic onPauseMusic={() => setActiveComponent(null)}  />
         ) : activeComponent === 'relaxMusic' ? (
-          <RelaxMusic />
+          <RelaxMusic onPauseMusic={() => setActiveComponent(null)}  />
         ) : activeComponent === 'balanceMusic' ? (
-          <BalanceMusic />
+          <BalanceMusic onPauseMusic={() => setActiveComponent(null)} />
         ) : activeComponent === 'elevateMusic' ? (
-          <ElevateMusic />
+          <ElevateMusic onPauseMusic={() => setActiveComponent(null)} />
         ) : (
           // Render music selection options if no activeComponent is set
           <div className="music-popup">
@@ -88,15 +93,15 @@ const Meditation = () => {
                   <img src={relaxImg} alt="Relax" />
                   Relax
                 </button>
-                <button onClick={() => handleMusicSelection('Peace')}>
+                <button  onClick={() => handleMusicSelection('Peace')}>
                   <img src={peaceImg} alt="Peace" />
                   Peace
                 </button>
-                <button onClick={() => handleMusicSelection('Balance')}>
+                <button  onClick={() => handleMusicSelection('Balance')}>
                   <img src={balanceImg} alt="Balance" />
                   Balance
                 </button>
-                <button onClick={() => handleMusicSelection('Elevate')}>
+                <button  onClick={() => handleMusicSelection('Elevate')}>
                   <img src={elevateImg} alt="Elevate" />
                   Elevate
                 </button>
