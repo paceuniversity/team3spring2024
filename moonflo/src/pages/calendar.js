@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { Card, Button } from 'react-bootstrap'; // Import Button from react-bootstrap
+import { Card, Button } from 'react-bootstrap';
 import './Calendar.css';
 import NavBar from '../components/NavBar';
 import { ref, get, onValue, off, update } from 'firebase/database';
@@ -21,7 +21,7 @@ const PeriodCalendar = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [lastPeriodStartDate, setLastPeriodStartDate] = useState(new Date());
   const [userInfo, setUserInfo] = useState(null);
-  const [saving, setSaving] = useState(false); // State to manage saving state
+  const [saving, setSaving] = useState(false); 
 
   useEffect(() => {
     const user = auth.currentUser;
@@ -37,14 +37,14 @@ const PeriodCalendar = () => {
           if (snapshot.exists()) {
             const userInfo = snapshot.val();
             setUserInfo(userInfo);
-            const lastPeriodDateString = userInfo.lastPeriod;
-            setLastPeriodStartDate(new Date(lastPeriodDateString));
-            const cycleLength = parseInt(userInfo.cycleLength);
-            const periodLength = parseInt(userInfo.periodLength);
 
-            if (lastPeriodDateString && cycleLength > 0 && periodLength > 0) {
+            if (userInfo && userInfo.lastPeriod && userInfo.cycleLength && userInfo.periodLength) {
+              const lastPeriodDateString = userInfo.lastPeriod;
+              setLastPeriodStartDate(new Date(lastPeriodDateString));
+              const cycleLength = parseInt(userInfo.cycleLength);
+              const periodLength = parseInt(userInfo.periodLength);
+
               const lastPeriodDate = new Date(lastPeriodDateString);
-
               const predictedStartDate = new Date(lastPeriodDate);
               predictedStartDate.setDate(predictedStartDate.getDate() + cycleLength);
 
@@ -65,25 +65,22 @@ const PeriodCalendar = () => {
               }
               setLastPeriodDates(lastPeriodDates);
 
-              const calculateCurrentPhase = (cycleLength) => {
-                if (lastPeriodDates.length > 0 && cycleLength > 0) {
-                  const today = new Date();
-                  const lastPeriodDate = lastPeriodDates[lastPeriodDates.length - 1];
-                  const daysSinceLastPeriod = Math.round((today - lastPeriodDate) / (1000 * 60 * 60 * 24));
-                  const dayWithinCycle = (daysSinceLastPeriod % cycleLength) + 1;
-            
-                  if (dayWithinCycle <= periodLength) {
-                    setCurrentPhase('Menstruation');
-                  } else if (dayWithinCycle <= cycleLength - 14) {
-                    setCurrentPhase('Ovulation');
-                  } else if (dayWithinCycle <= cycleLength - 4) {
-                    setCurrentPhase('Luteal Phase');
-                  } else {
-                    setCurrentPhase('Follicular Phase');
-                  }
+              const calculateCurrentPhase = () => {
+                const today = new Date();
+                const daysSinceLastPeriod = Math.round((today - lastPeriodDate) / (1000 * 60 * 60 * 24));
+                const dayWithinCycle = (daysSinceLastPeriod % cycleLength) + 1;
+          
+                if (dayWithinCycle <= periodLength) {
+                  setCurrentPhase('Menstruation');
+                } else if (dayWithinCycle <= cycleLength - 14) {
+                  setCurrentPhase('Ovulation');
+                } else if (dayWithinCycle <= cycleLength - 4) {
+                  setCurrentPhase('Luteal Phase');
+                } else {
+                  setCurrentPhase('Follicular Phase');
                 }
               };
-              calculateCurrentPhase(cycleLength);
+              calculateCurrentPhase();
             } else {
               console.warn('Missing or invalid data for period calculations');
             }
@@ -111,7 +108,7 @@ const PeriodCalendar = () => {
   }, [currentUser]);
 
   useEffect(() => {
-    if (showSymptomTracker) {
+    if (showSymptomTracker && currentUser) {
       const userSymptomsRef = ref(database, `users/${currentUser.uid}/symptoms`);
       get(userSymptomsRef)
         .then((snapshot) => {
@@ -144,7 +141,6 @@ const PeriodCalendar = () => {
     return ''; 
   };
   
-  
   const handleDateClick = (value) => {
     if (value <= new Date()) {
       setSelectedDate(value);
@@ -155,16 +151,21 @@ const PeriodCalendar = () => {
   };
 
   const handleSave = () => {
+    if (!currentUser) {
+      alert('Please log in to save data.');
+      return;
+    }
+
     setSaving(true);
   
-    const selectedDateCopy = new Date(selectedDate); // Create a copy of selectedDate
+    const selectedDateCopy = new Date(selectedDate); 
   
     const userRef = ref(database, `users/${currentUser.uid}`);
     const updates = { lastPeriod: selectedDateCopy.toDateString() };
     update(userRef, updates)
       .then(() => {
         console.log('Last period start date updated successfully!');
-        // Manually update lastPeriodDates state
+        
         const updatedLastPeriodDates = [];
         for (let j = 0; j < parseInt(userInfo.periodLength); j++) {
           const lastPeriodDate = new Date(selectedDateCopy);
@@ -172,10 +173,9 @@ const PeriodCalendar = () => {
           updatedLastPeriodDates.push(lastPeriodDate);
         }
         setLastPeriodDates(updatedLastPeriodDates);
-        // Update predicted dates if needed
+        
         updatePredictedDates(selectedDateCopy, parseInt(userInfo.cycleLength), parseInt(userInfo.periodLength));
         
-        // Manually calculate the current phase
         const today = new Date();
         const daysSinceLastPeriod = Math.round((today - selectedDateCopy) / (1000 * 60 * 60 * 24));
         const cycleLength = parseInt(userInfo.cycleLength);
@@ -203,7 +203,6 @@ const PeriodCalendar = () => {
       });
   };
   
-
   const updatePredictedDates = (lastPeriodDate, cycleLength, periodLength) => {
     const predictedStartDate = new Date(lastPeriodDate);
     predictedStartDate.setDate(predictedStartDate.getDate() + cycleLength);
@@ -224,14 +223,23 @@ const PeriodCalendar = () => {
   };
 
   return (
-    
     <div className="parent-calendar-container">
-       <div className="floatingHeader">Period Calendar</div>
-      <Card className="calendar">   
+      <div className="floatingHeader">Period Calendar</div>
+      <Card className="calendar">
         <Card.Body>
-          <div className="current-phase">
-             <p>You're currently in <span style={{ fontWeight: 'bold', color: 'maroon', fontSize: '18px' }}>{currentPhase}</span>. <br></br><Link to="/medInfo">Learn more about your cycle</Link></p> 
-          </div>
+        <div className="current-phase">
+          {currentPhase && (
+            <p>
+              You're currently in <span style={{ fontWeight: 'bold', color: 'maroon', fontSize: '18px' }}>{currentPhase}</span>. <br />
+              <Link to="/medInfo">Learn more about your cycle</Link>
+            </p>
+          )}
+          {!currentPhase &&(
+            <p>Want to predict your next period?<br></br>
+            <Link to="/settings">Add your period info here</Link>
+            </p>
+          )}
+        </div>
           <div className="calendar-container">
             <Calendar
               onChange={setDate}
@@ -241,19 +249,19 @@ const PeriodCalendar = () => {
               onClickDay={handleDateClick}
             />
           </div>
-          
-          <div className="last-period-date">
-          <label>Update the start date of your last period: </label>
-          <ReactDatePicker
-            selected={selectedDate || lastPeriodStartDate}
-            onChange={(date) => setSelectedDate(date)}
-            maxDate={new Date()} // Set maxDate to the current date
-            className="custom-datepicker"
-          />
 
-          <Button className="last-period-btn" onClick={handleSave} disabled={!selectedDate || saving}>
-            {saving ? 'Saving...' : 'Save'} 
-          </Button>
+          <div className="last-period-date">
+            <label>Update the start date of your last period: </label>
+            <ReactDatePicker
+              selected={selectedDate || lastPeriodStartDate}
+              onChange={(date) => setSelectedDate(date)}
+              maxDate={new Date()} 
+              className="custom-datepicker"
+            />
+
+            <Button className="last-period-btn" onClick={handleSave} disabled={!selectedDate || saving}>
+              {saving ? 'Saving...' : 'Save'}
+            </Button>
           </div>
           <p className="caption">*Select a date to track a symptom</p>
           <h5 className="calendar-key">Calendar Key:</h5>
@@ -264,11 +272,9 @@ const PeriodCalendar = () => {
           </ul>
         </Card.Body>
       </Card>
-      {showSymptomTracker && selectedDate && (
-        <SymptomTracker selectedDate={selectedDate} onClose={handleCloseSymptomTracker} />
-      )}
-       <h1 id='hidden'>.</h1>
-      <h1 id='hidden'>.</h1>
+      {showSymptomTracker && selectedDate && <SymptomTracker selectedDate={selectedDate} onClose={handleCloseSymptomTracker} />}
+      <h1 id="hidden">.</h1>
+      <h1 id="hidden">.</h1>
       <NavBar />
     </div>
   );
