@@ -1,92 +1,69 @@
 import React, { useState, useEffect } from 'react';
 import Timer from './Timer'; // Import the Timer component
-import Balance from './Balance.mp3'; // import song
-import BalancePreview from './Previews/BalancePreview.mp3';
+import Balance from './Balance.mp3'; // Import the song
 
 const BalanceMusic = ({ onPauseMusic }) => {
-  const [audio, setAudio] = useState(null);
-  const [timerStarted, setTimerStarted] = useState(false);
-  const [pausedTime, setPausedTime] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [audioPosition, setAudioPosition] = useState(0);
-  const [selectedValue, setSelectedValue] = useState("");
+
+  const [audio, setAudio] = useState(null); // State to manage the audio element
+  const [timerStarted, setTimerStarted] = useState(false); // State to track if the timer has started
 
 
+  // Effect to handle cleanup when component unmounts
   useEffect(() => {
     return () => {
       // Cleanup: Pause audio and notify parent component when unmounting
       if (audio) {
-        audio.pause();
-        onPauseMusic();
+        audio.pause(); // Pause the audio
+        onPauseMusic(); // Notify the parent component about pausing music
       }
     };
-  }, [audio, onPauseMusic]);
+  }, [audio, onPauseMusic]); // Dependencies include 'audio' and 'onPauseMusic'
 
-  useEffect(() => {
-    const audioElement = new Audio(Balance);
-    setAudio(audioElement);
-    return () => {
-      audioElement.pause();
-    };
-  }, []);
-
+  // Function to start playing the music
   const startMusic = () => {
     if (!audio) {
-      const audioElement = new Audio(Balance);
-      audioElement.currentTime = pausedTime;
-      audioElement.play();
-      setAudio(audioElement);
-      setIsPlaying(true);
-      setTimerStarted(true);
+
+      const audioElement = new Audio(Balance); // Create new audio element
+      audioElement.play(); // Play the audio
+      setAudio(audioElement); // Set the audio state
+      setTimerStarted(true); // Set timer started state to true
     } else {
-      audio.play();
-      setIsPlaying(true);
+      audio.play(); // If audio exists, resume playing
     }
   };
-  
+
+  // Function to pause the music
+
   const pauseMusic = () => {
     if (audio) {
-      setPausedTime(audio.currentTime);
-      audio.pause();
-      setTimerStarted(false);
+      audio.pause(); // Pause the audio
     }
   };
 
+  // Function to handle timer status change
   const handleTimerStatusChange = (isActive) => {
     if (isActive) {
-      startMusic();
+      startMusic(); // If timer is active, start playing music
     } else {
-      pauseMusic();
+      pauseMusic(); // If timer is inactive, pause the music
+      setTimerStarted(false); // Set timer started state to false
     }
   };
 
-  // Integrated logic from handlePauseMusic
-  const handlePauseMusic = (isPaused) => {
-    if (audio) {
-      if (isPaused) {
-        audio.pause();
-      } else {
-        audio.play();
-      }
-    }
-  };
-
-  // Wrapper function to call both pauseMusic and handlePauseMusic
-  const handlePauseWrapper = (isPaused) => {
-    pauseMusic();
-    handlePauseMusic(isPaused);
-  };
-
+  // JSX to render the component
   return (
     <div className="music-player">
-      <h2 className='music-preview-caption'>Listen to Preview:</h2>
-        <audio controls preload="auto" src={BalancePreview}>
-          Your browser does not support the audio element.
+      <h2>Now Playing</h2>
+      {!timerStarted && ( // Render audio element if timer is not started
+        <audio controls preload="auto" duration="120">
+          <source src={Balance} type="audio/mpeg" /> {/* Source of the audio */}
+          Your browser does not support the audio element. {/* Fallback message */}
         </audio>
-      {/* Pass the wrapper function to the Timer component */}
-      <Timer onStatusChange={handleTimerStatusChange} onPauseMusic={handlePauseWrapper} />
+      )}
+      <Timer onStatusChange={handleTimerStatusChange} onPauseMusic={pauseMusic} /> {/* Timer component */}
     </div>
   );
 };
 
-export default BalanceMusic;
+export default BalanceMusic; // Export the BalanceMusic component
+
