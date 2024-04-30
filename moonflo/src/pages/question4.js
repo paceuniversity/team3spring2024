@@ -42,7 +42,22 @@ const Question4 = () => {
   };
 
   const handleSkip = () => {
-    navigate('/calendar');
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      const userRef = ref(database, `users/${currentUser.uid}`);
+      
+      set(userRef, {
+        age: age,
+        lastPeriod: lastPeriod,
+        cycleLength: cycleLength,
+        periodLength: periodLength
+      }).then(() => {
+        navigate('/calendar');
+      }).catch((error) => {
+        console.error("Error storing data:", error);
+        // Handle error here, maybe display a message to the user
+      });
+    }
   };
 
   return (

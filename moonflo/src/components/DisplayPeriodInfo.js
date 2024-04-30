@@ -68,11 +68,11 @@ const DisplayPeriodInfo = ({ isEdit }) => {
     <div className="period-info">
       {
         userInfo && (
-          <>
+          <div className="user-info-container">
             {isEdit ? (
               <>
                 <p>
-                  <label htmlFor="age">Age:</label>
+                  <label htmlFor="age" className="label">Age:</label>
                   <input
                     type="number"
                     id="age"
@@ -82,7 +82,7 @@ const DisplayPeriodInfo = ({ isEdit }) => {
                   />
                 </p>
                 <p>
-                  <label htmlFor="cycleLength">Cycle Length:</label>
+                  <label htmlFor="cycleLength" className="label">Cycle Length:</label>
                   <input
                     type="number"
                     id="cycleLength"
@@ -92,7 +92,7 @@ const DisplayPeriodInfo = ({ isEdit }) => {
                   />
                 </p>
                 <p>
-                  <label htmlFor="periodLength">Period Length:</label>
+                  <label htmlFor="periodLength" className="label">Period Length:</label>
                   <input
                     type="number"
                     id="periodLength"
@@ -102,7 +102,7 @@ const DisplayPeriodInfo = ({ isEdit }) => {
                   />
                 </p>
                 <div className="period-info-save">
-                <Button className="period-info-save-btn" onClick={handleSave}>Save Info</Button>
+                  <Button className="period-info-save-btn" onClick={handleSave}>Save Info</Button>
                 </div>
               </>
             ) : (
@@ -112,7 +112,7 @@ const DisplayPeriodInfo = ({ isEdit }) => {
                 <p>Period Length: {userInfo.periodLength}</p>
               </>
             )}
-          </>
+          </div>
         )
       }
     </div>
