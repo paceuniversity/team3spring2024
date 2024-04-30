@@ -51,14 +51,18 @@ const Settings = () => {
           <a className="edit-button" onClick={handleEditClick}>
             {isEdit ? <BsXCircle /> : <BsPencilSquare />}
           </a>
-          <DisplayPeriodInfo isEdit={isEdit} />
+          {isEdit ? (
+            <DisplayPeriodInfo isEdit={true} />
+          ) : (
+            <div className="email-password-container">
+              <DisplayPeriodInfo isEdit={false} />
+              <p>Email: {userEmail}</p>
+              <p>Password: *********</p>
+            </div>
+          )}
           {isEdit && <UpdatePasswordForm />} {/* Render UpdatePasswordForm only when isEdit is true */}
           {!isEdit && (
             <>
-              <div className="email-password-container">
-                <p>Email: {userEmail}</p>
-                <p>Password: *********</p>
-              </div>
               <Button className="setting-button" onClick={handleClick}>
                 Sign Out
               </Button>
