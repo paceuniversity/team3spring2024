@@ -113,7 +113,7 @@ const Timer = ({ onStatusChange, onPauseMusic }) => {
             <div>
                 <select onChange={handleChangeTime} value={selectedValue}>
                     <option value="" disabled>Select Time</option>
-                    <option value="5">5 Minutes</option>
+                    <option value="300">5 Minutes</option>
                     <option value="600">10 Minutes</option>
                     <option value="900">15 Minutes</option>
                 </select>
