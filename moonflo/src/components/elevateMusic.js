@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Timer from './Timer'; // Import the Timer component
 import Elevate from './Elevate.mp3'; // import song
+import ElevatePreview from "./Previews/ElevatePreview.mp3";
 
-const RelaxMusic = ({ onPauseMusic }) => {
+const ElevateMusic = ({ onPauseMusic }) => {
   const [audio, setAudio] = useState(null);
   const [timerStarted, setTimerStarted] = useState(false);
+  const [pausedTime, setPausedTime] = useState(0);
 
   useEffect(() => {
     return () => {
@@ -16,20 +18,27 @@ const RelaxMusic = ({ onPauseMusic }) => {
     };
   }, [audio, onPauseMusic]);
 
+  useEffect(() => {
+    const audioElement = new Audio(Elevate);
+    setAudio(audioElement);
+    return () => {
+      audioElement.pause();
+    };
+  }, []);
+
   const startMusic = () => {
-    if (!audio) {
-      const audioElement = new Audio(Elevate);
-      audioElement.play();
-      setAudio(audioElement);
-      setTimerStarted(true);
-    } else {
+    if (audio) {
+      audio.currentTime = pausedTime;
       audio.play();
+      setTimerStarted(true);
     }
   };
 
   const pauseMusic = () => {
     if (audio) {
+      setPausedTime(audio.currentTime);
       audio.pause();
+      setTimerStarted(false);
     }
   };
 
@@ -38,22 +47,37 @@ const RelaxMusic = ({ onPauseMusic }) => {
       startMusic();
     } else {
       pauseMusic();
-      setTimerStarted(false);
     }
+  };
+
+  // Integrated logic from handlePauseMusic
+  const handlePauseMusic = (isPaused) => {
+    if (audio) {
+      if (isPaused) {
+        audio.pause();
+      } else {
+        audio.play();
+      }
+    }
+  };
+
+  // Wrapper function to call both pauseMusic and handlePauseMusic
+  const handlePauseWrapper = (isPaused) => {
+    pauseMusic();
+    handlePauseMusic(isPaused);
   };
 
   return (
     <div className="music-player">
-      <h2>Now Playing</h2>
-      {!timerStarted && (
-        <audio controls preload="auto" duration="120">
-          <source src={Elevate} type="audio/mpeg" />
+      <h2 className='music-preview-caption'>Listen to Preview:</h2>
+        <audio controls preload="auto" src={ElevatePreview}>
           Your browser does not support the audio element.
         </audio>
-      )}
-      <Timer onStatusChange={handleTimerStatusChange} onPauseMusic={pauseMusic} />
+      {/* Pass the wrapper function to the Timer component */}
+      <Timer onStatusChange={handleTimerStatusChange} onPauseMusic={handlePauseWrapper} />
     </div>
   );
 };
 
-export default RelaxMusic;
+
+export default ElevateMusic;

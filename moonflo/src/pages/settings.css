@@ -44,3 +44,24 @@
   margin-left: 20px;
 }
 
+@media only screen and (max-width: 500px) {
+  .setting-card {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  .email-password-container{
+    font-size: 15px;
+    margin-left: 20px;
+  }
+  .react-calendar__tile {
+    padding: 3px;
+  }
+
+  .react-calendar__month-view__weekdays__weekday abbr {
+    font-size: 12px;
+  }
+  .react-calendar__navigation button {
+    margin: 0 5px; 
+  }
+
+}
