@@ -64,7 +64,7 @@ MoonFlo is an all-inclusive menstrual tracking app designed to support women wit
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png" width="75">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Firebase_icon.svg/2048px-Firebase_icon.svg.png" width="75">
     <img src="https://cdn-icons-png.flaticon.com/512/2111/2111575.png" width="75">
-  <img width="100" alt="Screenshot 2024-04-29 at 6 12 22 PM" src="https://github.com/paceuniversity/team3spring2024/assets/98408104/a833d6f5-3031-42ab-b85f-824320f61cfa">
+ <img width="75" alt="Screenshot 2024-04-29 at 6 08 34 PM" src="https://github.com/paceuniversity/team3spring2024/assets/98408104/e9428325-71a8-46b9-88c5-8534da3ed954">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Google_Drive_icon_%282020%29.svg/2295px-Google_Drive_icon_%282020%29.svg.png" width="75">
   </div>
   <div style="display: flex;">
