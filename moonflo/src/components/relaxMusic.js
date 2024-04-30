@@ -3,16 +3,10 @@ import Timer from './Timer'; // Import the Timer component
 import Relax from './Relax.mp3'; // Import the song
 
 const RelaxMusic = ({ onPauseMusic }) => {
-<<<<<<< HEAD
-  const [audio, setAudio] = useState(null);
-  const [timerStarted, setTimerStarted] = useState(false);
-  const [pausedTime, setPausedTime] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [audioPosition, setAudioPosition] = useState(0);
-=======
+
   const [audio, setAudio] = useState(null); // State to manage the audio element
   const [timerStarted, setTimerStarted] = useState(false); // State to track if the timer has started
->>>>>>> main
+
 
   // Effect to handle cleanup when component unmounts
   useEffect(() => {
@@ -28,24 +22,14 @@ const RelaxMusic = ({ onPauseMusic }) => {
   // Function to start playing the music
   const startMusic = () => {
     if (!audio) {
-<<<<<<< HEAD
-      const audioElement = new Audio(Relax);
-      audioElement.currentTime = pausedTime;
-      audioElement.play();
-      setAudio(audioElement);
-      setIsPlaying(true);
-      setTimerStarted(true);
-    } else {
-      audio.play();
-      setIsPlaying(true);
-=======
+
       const audioElement = new Audio(Relax); // Create new audio element
       audioElement.play(); // Play the audio
       setAudio(audioElement); // Set the audio state
       setTimerStarted(true); // Set timer started state to true
     } else {
       audio.play(); // If audio exists, resume playing
->>>>>>> main
+
     }
   };
 
