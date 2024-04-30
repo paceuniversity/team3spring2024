@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Timer.css';
+import { Button } from 'react-bootstrap';
 
 const Timer = ({ onStatusChange, onPauseMusic }) => {
     const [selectedValue, setSelectedValue] = useState(""); 
@@ -113,13 +114,13 @@ const Timer = ({ onStatusChange, onPauseMusic }) => {
                     <option value="600">10 Minutes</option>
                     <option value="900">15 Minutes</option>
                 </select>
-                <button onClick={handleStartCancel}>
+                <Button className="timer-button" onClick={handleStartCancel}>
                     {isActive ? "Cancel" : "Start"}
-                </button>
+                </Button>
                 {isActive && (
-                    <button onClick={handlePauseResume}>
+                    <Button className="timer-button" onClick={handlePauseResume}>
                         {isPaused ? "Resume" : "Pause"}
-                    </button>
+                    </Button>
                 )}
             </div>
         </div>

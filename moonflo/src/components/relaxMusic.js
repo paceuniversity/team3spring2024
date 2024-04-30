@@ -69,12 +69,10 @@ const RelaxMusic = ({ onPauseMusic }) => {
 
   return (
     <div className="music-player">
-      <h2>Now Playing</h2>
-      {!timerStarted &&(
+      <h2 className='music-preview-caption'>Listen to Preview:</h2>
         <audio controls preload="auto" src={RelaxPreview}>
           Your browser does not support the audio element.
         </audio>
-      )}
       {/* Pass the wrapper function to the Timer component */}
       <Timer onStatusChange={handleTimerStatusChange} onPauseMusic={handlePauseWrapper} />
     </div>
