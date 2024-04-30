@@ -14,6 +14,7 @@ import relaxImg from '../img/relax.png';
 import peaceImg from '../img/peace.png';
 import balanceImg from '../img/balance.png';
 import elevateImg from '../img/elevate.png';
+import { Card, CardBody } from 'react-bootstrap';
 
 // Define the Meditation component
 const Meditation = () => {
@@ -65,11 +66,14 @@ const Meditation = () => {
       {/* Header for the Meditation section */}
       <div className="floatingHeader">Meditation</div>
       {/* Container for information and components */}
-      <div className="infoContainer">
+      
+      <Card className='meditation-card'>
+        <CardBody className="meditation-card-body">
         {/* Information for first-time meditators */}
-        <p>
+        <p className='first-time-medi'>
           First time meditating? <br></br>
           <Link to="/medInfo">Learn how to meditate here</Link>
+          <hr></hr>
         </p>
         {/* Conditional rendering based on activeComponent */}
         {activeComponent === 'music' ? (
@@ -86,8 +90,8 @@ const Meditation = () => {
           // Render music selection options if no activeComponent is set
           <div className="music-popup">
             <div className="music-content">
-              <h2>Pick a song to start</h2>
-              <h2>your meditation session</h2>
+              <h2 className='pick-song'>Pick a song to start</h2>
+              <h2 className='pick-song'>your meditation session</h2>
               <div className="music-button-container">
                 <button onClick={() => handleMusicSelection('Relax')}>
                   <img src={relaxImg} alt="Relax" />
@@ -108,11 +112,16 @@ const Meditation = () => {
               </div>
               <br></br>
             </div>
-          </div>
+          </div>  
+          
         )}
-        {/* Render navigation bar */}
-        <NavBar />
-      </div>
+       
+        </CardBody>
+        </Card>
+        <h1 className='hidden'>..</h1>
+        <h1 className='hidden'>..</h1>
+       {/* Render navigation bar */}
+       <NavBar />
       {/* Render timer component if activeComponent is 'music' */}
       {activeComponent === 'music' && <Timer />}
     </div>
