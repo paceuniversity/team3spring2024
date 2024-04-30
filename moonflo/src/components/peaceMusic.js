@@ -7,6 +7,8 @@ const PeaceMusic = ({ onPauseMusic }) => {
   const [audio, setAudio] = useState(null);
   const [timerStarted, setTimerStarted] = useState(false);
   const [pausedTime, setPausedTime] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [audioPosition, setAudioPosition] = useState(0);
 
   useEffect(() => {
     return () => {
@@ -27,10 +29,16 @@ const PeaceMusic = ({ onPauseMusic }) => {
   }, []);
 
   const startMusic = () => {
-    if (audio) {
-      audio.currentTime = pausedTime;
-      audio.play();
+    if (!audio) {
+      const audioElement = new Audio(Peace);
+      audioElement.currentTime = pausedTime;
+      audioElement.play();
+      setAudio(audioElement);
+      setIsPlaying(true);
       setTimerStarted(true);
+    } else {
+      audio.play();
+      setIsPlaying(true);
     }
   };
 
