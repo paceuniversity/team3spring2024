@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 
 const Timer = ({ onStatusChange, onPauseMusic }) => {
     const [selectedValue, setSelectedValue] = useState(""); 
-    const [timeLeft, setTimeLeft] = useState(0); 
+    const [timeLeft, setTimeLeft] = useState("");
     const [timerId, setTimerId] = useState(null);
     const [isActive, setIsActive] = useState(false);
     const [isPaused, setIsPaused] = useState(false); 
@@ -13,20 +13,22 @@ const Timer = ({ onStatusChange, onPauseMusic }) => {
     const svgSize = 2 * (radius + strokeWidth); 
     const circumference = 2 * Math.PI * radius;
 
+
     useEffect(() => {
         if (isActive && timeLeft > 0) {
             const id = setTimeout(() => {
                 setTimeLeft(timeLeft - 1);
             }, 1000);
             setTimerId(id);
-        } else if (timeLeft === 0 || !isActive) {
+        } else if (timeLeft === 0 ) {
             clearTimeout(timerId);
             setIsActive(false);
-            onStatusChange(isActive);
+            setTimeLeft(parseInt(selectedValue)); // Reset timer to selected value
+            onStatusChange(false); // Notify parent component that timer has ended
         }
         return () => clearTimeout(timerId);
-    }, [isActive, timeLeft]);
-
+    }, [isActive, timeLeft, selectedValue]);
+    
     const handleStartCancel = () => {
         if (!selectedValue) {
             console.error("Please select a time before starting.");
@@ -34,8 +36,9 @@ const Timer = ({ onStatusChange, onPauseMusic }) => {
         }
         if (isActive) {
             setIsActive(false);
-            setSelectedValue(""); // Reset the selected time
+            setTimeLeft(parseInt(selectedValue)); // Reset the selected time
             setTimeLeft(0); // Reset the timer
+            clearTimeout(timerId);
             setIsPaused(false);
         } else {
             setIsActive(true);
@@ -43,7 +46,7 @@ const Timer = ({ onStatusChange, onPauseMusic }) => {
             onStatusChange(true);
         }
     };
-
+    
     const handlePauseResume = () => {
         if (isPaused) {
             // Resume the timer

@@ -3,8 +3,10 @@ import Timer from './Timer'; // Import the Timer component
 import Elevate from './Elevate.mp3'; // Import the song
 
 const ElevateMusic = ({ onPauseMusic }) => {
+
   const [audio, setAudio] = useState(null); // State to manage the audio element
   const [timerStarted, setTimerStarted] = useState(false); // State to track if the timer has started
+
 
   // Effect to handle cleanup when component unmounts
   useEffect(() => {
@@ -20,6 +22,7 @@ const ElevateMusic = ({ onPauseMusic }) => {
   // Function to start playing the music
   const startMusic = () => {
     if (!audio) {
+
       const audioElement = new Audio(Elevate); // Create new audio element
       audioElement.play(); // Play the audio
       setAudio(audioElement); // Set the audio state
@@ -30,6 +33,7 @@ const ElevateMusic = ({ onPauseMusic }) => {
   };
 
   // Function to pause the music
+
   const pauseMusic = () => {
     if (audio) {
       audio.pause(); // Pause the audio
