@@ -133,6 +133,7 @@ const DiaryEntry = () => {
           <Calendar 
             onClickDay={handleDateClick}
             value={selectedDate ? new Date(selectedDate) : null}
+            calendarType="US"
             tileClassName={({ date }) => {
               const formattedDate = date.toLocaleDateString();
               return submittedEntries.some(entry => entry.date === formattedDate) ? 'has-entry' : '';
