@@ -9,6 +9,11 @@ import BalanceMusic from '../components/balanceMusic';// import balance music
 import ElevateMusic from '../components/elevateMusic';// import elevate music
 import './periodInfo.css';
 import { BsArrowLeft } from 'react-icons/bs';
+// Importing images
+import relaxImg from '../img/relax.png';
+import peaceImg from '../img/peace.png';
+import balanceImg from '../img/balance.png';
+import elevateImg from '../img/elevate.png';
 
 // Define the Meditation component
 const Meditation = () => {
@@ -76,18 +81,23 @@ const Meditation = () => {
           // Render music selection options if no activeComponent is set
           <div className="music-popup">
             <div className="music-content">
-              <h2>Pick a song to start your meditation session</h2>
+              <h2>Pick a song to start</h2>
+              <h2>your meditation session</h2>
               <div className="music-button-container">
                 <button onClick={() => handleMusicSelection('Relax')}>
+                  <img src={relaxImg} alt="Relax" />
                   Relax
                 </button>
                 <button onClick={() => handleMusicSelection('Peace')}>
+                  <img src={peaceImg} alt="Peace" />
                   Peace
                 </button>
                 <button onClick={() => handleMusicSelection('Balance')}>
+                  <img src={balanceImg} alt="Balance" />
                   Balance
                 </button>
                 <button onClick={() => handleMusicSelection('Elevate')}>
+                  <img src={elevateImg} alt="Elevate" />
                   Elevate
                 </button>
               </div>
