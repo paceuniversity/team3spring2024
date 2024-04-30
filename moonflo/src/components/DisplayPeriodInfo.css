@@ -29,3 +29,19 @@
    margin-left: 40px;
  }
 
+ @media only screen and (max-width: 500px) {
+  .period-info {
+    font-size: 15px;
+  }
+  .period-info input[type="number"] {
+    width: 150px; 
+    float: right;
+  }
+   
+ .period-info label {
+  margin-left:40px;
+  padding-right:10px;
+}
+
+ }
+

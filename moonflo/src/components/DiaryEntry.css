@@ -73,3 +73,58 @@ img {
     border-radius: 0;
   }
 
+  
+  @media only screen and (max-width: 500px) {
+    .left-aligned {
+      margin-bottom: 5px; 
+      margin-left: 0;
+      margin-right: 0; 
+      font-size: 14px;
+    }
+  
+    .diary-submit {
+      padding-left: 5px; 
+      padding-right: 5px; 
+      margin-top: 5px; 
+    }
+  
+
+  
+    .diary-entry-card {
+      padding: 3px; 
+      margin: 5px; 
+    }
+  
+    .submitted-entry {
+      padding: 5px; 
+      margin: 5px; 
+    }
+  
+    .submitted-entry-card {
+      margin: 5px; 
+      padding: 3px; 
+    }
+  
+    .diary-trash-button,
+    .diary-edit-button {
+      margin-left: 3px;
+      margin-right: 3px;
+    }
+  
+    .submitted-entry-pic {
+      margin-bottom: 5px;
+    }
+  
+    .diary-calendar {
+      margin-left: 5px; 
+      margin-right: 5px;
+    }
+  
+    .has-entry {
+      border-radius: 3px; 
+    }
+    .diary-title{
+        font-size: 20px;
+    }
+  }
+  

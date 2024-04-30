@@ -38,7 +38,6 @@
 .music-content {
     width: 100%; 
     text-align: center; 
-  
 } 
 .music-content {
     width: 100%;
@@ -94,5 +93,27 @@
         font-size: 20px;
     }
 
+}
+@media (max-width: 500px) {
+    .music-button-container {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 20px; 
+        padding: 10px;
+    }
+
+    .music-button-container button {
+        height: 150px;
+        width: 130px;
+        font-size: 0.9rem; 
+    }
+
+    .music-button-container button img {
+        width: 100px; 
+        height: 100px; 
+    }
+    .meditation-card{
+        margin:5px;
+        margin-top: 60px; 
+    }
 }
 
