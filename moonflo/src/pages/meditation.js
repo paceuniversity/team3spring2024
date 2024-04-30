@@ -64,7 +64,8 @@ const Meditation = () => {
         ) : (
           <div className="music-popup">
             <div className="music-content">
-              <h2>Pick a song to start your meditation session</h2>
+              <h2>Pick a song to start</h2>
+              <h2>your meditation session</h2>
               <div className="music-button-container">
                 <button onClick={() => handleMusicSelection('Relax')}>
                   <img src={relaxImg} alt="Relax" />
