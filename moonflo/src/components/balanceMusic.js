@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Timer from './Timer'; // Import the Timer component
 import Balance from './Balance.mp3'; // import song
 
-const RelaxMusic = ({ onPauseMusic }) => {
+const BalanceMusic = ({ onPauseMusic }) => {
   const [audio, setAudio] = useState(null);
   const [timerStarted, setTimerStarted] = useState(false);
 
@@ -56,4 +56,4 @@ const RelaxMusic = ({ onPauseMusic }) => {
   );
 };
 
-export default RelaxMusic;
+export default BalanceMusic;
