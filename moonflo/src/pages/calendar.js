@@ -174,6 +174,27 @@ const PeriodCalendar = () => {
         setLastPeriodDates(updatedLastPeriodDates);
         // Update predicted dates if needed
         updatePredictedDates(selectedDateCopy, parseInt(userInfo.cycleLength), parseInt(userInfo.periodLength));
+        
+        // Manually calculate the current phase
+        const today = new Date();
+        const daysSinceLastPeriod = Math.round((today - selectedDateCopy) / (1000 * 60 * 60 * 24));
+        const cycleLength = parseInt(userInfo.cycleLength);
+        const periodLength = parseInt(userInfo.periodLength);
+        const dayWithinCycle = (daysSinceLastPeriod % cycleLength) + 1;
+        let phase = '';
+  
+        if (dayWithinCycle <= periodLength) {
+          phase = 'Menstruation';
+        } else if (dayWithinCycle <= cycleLength - 14) {
+          phase = 'Ovulation';
+        } else if (dayWithinCycle <= cycleLength - 4) {
+          phase = 'Luteal Phase';
+        } else {
+          phase = 'Follicular Phase';
+        }
+  
+        setCurrentPhase(phase);
+  
         setSaving(false);
       })
       .catch((error) => {
@@ -181,6 +202,7 @@ const PeriodCalendar = () => {
         setSaving(false);
       });
   };
+  
 
   const updatePredictedDates = (lastPeriodDate, cycleLength, periodLength) => {
     const predictedStartDate = new Date(lastPeriodDate);
