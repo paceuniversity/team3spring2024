@@ -7,7 +7,7 @@ import PeaceMusic from '../components/peaceMusic';// import peace music
 import RelaxMusic from '../components/relaxMusic';// import relax music 
 import BalanceMusic from '../components/balanceMusic';// import balance music
 import ElevateMusic from '../components/elevateMusic';// import elevate music
-import './periodInfo.css';
+import './meditation.css';
 import { BsArrowLeft } from 'react-icons/bs';
 // Importing images
 import relaxImg from '../img/relax.png';
