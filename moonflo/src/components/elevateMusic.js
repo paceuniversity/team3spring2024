@@ -23,18 +23,18 @@ const ElevateMusic = ({ onPauseMusic }) => {
   const startMusic = () => {
     if (!audio) {
 
-      const audioElement = new Audio(Elevate);
-      audioElement.currentTime = pausedTime;
-      audioElement.play();
-      setAudio(audioElement);
-      setIsPlaying(true);
-      setTimerStarted(true);
+
+      const audioElement = new Audio(Elevate); // Create new audio element
+      audioElement.play(); // Play the audio
+      setAudio(audioElement); // Set the audio state
+      setTimerStarted(true); // Set timer started state to true
     } else {
-      audio.play();
-      setIsPlaying(true);
+      audio.play(); // If audio exists, resume playing
     }
   };
-  
+
+  // Function to pause the music
+
 
   const pauseMusic = () => {
     if (audio) {
