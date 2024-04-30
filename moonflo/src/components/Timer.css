@@ -3,7 +3,7 @@
     border-radius: 6px;
     padding: 15px;
     margin: 30px;
-    margin-bottom: 130px;
+    margin-bottom: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -29,13 +29,11 @@
 }
 
 
-
 text {
     fill: rgb(0, 0, 0);
     font-size: 40px;
     
 }
-
 
 .timer select {
     background-color: #eed1da;
@@ -47,5 +45,17 @@ text {
     cursor: pointer;
     display: block; /* Ensures that the select fills the container */
     text-align: center;
+    margin-top:20px
 }
 
+.music-player{
+    text-align:center;
+}
+
+.timer-button{
+    margin-top:30px;
+    background-color: #eed1da!important;
+    border: none !important;
+    color:#111111 !important;
+    border-radius: 20px !important;
+}

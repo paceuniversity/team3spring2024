@@ -180,7 +180,7 @@ const DiaryEntry = () => {
         )
       ))}
       <h1 id='hidden'>.</h1>
-      <h1 id='hidden'>.</h1>
+      <h1 id='hidden'>..</h1>
     </div>
   );
 };

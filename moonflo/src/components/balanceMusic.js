@@ -62,3 +62,4 @@ const BalanceMusic = ({ onPauseMusic }) => {
 };
 
 export default BalanceMusic; // Export the BalanceMusic component
+
