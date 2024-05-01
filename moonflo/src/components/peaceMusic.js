@@ -1,68 +1,84 @@
 import React, { useState, useEffect } from 'react';
-import Timer from './Timer'; // Import the Timer component
-import Peace from './Peace.mp3'; // Import the song
+import Timer from './Timer';
+import PeacePreview from "./Previews/PeacePreview.mp3";
+import Peace from './Peace.mp3';
 
 const PeaceMusic = ({ onPauseMusic }) => {
-
   const [audio, setAudio] = useState(null); // State to manage the audio element
-  const [timerStarted, setTimerStarted] = useState(false); // State to track if the timer has started
-
+  const [timerStarted, setTimerStarted] = useState(false);  // State to track if the timer has started
+  const [pausedTime, setPausedTime] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [audioPosition, setAudioPosition] = useState(0);
 
   // Effect to handle cleanup when component unmounts
   useEffect(() => {
     return () => {
-      // Cleanup: Pause audio and notify parent component when unmounting
       if (audio) {
-        audio.pause(); // Pause the audio
+        audio.pause();  // Pause the audio
         onPauseMusic(); // Notify the parent component about pausing music
       }
     };
   }, [audio, onPauseMusic]); // Dependencies include 'audio' and 'onPauseMusic'
 
+  
+  useEffect(() => {
+    const audioElement = new Audio(Peace); 
+    setAudio(audioElement); 
+    return () => {
+      audioElement.pause();  
+    };
+  }, []);
+
   // Function to start playing the music
   const startMusic = () => {
-    if (!audio) {
-
-      const audioElement = new Audio(Peace); // Create new audio element
-      audioElement.play(); // Play the audio
-      setAudio(audioElement); // Set the audio state
-      setTimerStarted(true); // Set timer started state to true
-    } else {
-      audio.play(); // If audio exists, resume playing
-
-    }
+    if (!audio) return;
+    audio.currentTime = 0;
+    audio.play(); // Play the audio 
+    setTimerStarted(true);// Set the audio state
+    setIsPlaying(true); // Set timer started state to true
   };
 
-  // Function to pause the music
+   // Function to pause the music
   const pauseMusic = () => {
-    if (audio) {
-      audio.pause(); // Pause the audio
-    }
+    if (!audio) return;
+    setPausedTime(audio.currentTime);
+    audio.pause();
+    setTimerStarted(false);
+    setIsPlaying(false);
   };
 
   // Function to handle timer status change
   const handleTimerStatusChange = (isActive) => {
     if (isActive) {
-      startMusic(); // If timer is active, start playing music
+      startMusic();
     } else {
-      pauseMusic(); // If timer is inactive, pause the music
-      setTimerStarted(false); // Set timer started state to false
+      pauseMusic();  // Pause the audio
     }
   };
 
-  // JSX to render the component
+  const handlePauseMusic = (isPaused) => {
+    if (!audio) return;
+    if (isPaused) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+  };
+
+  const handlePauseWrapper = (isPaused) => {
+    pauseMusic();
+    handlePauseMusic(isPaused);
+  };
+
   return (
     <div className="music-player">
-      <h2>Now Playing</h2>
-      {!timerStarted && ( // Render audio element if timer is not started
-        <audio controls preload="auto" duration="120">
-          <source src={Peace} type="audio/mpeg" /> {/* Source of the audio */}
-          Your browser does not support the audio element. {/* Fallback message */}
-        </audio>
-      )}
-      <Timer onStatusChange={handleTimerStatusChange} onPauseMusic={pauseMusic} /> {/* Timer component */}
+      <h2 className='music-preview-caption'>Listen to Preview:</h2>
+      <audio controls preload="auto" src={PeacePreview}>
+        Your browser does not support the audio element.
+      </audio>
+      <Timer onStatusChange={handleTimerStatusChange} onPauseMusic={handlePauseWrapper} />
     </div>
   );
 };
 
-export default PeaceMusic; // Export the PeaceMusic component
+export default PeaceMusic;
