@@ -85,6 +85,5 @@ MoonFlo is an all-inclusive menstrual tracking app designed to support women wit
 * [Final presentation]()
 * [Process description]()
 
-<img width="451" alt="Screenshot 2024-05-01 at 6 40 40 PM" src="https://github.com/paceuniversity/team3spring2024/assets/98408104/dc5c5413-8b41-467a-93d3-1d6e73f9c45f">
-
+<img width="510" alt="Screenshot 2024-05-01 at 6 51 24 PM" src="https://github.com/paceuniversity/team3spring2024/assets/98408104/79dc83ed-a56a-4b4c-a437-5feef00eae0e">
 
