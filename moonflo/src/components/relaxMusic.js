@@ -32,7 +32,7 @@ const RelaxMusic = ({ onPauseMusic }) => {
   // Function to start playing the music
   const startMusic = () => {
     if (!audio) return;
-    audio.currentTime = pausedTime;
+    audio.currentTime = 0;
     audio.play(); // Play the audio 
     setTimerStarted(true);// Set the audio state
     setIsPlaying(true); // Set timer started state to true
