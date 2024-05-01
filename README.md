@@ -65,21 +65,26 @@ MoonFlo is an all-inclusive menstrual tracking app designed to support women wit
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Firebase_icon.svg/2048px-Firebase_icon.svg.png" width="75">
     <img src="https://cdn-icons-png.flaticon.com/512/2111/2111575.png" width="75">
  <img width="75" alt="Screenshot 2024-04-29 at 6 08 34 PM" src="https://github.com/paceuniversity/team3spring2024/assets/98408104/e9428325-71a8-46b9-88c5-8534da3ed954">
+   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1024px-ChatGPT_logo.svg.png" width="75">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Google_Drive_icon_%282020%29.svg/2295px-Google_Drive_icon_%282020%29.svg.png" width="75">
-  </div>
-  <div style="display: flex;">
     <img src="https://camo.githubusercontent.com/b872b9ada0c2c3d373bbb0c356eb4af353127335fc3d2e611964433864ab4de1/68747470733a2f2f676574626f6f7473747261702e636f6d2f646f63732f352e322f6173736574732f6272616e642f626f6f7473747261702d6c6f676f2d736861646f772e706e67" width="100">
+  </div>
+     <div style="display: flex;">
     <img src="https://static-00.iconduck.com/assets.00/adobe-xd-icon-2048x2048-n4c7t4w4.png" width="75">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Adobe_Illustrator_CC_icon.svg/2101px-Adobe_Illustrator_CC_icon.svg.png" width="75">
+    <img src="https://github.com/paceuniversity/team3spring2024/assets/98408104/a93f271b-3903-45ba-a459-5a45377c7a62" width="75">
+    <img src="https://i.pinimg.com/originals/ea/27/eb/ea27eb4a6229bfa4fa24cee2e9547c01.png" width="75">
     <img src="https://i.pinimg.com/originals/ea/27/eb/ea27eb4a6229bfa4fa24cee2e9547c01.png" width="75">
     <img src="https://static.vecteezy.com/system/resources/previews/023/741/147/non_2x/discord-logo-icon-social-media-icon-free-png.png" width="75">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IMessage_logo.svg/2048px-IMessage_logo.svg.png" width="75">
       </div>
 
+
 ## Final delivery
 
 * [Final presentation]()
-* [Poster]()
 * [Process description]()
+
+<img width="451" alt="Screenshot 2024-05-01 at 6 40 40 PM" src="https://github.com/paceuniversity/team3spring2024/assets/98408104/dc5c5413-8b41-467a-93d3-1d6e73f9c45f">
 
 
