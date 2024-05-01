@@ -25,7 +25,7 @@ const Question2 = () => {
   // when user clicks skip
   const handleSkip = () => {
     console.log("User chose to skip");
-    navigate(`/question3?age=${age}&lastPeriod=${lastPeriod}`); // navigate to next page with data
+    navigate(`/question3?age=${age}&lastPeriod=${""}`); // navigate to next page with data
   };
 
   return (
@@ -38,7 +38,7 @@ const Question2 = () => {
             <a className="skip-button" onClick={handleSkip}>Skip</a>
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="lastPeriod">
-                  <Form.Label className="question" >When was your last period?</Form.Label>
+                  <Form.Label className="question" >When did you start your last period?</Form.Label>
                   <br></br>
                   <DatePicker // Date picker component
                     dateFormat="MM-dd-yyyy" // Set the date format and placeholder
